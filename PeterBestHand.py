@@ -11,6 +11,8 @@ def face_cards(face_card):
         return 14
     if face_card != 'T' or 'J' or 'Q' or 'K' or 'A':
         return face_card
+
+
 def reverse_face_cards(rev_face_card):
     if rev_face_card == 10:
         return 'T'
@@ -24,9 +26,12 @@ def reverse_face_cards(rev_face_card):
         return 'A'
     if rev_face_card != 10 or 11 or 12 or 13 or 14:
         return rev_face_card
+
+
 value = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
 suit = ['H', 'D', 'S', 'C']
 import random
+
 
 def High_card(a, b, c, d, e):
     new_a = face_cards(a)
@@ -45,6 +50,8 @@ def High_card(a, b, c, d, e):
     if (new_e > high_card):
         high_card = new_e
     return high_card
+
+
 def Second_high_card(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -73,6 +80,8 @@ def Second_high_card(a, b, c, d, e):
     if (high_card > new_e > second_high_card):
         second_high_card = new_e
     return second_high_card
+
+
 def Third_high_card(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -115,6 +124,8 @@ def Third_high_card(a, b, c, d, e):
     if (second_high_card > new_e > third_high_card):
         third_high_card = new_e
     return third_high_card
+
+
 def Fourth_high_card(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -147,6 +158,8 @@ def Fourth_high_card(a, b, c, d, e):
     if (fourth_high_card > new_e > fifth_high_card):
         fourth_high_card = new_e
     return fourth_high_card
+
+
 def Fifth_high_card(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -164,6 +177,8 @@ def Fifth_high_card(a, b, c, d, e):
     if (fifth_high_card > new_e):
         fifth_high_card = new_e
     return fifth_high_card
+
+
 def Pair(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -192,6 +207,8 @@ def Pair(a, b, c, d, e):
     if (new_d == new_e):
         pair = new_d
     return pair
+
+
 def Two_pair(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -256,6 +273,8 @@ def Two_pair(a, b, c, d, e):
         if (new_c > new_b):
             two_pair = new_c
     return two_pair
+
+
 def Two_pair_kicker(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -321,6 +340,8 @@ def Two_pair_kicker(a, b, c, d, e):
         if (new_c < new_b):
             two_pair = new_c
     return two_pair
+
+
 def Trips(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -349,6 +370,8 @@ def Trips(a, b, c, d, e):
     if (new_c == new_d == new_e):
         trips = new_c
     return trips
+
+
 def Straight(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -527,23 +550,28 @@ def Straight(a, b, c, d, e):
         straight = 0
     if (new_d == new_e):
         straight = 0
-    if (high_straight and second_high_straight and third_high_straight and fourth_high_straight and fifth_high_straight > 0):
+    if (
+            high_straight and second_high_straight and third_high_straight and fourth_high_straight and fifth_high_straight > 0):
         straight = high_straight
     return straight
+
+
 def Flush(a, b, c, d, e):
     rand_var = 0
     flush = 0
     if (a == b):
         rand_var = 1
     if (b == c):
-        rand_var + 1
+        rand_var += 1
     if (c == d):
-        rand_var + 1
+        rand_var += 1
     if (d == e):
-        rand_var + 1
+        rand_var += 1
     if rand_var == 4:
-        flush == 1
+        flush = 1
     return flush
+
+
 def Full_house(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -597,6 +625,8 @@ def Full_house(a, b, c, d, e):
     if (trips > 0) and (pair1 == pair2):
         full_house = trips
     return full_house
+
+
 def Full_house_kicker(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -650,6 +680,8 @@ def Full_house_kicker(a, b, c, d, e):
     if (trips > 0) and (pair1 == pair2):
         full_house = pair1
     return full_house
+
+
 def Quads(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -668,6 +700,8 @@ def Quads(a, b, c, d, e):
     if (new_b == new_c == new_d == new_e):
         quads = new_b
     return quads
+
+
 def Quads_kicker(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -692,6 +726,8 @@ def Quads_kicker(a, b, c, d, e):
         quads = new_b
         kicker = new_a
     return kicker
+
+
 def Straight_flush(a, b, c, d, e, f, g, h, i, j):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -877,11 +913,14 @@ def Straight_flush(a, b, c, d, e, f, g, h, i, j):
         straight = 0
     if (new_d == new_e):
         straight = 0
-    if (high_straight and second_high_straight and third_high_straight and fourth_high_straight and fifth_high_straight > 0):
+    if (
+            high_straight and second_high_straight and third_high_straight and fourth_high_straight and fifth_high_straight > 0):
         straight = high_straight
     if (is_flush and straight > 0):
         straight_flush = straight
     return straight_flush
+
+
 def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
     hand_1_straight_flush = Straight_flush(a, b, c, d, e, f, g, h, i, j)
     hand_2_straight_flush = Straight_flush(k, l, m, n, o, p, q, r, s, t)
@@ -908,9 +947,11 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
             hand_1_quads_kicker = Quads_kicker(a, b, c, d, e)
             hand_2_quads_kicker = Quads_kicker(k, l, m, n, o)
             if (hand_1_quads_kicker > hand_2_quads_kicker):
-                print('Hand 1 Wins With Quad', reverse_face_cards(hand_1_quads), 'With a', reverse_face_cards(hand_1_quads_kicker), 'Kicker')
+                print('Hand 1 Wins With Quad', reverse_face_cards(hand_1_quads), 'With a',
+                      reverse_face_cards(hand_1_quads_kicker), 'Kicker')
             if (hand_2_quads_kicker > hand_1_quads_kicker):
-                print('Hand 2 Wins With Quad', reverse_face_cards(hand_2_quads), 'With a', reverse_face_cards(hand_2_quads_kicker), 'Kicker')
+                print('Hand 2 Wins With Quad', reverse_face_cards(hand_2_quads), 'With a',
+                      reverse_face_cards(hand_2_quads_kicker), 'Kicker')
             if (hand_1_quads_kicker == hand_2_quads_kicker):
                 print('Both Hands Tie With Quad', reverse_face_cards(hand_1_quads))
         if (hand_1_quads == hand_2_quads == 0):
@@ -924,11 +965,14 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
                 hand_1_full_house_kicker = Full_house_kicker(a, b, c, d, e)
                 hand_2_full_house_kicker = Full_house_kicker(k, l, m, n, o)
                 if (hand_1_full_house_kicker > hand_2_full_house_kicker):
-                    print('Hand 1 Wins With', reverse_face_cards(hand_1_full_house), 'High Full House', reverse_face_cards(hand_1_full_house_kicker), 'Kicker')
+                    print('Hand 1 Wins With', reverse_face_cards(hand_1_full_house), 'High Full House',
+                          reverse_face_cards(hand_1_full_house_kicker), 'Kicker')
                 if (hand_2_full_house_kicker > hand_1_full_house_kicker):
-                    print('Hand 2 Wins With', reverse_face_cards(hand_2_full_house), 'High Full House', reverse_face_cards(hand_2_full_house_kicker), 'Kicker')
+                    print('Hand 2 Wins With', reverse_face_cards(hand_2_full_house), 'High Full House',
+                          reverse_face_cards(hand_2_full_house_kicker), 'Kicker')
                 if (hand_1_full_house_kicker == hand_2_full_house_kicker > 0):
-                    print('Both Hands Tie With', reverse_face_cards(hand_1_full_house), 'High Full House', reverse_face_cards(hand_1_full_house), 'Kicker')
+                    print('Both Hands Tie With', reverse_face_cards(hand_1_full_house), 'High Full House',
+                          reverse_face_cards(hand_1_full_house), 'Kicker')
             if (hand_1_full_house == hand_2_full_house == 0):
                 hand_1_flush = Flush(f, g, h, i, j)
                 hand_2_flush = Flush(p, q, r, s, t)
@@ -968,9 +1012,11 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
                                     hand_1_flush_kicker5 = Fifth_high_card(a, b, c, d, e)
                                     hand_2_flush_kicker5 = Fifth_high_card(k, l, m, n, o)
                                     if (hand_1_flush_kicker5 > hand_2_flush_kicker5):
-                                        print('Hand 1 Wins With', reverse_face_cards(hand_1_flush_kicker5), 'High Flush')
+                                        print('Hand 1 Wins With', reverse_face_cards(hand_1_flush_kicker5),
+                                              'High Flush')
                                     if (hand_2_flush_kicker5 > hand_1_flush_kicker5):
-                                        print('Hand 2 Wins With', reverse_face_cards(hand_2_flush_kicker5), 'High Flush')
+                                        print('Hand 2 Wins With', reverse_face_cards(hand_2_flush_kicker5),
+                                              'High Flush')
                                     if (hand_1_flush_kicker5 == hand_2_flush_kicker5):
                                         print('Both Hands Tie With', f, 'Flush')
                 if (hand_1_flush == 0) and (hand_2_flush == 0):
@@ -1002,11 +1048,14 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
                                 hand_1_two_pair_kicker = Two_pair_kicker(a, b, c, d, e)
                                 hand_2_two_pair_kicker = Two_pair_kicker(k, l, m, n, o)
                                 if (hand_1_two_pair_kicker > hand_2_two_pair_kicker):
-                                    print('Hand 1 Wins With', reverse_face_cards(hand_1_two_pair), 'High Two Pair', reverse_face_cards(hand_1_two_pair_kicker), 'Kicker')
+                                    print('Hand 1 Wins With', reverse_face_cards(hand_1_two_pair), 'High Two Pair',
+                                          reverse_face_cards(hand_1_two_pair_kicker), 'Kicker')
                                 if (hand_2_two_pair_kicker > hand_1_two_pair_kicker):
-                                    print('Hand 2 Wins With', reverse_face_cards(hand_2_two_pair), 'High Two Pair', reverse_face_cards(hand_2_two_pair_kicker), 'Kicker')
+                                    print('Hand 2 Wins With', reverse_face_cards(hand_2_two_pair), 'High Two Pair',
+                                          reverse_face_cards(hand_2_two_pair_kicker), 'Kicker')
                                 if (hand_1_two_pair_kicker == hand_2_two_pair_kicker > 0):
-                                    print('Both Hands Tie With', reverse_face_cards(hand_1_two_pair), 'High Two Pair', reverse_face_cards(hand_1_two_pair_kicker), 'Kicker')
+                                    print('Both Hands Tie With', reverse_face_cards(hand_1_two_pair), 'High Two Pair',
+                                          reverse_face_cards(hand_1_two_pair_kicker), 'Kicker')
                             if (hand_1_two_pair == hand_2_two_pair == 0):
                                 hand_1_pair = Pair(a, b, c, d, e)
                                 hand_2_pair = Pair(k, l, m, n, o)
@@ -1058,21 +1107,34 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
                                         if (hand_2_pair_kicker1 == hand_2_pair):
                                             hand_2_pair_kicker3 = Fifth_high_card(k, l, m, n, o)
                                         if (hand_1_pair_kicker1 > hand_2_pair_kicker1):
-                                            print('Hand 1 Wins With a Pair of', reverse_face_cards(hand_1_pair), 'With a', reverse_face_cards(hand_1_pair_kicker1), 'Kicker')
+                                            print('Hand 1 Wins With a Pair of', reverse_face_cards(hand_1_pair),
+                                                  'With a', reverse_face_cards(hand_1_pair_kicker1), 'Kicker')
                                         if (hand_2_pair_kicker1 > hand_1_pair_kicker1):
-                                            print('Hand 2 Wins With a Pair of', reverse_face_cards(hand_2_pair), 'With a', reverse_face_cards(hand_2_pair_kicker1), 'Kicker')
+                                            print('Hand 2 Wins With a Pair of', reverse_face_cards(hand_2_pair),
+                                                  'With a', reverse_face_cards(hand_2_pair_kicker1), 'Kicker')
                                         if (hand_1_pair_kicker1 == hand_2_pair_kicker1):
                                             if (hand_1_pair_kicker2 > hand_2_pair_kicker2):
-                                                print('Hand 1 Wins With a Pair of', reverse_face_cards(hand_1_pair), 'With a', reverse_face_cards(hand_1_pair_kicker1), reverse_face_cards(hand_1_pair_kicker2), 'Kicker')
+                                                print('Hand 1 Wins With a Pair of', reverse_face_cards(hand_1_pair),
+                                                      'With a', reverse_face_cards(hand_1_pair_kicker1),
+                                                      reverse_face_cards(hand_1_pair_kicker2), 'Kicker')
                                             if (hand_2_pair_kicker2 > hand_1_pair_kicker2):
-                                                print('Hand 2 Wins With a Pair of', reverse_face_cards(hand_2_pair), 'With a', reverse_face_cards(hand_2_pair_kicker1), reverse_face_cards(hand_2_pair_kicker2), 'Kicker')
+                                                print('Hand 2 Wins With a Pair of', reverse_face_cards(hand_2_pair),
+                                                      'With a', reverse_face_cards(hand_2_pair_kicker1),
+                                                      reverse_face_cards(hand_2_pair_kicker2), 'Kicker')
                                             if (hand_1_pair_kicker2 == hand_2_pair_kicker2):
                                                 if (hand_1_pair_kicker3 > hand_2_pair_kicker3):
-                                                    print('Hand 1 Wins With a Pair of', reverse_face_cards(hand_1_pair), 'With a', reverse_face_cards(hand_1_pair_kicker1), reverse_face_cards(hand_1_pair_kicker2), reverse_face_cards(hand_1_pair_kicker3), 'Kicker')
+                                                    print('Hand 1 Wins With a Pair of', reverse_face_cards(hand_1_pair),
+                                                          'With a', reverse_face_cards(hand_1_pair_kicker1),
+                                                          reverse_face_cards(hand_1_pair_kicker2),
+                                                          reverse_face_cards(hand_1_pair_kicker3), 'Kicker')
                                                 if (hand_2_pair_kicker3 > hand_1_pair_kicker3):
-                                                    print('Hand 2 Wins With a Pair of', reverse_face_cards(hand_2_pair), 'With a', reverse_face_cards(hand_2_pair_kicker1), reverse_face_cards(hand_2_pair_kicker2), reverse_face_cards(hand_2_pair_kicker3), 'Kicker')
+                                                    print('Hand 2 Wins With a Pair of', reverse_face_cards(hand_2_pair),
+                                                          'With a', reverse_face_cards(hand_2_pair_kicker1),
+                                                          reverse_face_cards(hand_2_pair_kicker2),
+                                                          reverse_face_cards(hand_2_pair_kicker3), 'Kicker')
                                                 if (hand_1_pair_kicker3 == hand_2_pair_kicker3):
-                                                    print('Both Hands Tie With a Pair of', reverse_face_cards(hand_1_pair))
+                                                    print('Both Hands Tie With a Pair of',
+                                                          reverse_face_cards(hand_1_pair))
                                 if (hand_1_pair == hand_2_pair == 0):
                                     hand_1_high_card_kicker1 = High_card(a, b, c, d, e)
                                     hand_2_high_card_kicker1 = High_card(k, l, m, n, o)
@@ -1084,33 +1146,57 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
                                         hand_1_high_card_kicker2 = Second_high_card(a, b, c, d, e)
                                         hand_2_high_card_kicker2 = Second_high_card(k, l, m, n, o)
                                         if (hand_1_high_card_kicker2 > hand_2_high_card_kicker2):
-                                            print('Hand 1 Wins With', reverse_face_cards(hand_1_high_card_kicker1), 'High, With a Kicker of', reverse_face_cards(hand_1_high_card_kicker2))
+                                            print('Hand 1 Wins With', reverse_face_cards(hand_1_high_card_kicker1),
+                                                  'High, With a Kicker of',
+                                                  reverse_face_cards(hand_1_high_card_kicker2))
                                         if (hand_2_high_card_kicker2 > hand_1_high_card_kicker2):
-                                            print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1), 'High, With a Kicker of', reverse_face_cards(hand_2_high_card_kicker2))
+                                            print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1),
+                                                  'High, With a Kicker of',
+                                                  reverse_face_cards(hand_2_high_card_kicker2))
                                         if (hand_1_high_card_kicker2 == hand_2_high_card_kicker2):
                                             hand_1_high_card_kicker3 = Third_high_card(a, b, c, d, e)
                                             hand_2_high_card_kicker3 = Third_high_card(k, l, m, n, o)
                                             if (hand_1_high_card_kicker3 > hand_2_high_card_kicker3):
-                                                print('Hand 1 Wins With', reverse_face_cards(hand_1_high_card_kicker1), 'High, With the Kickers',
-                                                      reverse_face_cards(hand_1_high_card_kicker2), reverse_face_cards(hand_1_high_card_kicker3))
+                                                print('Hand 1 Wins With', reverse_face_cards(hand_1_high_card_kicker1),
+                                                      'High, With the Kickers',
+                                                      reverse_face_cards(hand_1_high_card_kicker2),
+                                                      reverse_face_cards(hand_1_high_card_kicker3))
                                             if (hand_2_high_card_kicker3 > hand_1_high_card_kicker3):
-                                                print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1), 'High, With the Kickers', reverse_face_cards(hand_2_high_card_kicker2), reverse_face_cards(hand_2_high_card_kicker3))
+                                                print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1),
+                                                      'High, With the Kickers',
+                                                      reverse_face_cards(hand_2_high_card_kicker2),
+                                                      reverse_face_cards(hand_2_high_card_kicker3))
                                             if (hand_1_high_card_kicker3 == hand_2_high_card_kicker3):
                                                 hand_1_high_card_kicker4 = Fourth_high_card(a, b, c, d, e)
                                                 hand_2_high_card_kicker4 = Fourth_high_card(k, l, m, n, o)
                                                 if (hand_1_high_card_kicker4 > hand_2_high_card_kicker4):
-                                                    print('Hand 1 Wins With', reverse_face_cards(hand_1_high_card_kicker1), 'High, With the Kickers', reverse_face_cards(hand_1_high_card_kicker2), reverse_face_cards(hand_1_high_card_kicker3), reverse_face_cards(hand_1_high_card_kicker4))
+                                                    print('Hand 1 Wins With',
+                                                          reverse_face_cards(hand_1_high_card_kicker1),
+                                                          'High, With the Kickers',
+                                                          reverse_face_cards(hand_1_high_card_kicker2),
+                                                          reverse_face_cards(hand_1_high_card_kicker3),
+                                                          reverse_face_cards(hand_1_high_card_kicker4))
                                                 if (hand_2_high_card_kicker4 > hand_1_high_card_kicker4):
-                                                    print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1), 'High, With the Kickers', reverse_face_cards(hand_2_high_card_kicker2), reverse_face_cards(hand_2_high_card_kicker3), reverse_face_cards(hand_2_high_card_kicker4))
+                                                    print('Hand 2 Wins With',
+                                                          reverse_face_cards(hand_2_high_card_kicker1),
+                                                          'High, With the Kickers',
+                                                          reverse_face_cards(hand_2_high_card_kicker2),
+                                                          reverse_face_cards(hand_2_high_card_kicker3),
+                                                          reverse_face_cards(hand_2_high_card_kicker4))
                                                 if (hand_1_high_card_kicker4 == hand_2_high_card_kicker4):
                                                     hand_1_high_card_kicker5 = Fifth_high_card(a, b, c, d, e)
                                                     hand_2_high_card_kicker5 = Fifth_high_card(k, l, m, n, o)
                                                     if (hand_1_high_card_kicker5 > hand_2_high_card_kicker5):
-                                                        print('Hand 1 Wins With', reverse_face_cards(hand_1_high_card_kicker1), 'High,')
+                                                        print('Hand 1 Wins With',
+                                                              reverse_face_cards(hand_1_high_card_kicker1), 'High,')
                                                     if (hand_2_high_card_kicker5 > hand_1_high_card_kicker5):
-                                                        print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1), 'High')
+                                                        print('Hand 2 Wins With',
+                                                              reverse_face_cards(hand_2_high_card_kicker1), 'High')
                                                     if (hand_1_high_card_kicker5 == hand_2_high_card_kicker5):
-                                                        print('Both Hands Tie With', reverse_face_cards(hand_1_high_card_kicker1), 'High,')
+                                                        print('Both Hands Tie With',
+                                                              reverse_face_cards(hand_1_high_card_kicker1), 'High,')
+
+
 if __name__ == '__main__':
     card_1_value = random.choice(value)
     card_1_suit = random.choice(suit)
@@ -1149,3 +1235,13 @@ if __name__ == '__main__':
     Best_Hand(card_1_value, card_2_value, card_3_value, card_4_value, card_5_value, card_1_suit, card_2_suit,
               card_3_suit, card_4_suit, card_5_suit, card_6_value, card_7_value, card_8_value, card_9_value,
               card_10_value, card_6_suit, card_7_suit, card_8_suit, card_9_suit, card_10_suit)
+
+
+def changeParams(hand):
+    a = [hand[0][0], hand[1][0], hand[2][0], hand[3][0], hand[4][0], hand[0][1], hand[1][1], hand[2][1], hand[3][1],
+         hand[4][1]]
+    for i in range(0, len(a)):
+        if a[i].isdigit():
+            a[i] = int(a[i])
+
+    return a
