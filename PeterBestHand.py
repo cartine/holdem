@@ -27,40 +27,7 @@ def reverse_face_cards(rev_face_card):
 value = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
 suit = ['H', 'D', 'S', 'C']
 import random
-card_1_value = random.choice(value)
-card_1_suit = random.choice(suit)
-card_1 = [card_1_value, card_1_suit]
-card_2_value = random.choice(value)
-card_2_suit = random.choice(suit)
-card_2 = [card_2_value, card_2_suit]
-card_3_value = random.choice(value)
-card_3_suit = random.choice(suit)
-card_3 = [card_3_value, card_3_suit]
-card_4_value = random.choice(value)
-card_4_suit = random.choice(suit)
-card_4 = [card_4_value, card_4_suit]
-card_5_value = random.choice(value)
-card_5_suit = random.choice(suit)
-card_5 = [card_5_value, card_5_suit]
-hand_1 = [card_1, card_2, card_3, card_4, card_5]
-print(hand_1)
-card_6_value = random.choice(value)
-card_6_suit = random.choice(suit)
-card_6 = [card_6_value, card_6_suit]
-card_7_value = random.choice(value)
-card_7_suit = random.choice(suit)
-card_7 = [card_7_value, card_7_suit]
-card_8_value = random.choice(value)
-card_8_suit = random.choice(suit)
-card_8 = [card_8_value, card_8_suit]
-card_9_value = random.choice(value)
-card_9_suit = random.choice(suit)
-card_9 = [card_9_value, card_9_suit]
-card_10_value = random.choice(value)
-card_10_suit = random.choice(suit)
-card_10 = [card_10_value, card_10_suit]
-hand_2 = [card_6, card_7, card_8, card_9, card_10]
-print(hand_2)
+
 def High_card(a, b, c, d, e):
     new_a = face_cards(a)
     new_b = face_cards(b)
@@ -1144,4 +1111,41 @@ def Best_Hand(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t):
                                                         print('Hand 2 Wins With', reverse_face_cards(hand_2_high_card_kicker1), 'High')
                                                     if (hand_1_high_card_kicker5 == hand_2_high_card_kicker5):
                                                         print('Both Hands Tie With', reverse_face_cards(hand_1_high_card_kicker1), 'High,')
-Best_Hand(card_1_value, card_2_value, card_3_value, card_4_value, card_5_value, card_1_suit, card_2_suit, card_3_suit, card_4_suit, card_5_suit, card_6_value, card_7_value, card_8_value, card_9_value, card_10_value, card_6_suit, card_7_suit, card_8_suit, card_9_suit, card_10_suit)
+if __name__ == '__main__':
+    card_1_value = random.choice(value)
+    card_1_suit = random.choice(suit)
+    card_1 = [card_1_value, card_1_suit]
+    card_2_value = random.choice(value)
+    card_2_suit = random.choice(suit)
+    card_2 = [card_2_value, card_2_suit]
+    card_3_value = random.choice(value)
+    card_3_suit = random.choice(suit)
+    card_3 = [card_3_value, card_3_suit]
+    card_4_value = random.choice(value)
+    card_4_suit = random.choice(suit)
+    card_4 = [card_4_value, card_4_suit]
+    card_5_value = random.choice(value)
+    card_5_suit = random.choice(suit)
+    card_5 = [card_5_value, card_5_suit]
+    hand_1 = [card_1, card_2, card_3, card_4, card_5]
+    print(hand_1)
+    card_6_value = random.choice(value)
+    card_6_suit = random.choice(suit)
+    card_6 = [card_6_value, card_6_suit]
+    card_7_value = random.choice(value)
+    card_7_suit = random.choice(suit)
+    card_7 = [card_7_value, card_7_suit]
+    card_8_value = random.choice(value)
+    card_8_suit = random.choice(suit)
+    card_8 = [card_8_value, card_8_suit]
+    card_9_value = random.choice(value)
+    card_9_suit = random.choice(suit)
+    card_9 = [card_9_value, card_9_suit]
+    card_10_value = random.choice(value)
+    card_10_suit = random.choice(suit)
+    card_10 = [card_10_value, card_10_suit]
+    hand_2 = [card_6, card_7, card_8, card_9, card_10]
+    print(hand_2)
+    Best_Hand(card_1_value, card_2_value, card_3_value, card_4_value, card_5_value, card_1_suit, card_2_suit,
+              card_3_suit, card_4_suit, card_5_suit, card_6_value, card_7_value, card_8_value, card_9_value,
+              card_10_value, card_6_suit, card_7_suit, card_8_suit, card_9_suit, card_10_suit)
