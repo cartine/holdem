@@ -31,10 +31,6 @@ def reverse_face_cards(rev_face_card):
         return rev_face_card
 
 
-value = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
-suit = ['H', 'D', 'S', 'C']
-
-
 def high_cards(pip1, pip2, pip3, pip4, pip5):
     new_pip1 = face_cards(pip1)
     new_pip2 = face_cards(pip2)
@@ -1259,40 +1255,51 @@ def best_hands(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1
 
 
 if __name__ == '__main__':
-    card_1_value = random.choice(value)
-    card_1_suit = random.choice(suit)
-    card_1 = [card_1_value, card_1_suit]
-    card_2_value = random.choice(value)
-    card_2_suit = random.choice(suit)
-    card_2 = [card_2_value, card_2_suit]
-    card_3_value = random.choice(value)
-    card_3_suit = random.choice(suit)
-    card_3 = [card_3_value, card_3_suit]
-    card_4_value = random.choice(value)
-    card_4_suit = random.choice(suit)
-    card_4 = [card_4_value, card_4_suit]
-    card_5_value = random.choice(value)
-    card_5_suit = random.choice(suit)
-    card_5 = [card_5_value, card_5_suit]
-    hand_1 = [card_1, card_2, card_3, card_4, card_5]
+    pips = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
+    heart = ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+    spade = ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
+    club = ['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
+    diamond = ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D']
+    hearts = list(zip(pips, heart))
+    spades = list(zip(pips, spade))
+    clubs = list(zip(pips, club))
+    diamonds = list(zip(pips, diamond))
+    deck = hearts + spades + clubs + diamonds
+    hands = random.sample(deck, 10)
+    hand_1 = hands[:5]
+    hand_2 = hands[5:]
+    card_1 = hand_1[0]
+    card_1_pip = card_1[0]
+    card_1_suit = card_1[1]
+    card_2 = hand_1[1]
+    card_2_pip = card_2[0]
+    card_2_suit = card_2[1]
+    card_3 = hand_1[2]
+    card_3_pip = card_3[0]
+    card_3_suit = card_3[1]
+    card_4 = hand_1[3]
+    card_4_pip = card_4[0]
+    card_4_suit = card_4[1]
+    card_5 = hand_1[4]
+    card_5_pip = card_5[0]
+    card_5_suit = card_5[1]
+    card_6 = hand_2[0]
+    card_6_pip = card_6[0]
+    card_6_suit = card_6[1]
+    card_7 = hand_2[1]
+    card_7_pip = card_7[0]
+    card_7_suit = card_7[1]
+    card_8 = hand_2[2]
+    card_8_pip = card_8[0]
+    card_8_suit = card_8[1]
+    card_9 = hand_2[3]
+    card_9_pip = card_9[0]
+    card_9_suit = card_9[1]
+    card_10 = hand_2[4]
+    card_10_pip = card_10[0]
+    card_10_suit = card_10[1]
     print(hand_1)
-    card_6_value = random.choice(value)
-    card_6_suit = random.choice(suit)
-    card_6 = [card_6_value, card_6_suit]
-    card_7_value = random.choice(value)
-    card_7_suit = random.choice(suit)
-    card_7 = [card_7_value, card_7_suit]
-    card_8_value = random.choice(value)
-    card_8_suit = random.choice(suit)
-    card_8 = [card_8_value, card_8_suit]
-    card_9_value = random.choice(value)
-    card_9_suit = random.choice(suit)
-    card_9 = [card_9_value, card_9_suit]
-    card_10_value = random.choice(value)
-    card_10_suit = random.choice(suit)
-    card_10 = [card_10_value, card_10_suit]
-    hand_2 = [card_6, card_7, card_8, card_9, card_10]
     print(hand_2)
-    best_hands(card_1_value, card_2_value, card_3_value, card_4_value, card_5_value, card_1_suit, card_2_suit,
-               card_3_suit, card_4_suit, card_5_suit, card_6_value, card_7_value, card_8_value, card_9_value,
-               card_10_value, card_6_suit, card_7_suit, card_8_suit, card_9_suit, card_10_suit)
+    best_hands(card_1_pip, card_2_pip, card_3_pip, card_4_pip, card_5_pip, card_1_suit, card_2_suit,
+               card_3_suit, card_4_suit, card_5_suit, card_6_pip, card_7_pip, card_8_pip, card_9_pip,
+               card_10_pip, card_6_suit, card_7_suit, card_8_suit, card_9_suit, card_10_suit)
