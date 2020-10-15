@@ -1,5 +1,5 @@
 import random
-
+import numpy as np
 
 if __name__ == '__main__':
     pips = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
@@ -17,3 +17,5 @@ if __name__ == '__main__':
     hand_2 = hands[5:]
     print(hand_1)
     print(hand_2)
+    pips2 = np.array([2, 3, 4, 5, 6, 7, 8, 9])
+    np.mean(pips2 > 3)
