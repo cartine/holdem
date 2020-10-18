@@ -3,9 +3,6 @@ from enum import IntEnum
 from random import shuffle
 
 
-# This section is for code that is meant to be public
-
-
 # Important to note!! 'hand' must be ordered from most important card
 # to least important card
 class Score:
@@ -77,10 +74,6 @@ def get_deck(shuffled: bool = True):
     if shuffled:
         shuffle(deck)
     return deck
-
-
-##################################################################
-# Everything below here is meant to be private
 
 
 class Pip(Enum):
