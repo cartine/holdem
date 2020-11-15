@@ -1,5 +1,6 @@
 import random
-from enum import IntEnum
+from poker5 import Ranking
+from poker5 import Score
 
 
 pips = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
@@ -59,70 +60,23 @@ card_14_pip = card_14[0]
 card_14_suit = card_14[1]
 
 
-def get_pip_value(card):
-    p = card[0]
-    if p == '2':
-        return 2
-    elif p == '3':
-        return 3
-    elif p == '4':
-        return 4
-    elif p == '5':
-        return 5
-    elif p == '6':
-        return 6
-    elif p == '7':
-        return 7
-    elif p == '8':
-        return 8
-    elif p == '9':
-        return 9
-    elif p == 'T':
-        return 10
-    elif p == 'J':
-        return 11
-    elif p == 'Q':
-        return 12
-    elif p == 'K':
-        return 13
-    elif p == 'A':
-        return 14
-    else:
-        raise Exception
-
-
-class Ranking(IntEnum):
-    STRAIGHT_FLUSH = 8
-    FOUR_OF_A_KIND = 7
-    FULL_HOUSE = 6
-    FLUSH = 5
-    STRAIGHT = 4
-    THREE_OF_A_KIND = 3
-    TWO_PAIRS = 2
-    PAIR = 1
-    HIGH_CARD = 0
-
-
-class Score:
-    def __init__(self, ranking, hand):
-        assert (isinstance(ranking, Ranking))
-        self.RANKING = ranking
-        self.HAND = hand
-
-    def __str__(self):
-        return self.RANKING.name + ", " + str(self.HAND)
-
-    def compare(self, score2):
-        r = self.RANKING - score2.RANKING
-        if r == 0:
-            for i in range(0, 5):
-                r = get_pip_value(self.HAND[i]) - get_pip_value(score2.HAND[i])
-                if r != 0:
-                    break
-        return r
-
-
 def face_cards(face_card):
+    if face_card == '2':
+        return 2
+    if face_card == '3':
+        return 3
+    if face_card == '4':
+        return 4
+    if face_card == '5':
+        return 5
+    if face_card == '6':
+        return 6
+    if face_card == '7':
+        return 7
+    if face_card == '8':
+        return 8
+    if face_card == '9':
+        return 9
     if face_card == 'T':
         return 10
     if face_card == 'J':
@@ -133,8 +87,7 @@ def face_cards(face_card):
         return 13
     if face_card == 'A':
         return 14
-    if face_card != 'T' or 'J' or 'Q' or 'K' or 'A':
-        return face_card
+    return face_card
 
 
 def reverse_face_cards(rev_face_card):
@@ -160,24 +113,8 @@ def high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip5 = face_cards(pip5)
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
-    high_card = 0
-    score = 0
-    if new_pip1 >= new_pip2:
-        high_card = new_pip1
-    if new_pip2 > new_pip1:
-        high_card = new_pip2
-    if new_pip3 > high_card:
-        high_card = new_pip3
-    if new_pip4 > high_card:
-        high_card = new_pip4
-    if new_pip5 > high_card:
-        high_card = new_pip5
-    if new_pip6 > high_card:
-        high_card = new_pip6
-    if new_pip7 > high_card:
-        high_card = new_pip7
-    if high_card > 0:
-        score = Score(Ranking.HIGH_CARD, [pip1, pip2, pip3, pip4, pip5, pip6, pip7])
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    high_card = in_order[0]
     return high_card
 
 
@@ -189,39 +126,8 @@ def second_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip5 = face_cards(pip5)
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
-    high_card = 0
-    second_high_card = 0
-    if new_pip1 >= new_pip2:
-        high_card = new_pip1
-        second_high_card = new_pip2
-    if new_pip2 > new_pip1:
-        high_card = new_pip2
-        second_high_card = new_pip1
-    if new_pip3 > high_card:
-        second_high_card = high_card
-        high_card = new_pip3
-    if new_pip4 > high_card:
-        second_high_card = high_card
-        high_card = new_pip4
-    if new_pip5 > high_card:
-        second_high_card = high_card
-        high_card = new_pip5
-    if new_pip6 > high_card:
-        second_high_card = high_card
-        high_card = new_pip6
-    if new_pip7 > high_card:
-        second_high_card = high_card
-        high_card = new_pip7
-    if high_card > new_pip3 > second_high_card:
-        second_high_card = new_pip3
-    if high_card > new_pip4 > second_high_card:
-        second_high_card = new_pip4
-    if high_card > new_pip5 > second_high_card:
-        second_high_card = new_pip5
-    if high_card > new_pip6 > second_high_card:
-        second_high_card = new_pip6
-    if high_card > new_pip7 > second_high_card:
-        second_high_card = new_pip7
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    second_high_card = in_order[1]
     return second_high_card
 
 
@@ -233,62 +139,8 @@ def third_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip5 = face_cards(pip5)
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
-    high_card = 0
-    second_high_card = 0
-    third_high_card = 0
-    if new_pip1 >= new_pip2:
-        high_card = new_pip1
-        second_high_card = new_pip2
-        third_high_card = new_pip3
-    if new_pip2 > new_pip1:
-        high_card = new_pip2
-        second_high_card = new_pip1
-        third_high_card = new_pip3
-    if new_pip3 > high_card:
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip3
-    if new_pip4 > high_card:
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip4
-    if new_pip5 > high_card:
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip5
-    if new_pip6 > high_card:
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip6
-    if new_pip7 > high_card:
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip7
-    if high_card > new_pip3 > second_high_card:
-        third_high_card = second_high_card
-        second_high_card = new_pip3
-    if high_card > new_pip4 > second_high_card:
-        third_high_card = second_high_card
-        second_high_card = new_pip4
-    if high_card > new_pip5 > second_high_card:
-        third_high_card = second_high_card
-        second_high_card = new_pip5
-    if high_card > new_pip6 > second_high_card:
-        third_high_card = second_high_card
-        second_high_card = new_pip6
-    if high_card > new_pip7 > second_high_card:
-        third_high_card = second_high_card
-        second_high_card = new_pip7
-    if second_high_card > new_pip3 > third_high_card:
-        third_high_card = new_pip3
-    if second_high_card > new_pip4 > third_high_card:
-        third_high_card = new_pip4
-    if second_high_card > new_pip5 > third_high_card:
-        third_high_card = new_pip5
-    if second_high_card > new_pip6 > third_high_card:
-        third_high_card = new_pip6
-    if second_high_card > new_pip7 > third_high_card:
-        third_high_card = new_pip7
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    third_high_card = in_order[2]
     return third_high_card
 
 
@@ -300,90 +152,8 @@ def fourth_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip5 = face_cards(pip5)
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
-    high_card = 0
-    second_high_card = 0
-    third_high_card = 0
-    fourth_high_card = 0
-    if new_pip1 >= new_pip2:
-        high_card = new_pip1
-        second_high_card = new_pip2
-        third_high_card = new_pip3
-        fourth_high_card = new_pip4
-    if new_pip2 > new_pip1:
-        high_card = new_pip2
-        second_high_card = new_pip1
-        third_high_card = new_pip3
-        fourth_high_card = new_pip4
-    if new_pip3 > high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip3
-    if new_pip4 > high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip4
-    if new_pip5 > high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip5
-    if new_pip6 > high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip6
-    if new_pip7 > high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip7
-    if high_card > new_pip3 > second_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip3
-    if high_card > new_pip4 > second_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip4
-    if high_card > new_pip5 > second_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip5
-    if high_card > new_pip6 > second_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip6
-    if high_card > new_pip7 > second_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip7
-    if second_high_card > new_pip3 > third_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = new_pip3
-    if second_high_card > new_pip4 > third_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = new_pip4
-    if second_high_card > new_pip5 > third_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = new_pip5
-    if second_high_card > new_pip6 > third_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = new_pip6
-    if second_high_card > new_pip7 > third_high_card:
-        fourth_high_card = third_high_card
-        third_high_card = new_pip7
-    if third_high_card > new_pip3 > fourth_high_card:
-        fourth_high_card = new_pip3
-    if third_high_card > new_pip4 > fourth_high_card:
-        fourth_high_card = new_pip4
-    if third_high_card > new_pip5 > fourth_high_card:
-        fourth_high_card = new_pip5
-    if third_high_card > new_pip6 > fourth_high_card:
-        fourth_high_card = new_pip6
-    if third_high_card > new_pip7 > fourth_high_card:
-        fourth_high_card = new_pip7
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    fourth_high_card = in_order[3]
     return fourth_high_card
 
 
@@ -395,124 +165,34 @@ def fifth_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip5 = face_cards(pip5)
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
-    high_card = 0
-    second_high_card = 0
-    third_high_card = 0
-    fourth_high_card = 0
-    fifth_high_card = 0
-    if new_pip1 >= new_pip2:
-        high_card = new_pip1
-        second_high_card = new_pip2
-        third_high_card = new_pip3
-        fourth_high_card = new_pip4
-        fifth_high_card = new_pip5
-    if new_pip2 > new_pip1:
-        high_card = new_pip2
-        second_high_card = new_pip1
-        third_high_card = new_pip3
-        fourth_high_card = new_pip4
-        fifth_high_card = new_pip5
-    if new_pip3 > high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip3
-    if new_pip4 > high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip4
-    if new_pip5 > high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip5
-    if new_pip6 > high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip6
-    if new_pip7 > high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = high_card
-        high_card = new_pip7
-    if high_card > new_pip3 > second_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip3
-    if high_card > new_pip4 > second_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip4
-    if high_card > new_pip5 > second_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip5
-    if high_card > new_pip6 > second_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip6
-    if high_card > new_pip7 > second_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = second_high_card
-        second_high_card = new_pip7
-    if second_high_card > new_pip3 > third_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = new_pip3
-    if second_high_card > new_pip4 > third_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = new_pip4
-    if second_high_card > new_pip5 > third_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = new_pip5
-    if second_high_card > new_pip6 > third_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = new_pip6
-    if second_high_card > new_pip7 > third_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = third_high_card
-        third_high_card = new_pip7
-    if third_high_card > new_pip3 > fourth_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = new_pip3
-    if third_high_card > new_pip4 > fourth_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = new_pip4
-    if third_high_card > new_pip5 > fourth_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = new_pip5
-    if third_high_card > new_pip6 > fourth_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = new_pip6
-    if third_high_card > new_pip7 > fourth_high_card:
-        fifth_high_card = fourth_high_card
-        fourth_high_card = new_pip7
-    if fourth_high_card > new_pip3 > fifth_high_card:
-        fifth_high_card = new_pip3
-    if fourth_high_card > new_pip4 > fifth_high_card:
-        fifth_high_card = new_pip4
-    if fourth_high_card > new_pip5 > fifth_high_card:
-        fifth_high_card = new_pip5
-    if fourth_high_card > new_pip6 > fifth_high_card:
-        fifth_high_card = new_pip6
-    if fourth_high_card > new_pip7 > fifth_high_card:
-        fifth_high_card = new_pip7
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    fifth_high_card = in_order[4]
     return fifth_high_card
+
+
+def sixth_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
+    new_pip1 = face_cards(pip1)
+    new_pip2 = face_cards(pip2)
+    new_pip3 = face_cards(pip3)
+    new_pip4 = face_cards(pip4)
+    new_pip5 = face_cards(pip5)
+    new_pip6 = face_cards(pip6)
+    new_pip7 = face_cards(pip7)
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    sixth_high_card = in_order[5]
+    return sixth_high_card
+
+def seventh_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
+    new_pip1 = face_cards(pip1)
+    new_pip2 = face_cards(pip2)
+    new_pip3 = face_cards(pip3)
+    new_pip4 = face_cards(pip4)
+    new_pip5 = face_cards(pip5)
+    new_pip6 = face_cards(pip6)
+    new_pip7 = face_cards(pip7)
+    in_order = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    seventh_high_card = in_order[6]
+    return seventh_high_card
 
 
 def pairs(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
@@ -4299,8 +3979,21 @@ def straight_flushes(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, sui
     return straight_flush
 
 
-def best_hands(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7, hand1_suit1,
-               hand1_suit2, hand1_suit3, hand1_suit4, hand1_suit5, hand1_suit6, hand1_suit7):
+def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, suit4, suit5, suit6, suit7):
+    hand1_pip1 = face_cards(pip1)
+    hand1_pip2 = face_cards(pip2)
+    hand1_pip3 = face_cards(pip3)
+    hand1_pip4 = face_cards(pip4)
+    hand1_pip5 = face_cards(pip5)
+    hand1_pip6 = face_cards(pip6)
+    hand1_pip7 = face_cards(pip7)
+    hand1_suit1 = face_cards(suit1)
+    hand1_suit2 = face_cards(suit2)
+    hand1_suit3 = face_cards(suit3)
+    hand1_suit4 = face_cards(suit4)
+    hand1_suit5 = face_cards(suit5)
+    hand1_suit6 = face_cards(suit6)
+    hand1_suit7 = face_cards(suit7)
     hand_1_straight_flush = straight_flushes(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
                                              hand1_pip7, hand1_suit1, hand1_suit2, hand1_suit3, hand1_suit4,
                                              hand1_suit5, hand1_suit6, hand1_suit7)
@@ -4351,894 +4044,119 @@ def best_hands(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1
                 if hand_1_flush > 0:
                     hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
                                                       hand1_pip6, hand1_pip7)
+                    hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                      hand1_pip6, hand1_pip7)
+                    hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                      hand1_pip6, hand1_pip7)
+                    hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                      hand1_pip6, hand1_pip7)
+                    hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                      hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
                                                           hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip6)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip3, hand1_pip3, hand1_pip4, hand1_pip5,
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
                                                           hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip1, hand1_pip1, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip3,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip4,
-                                                              hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip6)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip4, hand1_pip4, hand1_pip5,
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
                                                           hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip1, hand1_pip1, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip1,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip4,
-                                                              hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip4,
-                                                              hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip6)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip5, hand1_pip5,
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
                                                           hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip1,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip1,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                              hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip1,
-                                                              hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip1,
-                                                              hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip1,
-                                                              hand1_pip5, hand1_pip6, hand1_pip6)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip6,
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
                                                           hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                              hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                              hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                              hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip1, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip1, hand1_pip6, hand1_pip6)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                              hand1_pip5, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                              hand1_pip5, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip4, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip1, hand1_pip1)
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                          hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip6)
-                        if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                              hand1_pip5, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip4, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip1, hand1_pip1)
-                        if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker1 = high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                              hand1_pip5, hand1_pip6, hand1_pip6)
-
-                    hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5, hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                         hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip6)
-                    if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip1, hand1_pip1, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip3,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip1, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip6)
-                    if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip4, hand1_pip4,
-                                                                 hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip1, hand1_pip1, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip1,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip4,
-                                                                     hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip1, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip6)
-                    if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip5,
-                                                                 hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip1,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip1,
-                                                                     hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip1,
-                                                                     hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip1,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip6)
-                    if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip6, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                                     hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                                     hand1_pip1, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip4, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip1, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip1, hand1_pip6, hand1_pip6)
-                    if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                                     hand1_pip5, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip4, hand1_pip1, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip1, hand1_pip1)
-                    if hand_1_flush_kicker2 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                        hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5, hand1_pip6, hand1_pip6)
-                        if hand_1_flush_kicker2 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip3, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker2 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip2, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker2 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip3,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker2 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip4, hand1_pip6, hand1_pip1)
-                        if hand_1_flush_kicker2 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip1, hand1_pip1)
-                        if hand_1_flush_kicker2 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker2 = second_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                     hand1_pip5, hand1_pip6, hand1_pip6)
-
-                    hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                            hand1_pip5, hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                    hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                    hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                    hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip6)
-                    if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip3, hand1_pip3, hand1_pip4,
-                                                                        hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip1, hand1_pip1,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                    hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                    hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip6)
-                    if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip4, hand1_pip4,
-                                                                        hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip1, hand1_pip1,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip2,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                            hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                            hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip6)
-                    if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip5,
-                                                                        hand1_pip5, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                            hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                            hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip1, hand1_pip1, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip1, hand1_pip5, hand1_pip7,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip6)
-                    if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                        hand1_pip6, hand1_pip6, hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                            hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip3, hand1_pip1, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip1, hand1_pip7,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                            hand1_pip6)
-                    if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                        hand1_pip5, hand1_pip7, hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                    hand1_pip3, hand1_pip5, hand1_pip1,
-                                                                    hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip4, hand1_pip1,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                            hand1_pip7)
-                        if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                            hand1_pip1)
-                    if hand_1_flush_kicker3 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                        hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                        hand1_pip5, hand1_pip6, hand1_pip6)
-                        if hand_1_flush_kicker3 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip1)
-                        if hand_1_flush_kicker3 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip1)
-                        if hand_1_flush_kicker3 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip1)
-                        if hand_1_flush_kicker3 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                            hand1_pip1)
-                        if hand_1_flush_kicker3 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                            hand1_pip1)
-                        if hand_1_flush_kicker3 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker3 = third_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip6)
-
-                    hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                         hand1_pip5, hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                             hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                             hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                               hand_1_flush_kicker4 = fourth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip6)
-                    if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip3, hand1_pip3,
-                                                                             hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                             hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip1, hand1_pip1,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                 hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip6)
-                    if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip4,
-                                                                             hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                             hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip1, hand1_pip1,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip2,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                 hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                 hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip6)
-                    if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                             hand1_pip5, hand1_pip5, hand1_pip6,
-                                                                             hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                 hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                 hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip1, hand1_pip1, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip1, hand1_pip5, hand1_pip7,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip6)
-                    if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                             hand1_pip4, hand1_pip6, hand1_pip6,
-                                                                             hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                 hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip3, hand1_pip1, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip1, hand1_pip7,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                                 hand1_pip6)
-                    if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                             hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                             hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip3, hand1_pip5, hand1_pip1,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip4, hand1_pip1,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                 hand1_pip7)
-                        if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                 hand1_pip1)
-                    if hand_1_flush_kicker4 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                        hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                             hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                             hand1_pip6)
-                        if hand_1_flush_kicker4 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip1)
-                        if hand_1_flush_kicker4 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip1)
-                        if hand_1_flush_kicker4 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip1)
-                        if hand_1_flush_kicker4 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                 hand1_pip1)
-                        if hand_1_flush_kicker4 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                 hand1_pip1)
-                        if hand_1_flush_kicker4 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker4 = fourth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                 hand1_pip6)
-
-                    hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                            hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                            hand1_pip7)
-                    if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip6)
-                    if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip3, hand1_pip3,
-                                                                                hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip1, hand1_pip1,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                    hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip1, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip6)
-                    if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip4,
-                                                                                hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip1, hand1_pip1,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip2,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                    hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                    hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip1,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip6)
-                    if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                hand1_pip5, hand1_pip5, hand1_pip6,
-                                                                                hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                    hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                    hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip1, hand1_pip1, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip1, hand1_pip5, hand1_pip7,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip1, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip6)
-                    if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                hand1_pip4, hand1_pip6, hand1_pip6,
-                                                                                hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                    hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip3, hand1_pip1, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip1, hand1_pip7,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip1, hand1_pip6,
-                                                                                    hand1_pip6)
-                    if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip3, hand1_pip5, hand1_pip1,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip4, hand1_pip1,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip7,
-                                                                                    hand1_pip7)
-                        if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                    hand1_pip1)
-                    if hand_1_flush_kicker5 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                        hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                hand1_pip6)
-                        if hand_1_flush_kicker5 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip3, hand1_pip3, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip1)
-                        if hand_1_flush_kicker5 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip2,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip1)
-                        if hand_1_flush_kicker5 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip3, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip1)
-                        if hand_1_flush_kicker5 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip4, hand1_pip6,
-                                                                                    hand1_pip1)
-                        if hand_1_flush_kicker5 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip1,
-                                                                                    hand1_pip1)
-                        if hand_1_flush_kicker5 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                            hand_1_flush_kicker5 = fifth_high_cards(hand1_pip2, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip6)
+                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                          hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                 hand1_pip5,
+                                                                 hand1_pip6, hand1_pip7)
+                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
+                                                                hand1_pip5,
+                                                                hand1_pip6, hand1_pip7)
                     ordered_cards.append(hand_1_flush_kicker1)
                     ordered_cards.append(hand_1_flush_kicker2)
                     ordered_cards.append(hand_1_flush_kicker3)
@@ -5254,6 +4172,7 @@ def best_hands(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1
                         ordered_cards.append(hand_1_straight - 2)
                         ordered_cards.append(hand_1_straight - 3)
                         ordered_cards.append(hand_1_straight - 4)
+                        score = Score(Ranking.STRAIGHT, ordered_cards)
                     if hand_1_straight == 0:
                         hand_1_trips = trips(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
                                              hand1_pip7)
@@ -5381,6 +4300,10 @@ def best_hands(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1
                                         hand_1_pair_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
                                                                                 hand1_pip4, hand1_pip5, hand1_pip6,
                                                                                 hand1_pip7)
+                                        if hand_1_pair_kicker3 == hand_1_pair:
+                                            hand_1_pair_kicker3 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
+                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
+                                                                                    hand1_pip7)
                                         if hand_1_pair_kicker1 == hand_1_pair:
                                             hand_1_pair_kicker3 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
