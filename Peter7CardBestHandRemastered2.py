@@ -2,7 +2,6 @@ import random
 from poker5 import Ranking
 from poker5 import Score
 
-
 pips = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
 heart = ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
 spade = ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
@@ -182,6 +181,7 @@ def sixth_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     sixth_high_card = in_order[5]
     return sixth_high_card
 
+
 def seventh_high_cards(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip1 = face_cards(pip1)
     new_pip2 = face_cards(pip2)
@@ -258,426 +258,38 @@ def two_pairs(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
     two_pair = 0
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip4):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip5):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip6):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip7):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip4 == new_pip5):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip2) and (new_pip4 == new_pip6):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip2) and (new_pip4 == new_pip7):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip2) and (new_pip5 == new_pip6):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip2) and (new_pip5 == new_pip7):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip2) and (new_pip6 == new_pip7):
-        two_pair = new_pip1
-        if new_pip6 > new_pip1:
-            two_pair = new_pip6
-    if (new_pip1 == new_pip3) and (new_pip4 == new_pip5):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip3) and (new_pip4 == new_pip6):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip3) and (new_pip4 == new_pip7):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip3) and (new_pip5 == new_pip6):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip3) and (new_pip5 == new_pip7):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip3) and (new_pip6 == new_pip7):
-        two_pair = new_pip1
-        if new_pip6 > new_pip1:
-            two_pair = new_pip6
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip4):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip5):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip6):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip7):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip3):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip5):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip6):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip7):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip3 == new_pip5):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip4) and (new_pip3 == new_pip6):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip4) and (new_pip3 == new_pip7):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip4) and (new_pip5 == new_pip6):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip4) and (new_pip5 == new_pip7):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip4) and (new_pip6 == new_pip7):
-        two_pair = new_pip1
-        if new_pip6 > new_pip1:
-            two_pair = new_pip6
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip3):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip4):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip6):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip7):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip3 == new_pip4):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip5) and (new_pip3 == new_pip6):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip5) and (new_pip3 == new_pip7):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip5) and (new_pip4 == new_pip6):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip5) and (new_pip4 == new_pip7):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair = new_pip1
-        if new_pip6 > new_pip1:
-            two_pair = new_pip6
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip3):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip4):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip5):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip7):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip3 == new_pip4):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip6) and (new_pip3 == new_pip5):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip6) and (new_pip3 == new_pip7):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip6) and (new_pip4 == new_pip5):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip6) and (new_pip4 == new_pip7):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip3):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip4):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip5):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip6):
-        two_pair = new_pip1
-        if new_pip2 > new_pip1:
-            two_pair = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip3 == new_pip4):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip7) and (new_pip3 == new_pip5):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip7) and (new_pip3 == new_pip6):
-        two_pair = new_pip1
-        if new_pip3 > new_pip1:
-            two_pair = new_pip3
-    if (new_pip1 == new_pip7) and (new_pip4 == new_pip5):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip7) and (new_pip4 == new_pip6):
-        two_pair = new_pip1
-        if new_pip4 > new_pip1:
-            two_pair = new_pip4
-    if (new_pip1 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair = new_pip1
-        if new_pip5 > new_pip1:
-            two_pair = new_pip5
-    if (new_pip2 == new_pip3) and (new_pip4 == new_pip5):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip3) and (new_pip4 == new_pip6):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip3) and (new_pip4 == new_pip7):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip3) and (new_pip5 == new_pip6):
-        two_pair = new_pip2
-        if new_pip5 > new_pip2:
-            two_pair = new_pip5
-    if (new_pip2 == new_pip3) and (new_pip5 == new_pip7):
-        two_pair = new_pip2
-        if new_pip5 > new_pip2:
-            two_pair = new_pip5
-    if (new_pip2 == new_pip3) and (new_pip6 == new_pip7):
-        two_pair = new_pip2
-        if new_pip6 > new_pip2:
-            two_pair = new_pip6
-    if (new_pip2 == new_pip4) and (new_pip3 == new_pip5):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip4) and (new_pip3 == new_pip6):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip4) and (new_pip3 == new_pip7):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip4) and (new_pip5 == new_pip6):
-        two_pair = new_pip2
-        if new_pip5 > new_pip2:
-            two_pair = new_pip5
-    if (new_pip2 == new_pip4) and (new_pip5 == new_pip7):
-        two_pair = new_pip2
-        if new_pip5 > new_pip2:
-            two_pair = new_pip5
-    if (new_pip2 == new_pip4) and (new_pip6 == new_pip7):
-        two_pair = new_pip2
-        if new_pip6 > new_pip2:
-            two_pair = new_pip6
-    if (new_pip2 == new_pip5) and (new_pip3 == new_pip4):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip5) and (new_pip3 == new_pip6):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip5) and (new_pip3 == new_pip7):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip5) and (new_pip4 == new_pip6):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip5) and (new_pip4 == new_pip7):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair = new_pip2
-        if new_pip6 > new_pip2:
-            two_pair = new_pip6
-    if (new_pip2 == new_pip6) and (new_pip3 == new_pip4):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip6) and (new_pip3 == new_pip5):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip6) and (new_pip3 == new_pip7):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip6) and (new_pip4 == new_pip5):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip6) and (new_pip4 == new_pip7):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair = new_pip2
-        if new_pip5 > new_pip2:
-            two_pair = new_pip5
-    if (new_pip2 == new_pip7) and (new_pip3 == new_pip4):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip7) and (new_pip3 == new_pip5):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip7) and (new_pip3 == new_pip6):
-        two_pair = new_pip2
-        if new_pip3 > new_pip2:
-            two_pair = new_pip3
-    if (new_pip2 == new_pip7) and (new_pip4 == new_pip5):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip7) and (new_pip4 == new_pip6):
-        two_pair = new_pip2
-        if new_pip4 > new_pip2:
-            two_pair = new_pip4
-    if (new_pip2 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair = new_pip2
-        if new_pip5 > new_pip2:
-            two_pair = new_pip5
-    if (new_pip3 == new_pip4) and (new_pip5 == new_pip6):
-        two_pair = new_pip3
-        if new_pip5 > new_pip3:
-            two_pair = new_pip5
-    if (new_pip3 == new_pip4) and (new_pip5 == new_pip7):
-        two_pair = new_pip3
-        if new_pip5 > new_pip3:
-            two_pair = new_pip5
-    if (new_pip3 == new_pip4) and (new_pip6 == new_pip7):
-        two_pair = new_pip3
-        if new_pip6 > new_pip3:
-            two_pair = new_pip6
-    if (new_pip3 == new_pip5) and (new_pip4 == new_pip6):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip3 == new_pip5) and (new_pip4 == new_pip7):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip3 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair = new_pip3
-        if new_pip6 > new_pip3:
-            two_pair = new_pip6
-    if (new_pip3 == new_pip6) and (new_pip4 == new_pip5):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip3 == new_pip6) and (new_pip4 == new_pip7):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip3 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair = new_pip3
-        if new_pip5 > new_pip3:
-            two_pair = new_pip5
-    if (new_pip3 == new_pip7) and (new_pip4 == new_pip5):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip3 == new_pip7) and (new_pip4 == new_pip6):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip3 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair = new_pip3
-        if new_pip4 > new_pip3:
-            two_pair = new_pip4
-    if (new_pip4 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair = new_pip4
-        if new_pip6 > new_pip3:
-            two_pair = new_pip6
-    if (new_pip4 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair = new_pip4
-        if new_pip5 > new_pip3:
-            two_pair = new_pip5
-    if (new_pip4 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair = new_pip4
-        if new_pip5 > new_pip3:
-            two_pair = new_pip5
+    two_pair_kicker = 0
+    sorted_pips = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    if sorted_pips[0] == sorted_pips[1]:
+        two_pair = sorted_pips[0]
+        if sorted_pips[2] == sorted_pips[3 or 4 or 5 or 6]:
+            two_pair_kicker = sorted_pips[2]
+        elif sorted_pips[3] == sorted_pips[4 or 5 or 6]:
+            two_pair_kicker = sorted_pips[3]
+        elif sorted_pips[4] == sorted_pips[5 or 6]:
+            two_pair_kicker = sorted_pips[4]
+        elif sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    elif sorted_pips[1] == sorted_pips[2]:
+        two_pair = sorted_pips[1]
+        if sorted_pips[3] == sorted_pips[4 or 5 or 6]:
+            two_pair_kicker = sorted_pips[3]
+        elif sorted_pips[4] == sorted_pips[5 or 6]:
+            two_pair_kicker = sorted_pips[4]
+        elif sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    elif sorted_pips[2] == sorted_pips[3]:
+        two_pair = sorted_pips[2]
+        if sorted_pips[4] == sorted_pips[5 or 6]:
+            two_pair_kicker = sorted_pips[4]
+        elif sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    elif sorted_pips[3] == sorted_pips[4]:
+        two_pair = sorted_pips[3]
+        if sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    if two_pair_kicker == 0:
+        two_pair = 0
     return two_pair
 
 
@@ -689,427 +301,37 @@ def two_pair_kickers(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip5 = face_cards(pip5)
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
+    two_pair = 0
     two_pair_kicker = 0
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip2) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip2) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip2) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip2) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip2) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip2) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip6 < new_pip1:
-            two_pair_kicker = new_pip6
-    if (new_pip1 == new_pip3) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip3) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip3) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip3) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip3) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip3) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip6 < new_pip1:
-            two_pair_kicker = new_pip6
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip3) and (new_pip2 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip3):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip2 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip4) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip4) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip4) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip4) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip4) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip4) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip6 < new_pip1:
-            two_pair_kicker = new_pip6
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip3):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip2 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip5) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip5) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip5) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip5) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip5) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip6 < new_pip1:
-            two_pair_kicker = new_pip6
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip3):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip2 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip6) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip6) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip6) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip6) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip6) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip3):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip2 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip2 < new_pip1:
-            two_pair_kicker = new_pip2
-    if (new_pip1 == new_pip7) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip7) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip7) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip3 < new_pip1:
-            two_pair_kicker = new_pip3
-    if (new_pip1 == new_pip7) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip7) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip4 < new_pip1:
-            two_pair_kicker = new_pip4
-    if (new_pip1 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip1
-        if new_pip5 < new_pip1:
-            two_pair_kicker = new_pip5
-    if (new_pip2 == new_pip3) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip3) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip3) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip3) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip5 < new_pip2:
-            two_pair_kicker = new_pip5
-    if (new_pip2 == new_pip3) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip5 < new_pip2:
-            two_pair_kicker = new_pip5
-    if (new_pip2 == new_pip3) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip6 < new_pip2:
-            two_pair_kicker = new_pip6
-    if (new_pip2 == new_pip4) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip4) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip4) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip4) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip5 < new_pip2:
-            two_pair_kicker = new_pip5
-    if (new_pip2 == new_pip4) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip5 < new_pip2:
-            two_pair_kicker = new_pip5
-    if (new_pip2 == new_pip4) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip6 < new_pip2:
-            two_pair_kicker = new_pip6
-    if (new_pip2 == new_pip5) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip5) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip5) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip5) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip5) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip6 < new_pip2:
-            two_pair_kicker = new_pip6
-    if (new_pip2 == new_pip6) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip6) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip6) and (new_pip3 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip6) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip6) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip2
-        if new_pip5 < new_pip2:
-            two_pair_kicker = new_pip5
-    if (new_pip2 == new_pip7) and (new_pip3 == new_pip4):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip7) and (new_pip3 == new_pip5):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip7) and (new_pip3 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip3 < new_pip2:
-            two_pair_kicker = new_pip3
-    if (new_pip2 == new_pip7) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip7) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip4 < new_pip2:
-            two_pair_kicker = new_pip4
-    if (new_pip2 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip2
-        if new_pip5 < new_pip2:
-            two_pair_kicker = new_pip5
-    if (new_pip3 == new_pip4) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip3
-        if new_pip5 < new_pip3:
-            two_pair_kicker = new_pip5
-    if (new_pip3 == new_pip4) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip3
-        if new_pip5 < new_pip3:
-            two_pair_kicker = new_pip5
-    if (new_pip3 == new_pip4) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip3
-        if new_pip6 < new_pip3:
-            two_pair_kicker = new_pip6
-    if (new_pip3 == new_pip5) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip3 == new_pip5) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip3 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip3
-        if new_pip6 < new_pip3:
-            two_pair_kicker = new_pip6
-    if (new_pip3 == new_pip6) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip3 == new_pip6) and (new_pip4 == new_pip7):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip3 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip3
-        if new_pip5 < new_pip3:
-            two_pair_kicker = new_pip5
-    if (new_pip3 == new_pip7) and (new_pip4 == new_pip5):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip3 == new_pip7) and (new_pip4 == new_pip6):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip3 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip3
-        if new_pip4 < new_pip3:
-            two_pair_kicker = new_pip4
-    if (new_pip4 == new_pip5) and (new_pip6 == new_pip7):
-        two_pair_kicker = new_pip4
-        if new_pip6 < new_pip3:
-            two_pair_kicker = new_pip6
-    if (new_pip4 == new_pip6) and (new_pip5 == new_pip7):
-        two_pair_kicker = new_pip4
-        if new_pip5 < new_pip3:
-            two_pair_kicker = new_pip5
-    if (new_pip4 == new_pip7) and (new_pip5 == new_pip6):
-        two_pair_kicker = new_pip4
-        if new_pip5 < new_pip3:
-            two_pair_kicker = new_pip5
+    sorted_pips = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    if sorted_pips[0] == sorted_pips[1]:
+        two_pair = sorted_pips[0]
+        if sorted_pips[2] == sorted_pips[3 or 4 or 5 or 6]:
+            two_pair_kicker = sorted_pips[2]
+        elif sorted_pips[3] == sorted_pips[4 or 5 or 6]:
+            two_pair_kicker = sorted_pips[3]
+        elif sorted_pips[4] == sorted_pips[5 or 6]:
+            two_pair_kicker = sorted_pips[4]
+        elif sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    elif sorted_pips[1] == sorted_pips[2]:
+        two_pair = sorted_pips[1]
+        if sorted_pips[3] == sorted_pips[4 or 5 or 6]:
+            two_pair_kicker = sorted_pips[3]
+        elif sorted_pips[4] == sorted_pips[5 or 6]:
+            two_pair_kicker = sorted_pips[4]
+        elif sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    elif sorted_pips[2] == sorted_pips[3]:
+        two_pair = sorted_pips[2]
+        if sorted_pips[4] == sorted_pips[5 or 6]:
+            two_pair_kicker = sorted_pips[4]
+        elif sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
+    elif sorted_pips[3] == sorted_pips[4]:
+        two_pair = sorted_pips[2]
+        if sorted_pips[5] == sorted_pips[6]:
+            two_pair_kicker = sorted_pips[5]
     return two_pair_kicker
 
 
@@ -1209,495 +431,74 @@ def straights(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     third_high_straight = 0
     fourth_high_straight = 0
     fifth_high_straight = 0
-    if new_pip1 - 1 == new_pip2:
-        high_straight = new_pip1
-        second_high_straight = new_pip2
-    if new_pip1 - 1 == new_pip3:
-        high_straight = new_pip1
-        second_high_straight = new_pip3
-    if new_pip1 - 1 == new_pip4:
-        high_straight = new_pip1
-        second_high_straight = new_pip4
-    if new_pip1 - 1 == new_pip5:
-        high_straight = new_pip1
-        second_high_straight = new_pip5
-    if new_pip1 - 1 == new_pip6:
-        high_straight = new_pip1
-        second_high_straight = new_pip6
-    if new_pip1 - 1 == new_pip7:
-        high_straight = new_pip1
-        second_high_straight = new_pip7
-    if new_pip1 + 1 == new_pip2:
-        high_straight = new_pip2
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip3:
-        high_straight = new_pip3
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip4:
-        high_straight = new_pip4
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip5:
-        high_straight = new_pip5
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip6:
-        high_straight = new_pip6
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip7:
-        high_straight = new_pip7
-        second_high_straight = new_pip1
-    if high_straight == 0 and new_pip2 - 1 == new_pip3:
-        high_straight = new_pip2
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip2 - 1 == new_pip4:
-        high_straight = new_pip2
-        second_high_straight = new_pip4
-    if high_straight == 0 and new_pip2 - 1 == new_pip5:
-        high_straight = new_pip2
-        second_high_straight = new_pip5
-    if high_straight == 0 and new_pip2 - 1 == new_pip6:
-        high_straight = new_pip2
-        second_high_straight = new_pip6
-    if high_straight == 0 and new_pip2 - 1 == new_pip7:
-        high_straight = new_pip2
-        second_high_straight = new_pip7
-    if high_straight == 0 and new_pip2 + 1 == new_pip3:
-        high_straight = new_pip3
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip4:
-        high_straight = new_pip4
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip5:
-        high_straight = new_pip5
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip6:
-        high_straight = new_pip6
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip7:
-        high_straight = new_pip7
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip3 - 1 == new_pip4:
-        high_straight = new_pip3
-        second_high_straight = new_pip4
-    if high_straight == 0 and new_pip3 - 1 == new_pip5:
-        high_straight = new_pip3
-        second_high_straight = new_pip5
-    if high_straight == 0 and new_pip3 - 1 == new_pip6:
-        high_straight = new_pip3
-        second_high_straight = new_pip6
-    if high_straight == 0 and new_pip3 - 1 == new_pip7:
-        high_straight = new_pip3
-        second_high_straight = new_pip7
-    if high_straight == 0 and new_pip3 + 1 == new_pip4:
-        high_straight = new_pip4
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip3 + 1 == new_pip5:
-        high_straight = new_pip5
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip3 + 1 == new_pip6:
-        high_straight = new_pip6
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip3 + 1 == new_pip7:
-        high_straight = new_pip7
-        second_high_straight = new_pip3
-    if second_high_straight - 1 == new_pip2:
-        third_high_straight = new_pip2
-    if second_high_straight - 1 == new_pip3:
-        third_high_straight = new_pip3
-    if second_high_straight - 1 == new_pip4:
-        third_high_straight = new_pip4
-    if second_high_straight - 1 == new_pip5:
-        third_high_straight = new_pip5
-    if second_high_straight - 1 == new_pip6:
-        third_high_straight = new_pip6
-    if second_high_straight - 1 == new_pip7:
-        third_high_straight = new_pip7
-    if third_high_straight - 1 == new_pip2:
-        fourth_high_straight = new_pip2
-    if third_high_straight - 1 == new_pip3:
-        fourth_high_straight = new_pip3
-    if third_high_straight - 1 == new_pip4:
-        fourth_high_straight = new_pip4
-    if third_high_straight - 1 == new_pip5:
-        fourth_high_straight = new_pip5
-    if third_high_straight - 1 == new_pip6:
-        fourth_high_straight = new_pip6
-    if third_high_straight - 1 == new_pip7:
-        fourth_high_straight = new_pip7
-    if fourth_high_straight - 1 == new_pip2:
-        fifth_high_straight = new_pip2
-    if fourth_high_straight - 1 == new_pip3:
-        fifth_high_straight = new_pip3
-    if fourth_high_straight - 1 == new_pip4:
-        fifth_high_straight = new_pip4
-    if fourth_high_straight - 1 == new_pip5:
-        fifth_high_straight = new_pip5
-    if fourth_high_straight - 1 == new_pip6:
-        fifth_high_straight = new_pip6
-    if fourth_high_straight - 1 == new_pip7:
-        fifth_high_straight = new_pip7
-    if high_straight + 1 == new_pip2:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip2
-    if high_straight + 1 == new_pip3:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip3
-    if high_straight + 1 == new_pip4:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip4
-    if high_straight + 1 == new_pip5:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip5
-    if high_straight + 1 == new_pip6:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip6
-    if high_straight + 1 == new_pip7:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip7
-    if high_straight + 1 == new_pip2:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip2
-    if high_straight + 1 == new_pip3:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip3
-    if high_straight + 1 == new_pip4:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip4
-    if high_straight + 1 == new_pip5:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip5
-    if high_straight + 1 == new_pip6:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip6
-    if high_straight + 1 == new_pip7:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip7
-    if high_straight + 1 == new_pip2:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip2
-    if high_straight + 1 == new_pip3:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip3
-    if high_straight + 1 == new_pip4:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip4
-    if high_straight + 1 == new_pip5:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip5
-    if high_straight + 1 == new_pip6:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip6
-    if high_straight + 1 == new_pip7:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip7
-    if high_straight and second_high_straight and third_high_straight and fourth_high_straight \
-            and fifth_high_straight > 0:
-        straight = high_straight
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip2 == 14:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip3 == 14:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip4 == 14:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip5 == 14:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip6 == 14:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip7 == 14:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip1 == 14:
-        straight = 5
+    unique_list = []
+    sorted_pips = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    for x in sorted_pips:
+        if x not in unique_list:
+            unique_list.append(x)
+    if len(unique_list) > 4:
+        if unique_list[0] - 4 == unique_list[4]:
+            straight = unique_list[0]
+    if len(unique_list) > 5 and straight == 0:
+        if unique_list[1] - 4 == unique_list[5]:
+            straight = unique_list[1]
+    if len(unique_list) > 6 and straight == 0:
+        if unique_list[2] - 4 == unique_list[6]:
+            straight = unique_list[2]
+    if unique_list[0] == 14:
+        if unique_list[-1] == 2:
+            if unique_list[-2] == 3:
+                if unique_list[-3] == 4:
+                    if unique_list[-4] == 5:
+                        if unique_list[-5] != 6:
+                            straight = 5
+                            return straight
     return straight
 
 
 def flushes(suit1, suit2, suit3, suit4, suit5, suit6, suit7):
-    rand_var = 0
     flush = 0
-# NEED TO FIX
-    if suit1 == suit2:
-        rand_var += 1
-        if suit3 == suit1:
-            rand_var += 1
-            if suit4 == suit1:
-                rand_var += 1
-                if suit5 == suit1:
-                    rand_var += 1
-                if suit6 == suit1:
-                    rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-            if suit5 == suit1:
-                rand_var += 1
-                if suit6 == suit1:
-                    rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-        if suit4 == suit1 and rand_var == 1:
-            rand_var += 1
-            if suit5 == suit1:
-                rand_var += 1
-                if suit6 == suit1:
-                    rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-            if suit6 == suit1 and rand_var == 2:
-                rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-        if suit5 == suit1 and rand_var == 1:
-            rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-    if suit3 == suit1 and rand_var == 0:
-        rand_var += 1
-        if suit4 == suit1:
-            rand_var += 1
-            if suit5 == suit1:
-                rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-            if suit7 == suit1:
-                rand_var += 1
-        if suit5 == suit1 and rand_var == 1:
-            rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-            if suit7 == suit1:
-                rand_var += 1
-    if suit4 == suit1 and rand_var == 0:
-        rand_var += 1
-        if suit5 == suit1:
-            rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-            if suit7 == suit1:
-                rand_var += 1
-    if suit2 == suit3 and rand_var == 0:
-        rand_var += 1
-        if suit4 == suit2:
-            rand_var += 1
-            if suit5 == suit2:
-                rand_var += 1
-                if suit6 == suit2:
-                    rand_var += 1
-                if suit7 == suit2:
-                    rand_var += 1
-            if suit6 == suit2 and rand_var == 2:
-                rand_var += 1
-                if suit7 == suit2:
-                    rand_var += 1
-        if suit5 == suit2 and rand_var == 1:
-            rand_var += 1
-            if suit6 == suit2:
-                rand_var += 1
-                if suit7 == suit2:
-                    rand_var += 1
-    if suit4 == suit2 and rand_var == 0:
-        rand_var += 1
-        if suit5 == suit2:
-            rand_var += 1
-            if suit6 == suit2:
-                rand_var += 1
-            if suit7 == suit2:
-                rand_var += 1
-    if suit3 == suit4 and rand_var == 0:
-        rand_var += 1
-        if suit5 == suit3:
-            rand_var += 1
-            if suit6 == suit3:
-                rand_var += 1
-            if suit7 == suit3:
-                rand_var += 1
-    if rand_var >= 4:
+    heart_count = 0
+    diamond_count = 0
+    spade_count = 0
+    club_count = 0
+    sorted_suits = sorted([suit1, suit2, suit3, suit4, suit5, suit6, suit7])
+    heart_count = sorted_suits.count('H')
+    diamond_count = sorted_suits.count('D')
+    spade_count = sorted_suits.count('S')
+    club_count = sorted_suits.count('C')
+    if heart_count >= 5:
+        flush += 1
+    if diamond_count >= 5:
+        flush += 1
+    if spade_count >= 5:
+        flush += 1
+    if club_count >= 5:
         flush += 1
     return flush
 
 
 def flushes_kicker(suit1, suit2, suit3, suit4, suit5, suit6, suit7):
-    rand_var = 0
     flush_kicker = 0
-# NEED TO FIX
-    if suit1 == suit2:
-        rand_var += 1
-        if suit3 == suit1:
-            rand_var += 1
-            if suit4 == suit1:
-                rand_var += 1
-                if suit5 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-                if suit6 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-                if suit7 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-            if suit5 == suit1:
-                rand_var += 1
-                if suit6 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-                if suit7 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-            if suit6 == suit1:
-                rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-        if suit4 == suit1 and rand_var == 1:
-            rand_var += 1
-            if suit5 == suit1:
-                rand_var += 1
-                if suit6 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-                if suit7 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-            if suit6 == suit1 and rand_var == 2:
-                rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-        if suit5 == suit1 and rand_var == 1:
-            rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-                if suit7 == suit1:
-                    rand_var += 1
-                    flush_kicker = suit1
-    if suit3 == suit1 and rand_var == 0:
-        rand_var += 1
-        if suit4 == suit1:
-            rand_var += 1
-            if suit5 == suit1:
-                rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-                flush_kicker = suit1
-            if suit7 == suit1:
-                rand_var += 1
-                flush_kicker = suit1
-        if suit5 == suit1 and rand_var == 1:
-            rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-            if suit7 == suit1:
-                rand_var += 1
-                flush_kicker = suit1
-    if suit4 == suit1 and rand_var == 0:
-        rand_var += 1
-        if suit5 == suit1:
-            rand_var += 1
-            if suit6 == suit1:
-                rand_var += 1
-            if suit7 == suit1:
-                rand_var += 1
-                flush_kicker = suit1
-    if suit2 == suit3 and rand_var == 0:
-        rand_var += 1
-        if suit4 == suit2:
-            rand_var += 1
-            if suit5 == suit2:
-                rand_var += 1
-                if suit6 == suit2:
-                    rand_var += 1
-                    flush_kicker = suit2
-                if suit7 == suit2:
-                    rand_var += 1
-                    flush_kicker = suit2
-            if suit6 == suit2 and rand_var == 2:
-                rand_var += 1
-                if suit7 == suit2:
-                    rand_var += 1
-                    flush_kicker = suit2
-        if suit5 == suit2 and rand_var == 1:
-            rand_var += 1
-            if suit6 == suit2:
-                rand_var += 1
-                if suit7 == suit2:
-                    rand_var += 1
-                    flush_kicker = suit2
-    if suit4 == suit2 and rand_var == 0:
-        rand_var += 1
-        if suit5 == suit2:
-            rand_var += 1
-            if suit6 == suit2:
-                rand_var += 1
-            if suit7 == suit2:
-                rand_var += 1
-                flush_kicker = suit2
-    if suit3 == suit4 and rand_var == 0:
-        rand_var += 1
-        if suit5 == suit3:
-            rand_var += 1
-            if suit6 == suit3:
-                rand_var += 1
-            if suit7 == suit3:
-                rand_var += 1
-                flush_kicker = suit3
-    if rand_var >= 4:
-        return flush_kicker
+    sorted_suits = sorted([suit1, suit2, suit3, suit4, suit5, suit6, suit7])
+    heart_count = 0
+    diamond_count = 0
+    spade_count = 0
+    club_count = 0
+    sorted_suits = sorted([suit1, suit2, suit3, suit4, suit5, suit6, suit7])
+    heart_count = sorted_suits.count('H')
+    diamond_count = sorted_suits.count('D')
+    spade_count = sorted_suits.count('S')
+    club_count = sorted_suits.count('C')
+    if heart_count >= 5:
+        flush_kicker = 'H'
+    elif diamond_count >= 5:
+        flush_kicker = 'D'
+    elif spade_count >= 5:
+        flush_kicker = 'S'
+    elif club_count >= 5:
+        flush_kicker = 'C'
+    return flush_kicker
 
 
 def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
@@ -1747,6 +548,8 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip3
         if new_pip5 == new_pip6:
             pair = new_pip5
+        if new_pip5 == new_pip7:
+            pair = new_pip7
         if new_pip5 == new_pip6:
             pair = new_pip5
         if new_pip6 == new_pip7:
@@ -2101,7 +904,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip4 == new_pip5 and new_pip3 > new_pip1:
             trip = new_pip3
             pair = new_pip1
-    if new_pip2 == new_pip3 == new_pip4:
+    if new_pip2 == new_pip3 == new_pip4 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip5:
             pair = new_pip1
@@ -2118,7 +921,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip5 == new_pip6 == new_pip7 and new_pip5 > new_pip2:
             trip = new_pip5
             pair = new_pip2
-    if new_pip2 == new_pip3 == new_pip5:
+    if new_pip2 == new_pip3 == new_pip5 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip4:
             pair = new_pip1
@@ -2135,7 +938,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip4 == new_pip6 == new_pip7 and new_pip4 > new_pip2:
             trip = new_pip4
             pair = new_pip2
-    if new_pip2 == new_pip3 == new_pip6:
+    if new_pip2 == new_pip3 == new_pip6 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip4:
             pair = new_pip1
@@ -2152,7 +955,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip4 == new_pip5 == new_pip7 and new_pip4 > new_pip2:
             trip = new_pip4
             pair = new_pip2
-    if new_pip2 == new_pip3 == new_pip7:
+    if new_pip2 == new_pip3 == new_pip7 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip4:
             pair = new_pip1
@@ -2169,7 +972,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip4 == new_pip5 == new_pip6 and new_pip4 > new_pip2:
             trip = new_pip4
             pair = new_pip2
-    if new_pip2 == new_pip4 == new_pip5:
+    if new_pip2 == new_pip4 == new_pip5 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip3:
             pair = new_pip1
@@ -2186,7 +989,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip6 == new_pip7 and new_pip3 > new_pip2:
             trip = new_pip3
             pair = new_pip2
-    if new_pip2 == new_pip4 == new_pip6:
+    if new_pip2 == new_pip4 == new_pip6 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip3:
             pair = new_pip1
@@ -2203,7 +1006,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip5 == new_pip7 and new_pip3 > new_pip2:
             trip = new_pip3
             pair = new_pip2
-    if new_pip2 == new_pip4 == new_pip7:
+    if new_pip2 == new_pip4 == new_pip7 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip3:
             pair = new_pip1
@@ -2220,7 +1023,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip5 == new_pip6 and new_pip3 > new_pip2:
             trip = new_pip3
             pair = new_pip2
-    if new_pip2 == new_pip5 == new_pip6:
+    if new_pip2 == new_pip5 == new_pip6 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip3:
             pair = new_pip1
@@ -2237,7 +1040,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip4 == new_pip7 and new_pip3 > new_pip2:
             trip = new_pip3
             pair = new_pip2
-    if new_pip2 == new_pip5 == new_pip7:
+    if new_pip2 == new_pip5 == new_pip7 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip3:
             pair = new_pip1
@@ -2254,7 +1057,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip4 == new_pip6 and new_pip3 > new_pip2:
             trip = new_pip3
             pair = new_pip2
-    if new_pip2 == new_pip6 == new_pip7:
+    if new_pip2 == new_pip6 == new_pip7 and new_pip2 > trip:
         trip = new_pip2
         if new_pip1 == new_pip3:
             pair = new_pip1
@@ -2271,7 +1074,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
         if new_pip3 == new_pip4 == new_pip5 and new_pip3 > new_pip2:
             trip = new_pip3
             pair = new_pip2
-    if new_pip3 == new_pip4 == new_pip5:
+    if new_pip3 == new_pip4 == new_pip5 and new_pip3 > trip:
         trip = new_pip3
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2285,7 +1088,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip6 == new_pip7:
             pair = new_pip6
-    if new_pip3 == new_pip4 == new_pip6:
+    if new_pip3 == new_pip4 == new_pip6 and new_pip3 > trip:
         trip = new_pip3
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2299,7 +1102,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip5 == new_pip7:
             pair = new_pip5
-    if new_pip3 == new_pip4 == new_pip7:
+    if new_pip3 == new_pip4 == new_pip7 and new_pip3 > trip:
         trip = new_pip3
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2313,7 +1116,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip5 == new_pip6:
             pair = new_pip5
-    if new_pip3 == new_pip5 == new_pip6:
+    if new_pip3 == new_pip5 == new_pip6 and new_pip3 > trip:
         trip = new_pip3
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2327,7 +1130,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip4 == new_pip7:
             pair = new_pip4
-    if new_pip3 == new_pip5 == new_pip7:
+    if new_pip3 == new_pip5 == new_pip7 and new_pip3 > trip:
         trip = new_pip3
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2341,7 +1144,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip4 == new_pip6:
             pair = new_pip4
-    if new_pip3 == new_pip6 == new_pip7:
+    if new_pip3 == new_pip6 == new_pip7 and new_pip3 > trip:
         trip = new_pip3
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2355,7 +1158,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip4 == new_pip5:
             pair = new_pip4
-    if new_pip4 == new_pip5 == new_pip6:
+    if new_pip4 == new_pip5 == new_pip6 and new_pip4 > trip:
         trip = new_pip4
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2369,7 +1172,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip3 == new_pip7:
             pair = new_pip3
-    if new_pip4 == new_pip5 == new_pip7:
+    if new_pip4 == new_pip5 == new_pip7 and new_pip4 > trip:
         trip = new_pip4
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2383,7 +1186,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip3 == new_pip6:
             pair = new_pip3
-    if new_pip4 == new_pip6 == new_pip7:
+    if new_pip4 == new_pip6 == new_pip7 and new_pip4 > trip:
         trip = new_pip4
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2397,7 +1200,7 @@ def full_houses(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
             pair = new_pip2
         if new_pip3 == new_pip5:
             pair = new_pip3
-    if new_pip5 == new_pip6 == new_pip7:
+    if new_pip5 == new_pip6 == new_pip7 and new_pip5 > trip:
         trip = new_pip5
         if new_pip1 == new_pip2:
             pair = new_pip1
@@ -2427,919 +1230,44 @@ def full_house_kickers(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     full_house_kicker = 0
     pair = 0
     trip = 0
-    if new_pip1 == new_pip2 == new_pip3:
-        trip = new_pip1
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-            if new_pip6 == new_pip7 and new_pip6 > new_pip4:
-                pair = new_pip6
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-            if new_pip5 == new_pip7 and new_pip5 > new_pip4:
-                pair = new_pip5
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-            if new_pip5 == new_pip6 and new_pip5 > new_pip4:
-                pair = new_pip5
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip4 == new_pip5 == new_pip6 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-        if new_pip4 == new_pip5 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-        if new_pip4 == new_pip6 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-        if new_pip5 == new_pip6 == new_pip7 and new_pip5 > new_pip1:
-            trip = new_pip5
-            pair = new_pip1
-    if new_pip1 == new_pip2 == new_pip4:
-        trip = new_pip1
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-            if new_pip6 == new_pip7 and new_pip6 > new_pip3:
-                pair = new_pip6
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-            if new_pip5 == new_pip7 and new_pip5 > new_pip3:
-                pair = new_pip5
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-            if new_pip5 == new_pip6 and new_pip5 > new_pip3:
-                pair = new_pip5
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip3 == new_pip5 == new_pip6 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip5 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip6 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip5 == new_pip6 == new_pip7 and new_pip5 > new_pip1:
-            trip = new_pip5
-            pair = new_pip1
-    if new_pip1 == new_pip2 == new_pip5:
-        trip = new_pip1
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-            if new_pip6 == new_pip7 and new_pip6 > new_pip3:
-                pair = new_pip6
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-            if new_pip4 == new_pip7 and new_pip4 > new_pip3:
-                pair = new_pip4
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-            if new_pip4 == new_pip6 and new_pip4 > new_pip3:
-                pair = new_pip4
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip3 == new_pip4 == new_pip6 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip4 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip6 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip4 == new_pip6 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-    if new_pip1 == new_pip2 == new_pip6:
-        trip = new_pip1
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-            if new_pip5 == new_pip7 and new_pip5 > new_pip3:
-                pair = new_pip5
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-            if new_pip4 == new_pip7 and new_pip4 > new_pip3:
-                pair = new_pip4
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-            if new_pip4 == new_pip5 and new_pip4 > new_pip3:
-                pair = new_pip4
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip3 == new_pip4 == new_pip5 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip4 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip5 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip4 == new_pip5 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-    if new_pip1 == new_pip2 == new_pip7:
-        trip = new_pip1
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-            if new_pip5 == new_pip6 and new_pip5 > new_pip3:
-                pair = new_pip5
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-            if new_pip4 == new_pip6 and new_pip4 > new_pip3:
-                pair = new_pip4
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-            if new_pip4 == new_pip5 and new_pip4 > new_pip3:
-                pair = new_pip4
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip3 == new_pip4 == new_pip5 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip4 == new_pip6 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip3 == new_pip5 == new_pip6 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-        if new_pip4 == new_pip5 == new_pip6 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-    if new_pip1 == new_pip3 == new_pip4:
-        trip = new_pip1
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-            if new_pip6 == new_pip7 and new_pip6 > new_pip2:
-                pair = new_pip6
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-            if new_pip5 == new_pip7 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-            if new_pip5 == new_pip6 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip2 == new_pip5 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip5 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip6 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip5 == new_pip6 == new_pip7 and new_pip5 > new_pip1:
-            trip = new_pip5
-            pair = new_pip1
-    if new_pip1 == new_pip3 == new_pip5:
-        trip = new_pip1
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-            if new_pip6 == new_pip7 and new_pip6 > new_pip2:
-                pair = new_pip6
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-            if new_pip4 == new_pip7 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-            if new_pip4 == new_pip6 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip2 == new_pip4 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip4 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip6 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip4 == new_pip6 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-    if new_pip1 == new_pip3 == new_pip6:
-        trip = new_pip1
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-            if new_pip5 == new_pip7 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-            if new_pip4 == new_pip7 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-            if new_pip4 == new_pip5 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip2 == new_pip4 == new_pip5 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip4 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip5 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip4 == new_pip5 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-    if new_pip1 == new_pip3 == new_pip7:
-        trip = new_pip1
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-            if new_pip5 == new_pip6 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-            if new_pip4 == new_pip6 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-            if new_pip4 == new_pip5 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip2 == new_pip4 == new_pip5 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip4 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip5 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip4 == new_pip5 == new_pip7 and new_pip4 > new_pip1:
-            trip = new_pip4
-            pair = new_pip1
-    if new_pip1 == new_pip4 == new_pip5:
-        trip = new_pip1
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-            if new_pip6 == new_pip7 and new_pip6 > new_pip2:
-                pair = new_pip6
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-            if new_pip3 == new_pip7 and new_pip3 > new_pip2:
-                pair = new_pip6
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-            if new_pip3 == new_pip6 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip2 == new_pip3 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip3 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip6 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip3 == new_pip6 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-    if new_pip1 == new_pip4 == new_pip6:
-        trip = new_pip1
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-            if new_pip5 == new_pip7 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-            if new_pip3 == new_pip7 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-            if new_pip3 == new_pip5 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip2 == new_pip3 == new_pip5 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip3 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip5 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip3 == new_pip5 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-    if new_pip1 == new_pip4 == new_pip7:
-        trip = new_pip1
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-            if new_pip5 == new_pip6 and new_pip5 > new_pip2:
-                pair = new_pip5
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-            if new_pip3 == new_pip6 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-            if new_pip3 == new_pip5 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip2 == new_pip3 == new_pip5 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip3 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip5 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip3 == new_pip5 == new_pip6 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-    if new_pip1 == new_pip5 == new_pip6:
-        trip = new_pip1
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-            if new_pip4 == new_pip7 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-            if new_pip3 == new_pip7 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-            if new_pip3 == new_pip4 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip2 == new_pip3 == new_pip4 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip3 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip4 == new_pip7 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip3 == new_pip4 == new_pip7 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-    if new_pip1 == new_pip5 == new_pip7:
-        trip = new_pip1
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-            if new_pip4 == new_pip6 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-            if new_pip3 == new_pip6 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-            if new_pip3 == new_pip4 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip2 == new_pip3 == new_pip4 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip3 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip4 == new_pip6 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip3 == new_pip4 == new_pip6 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-    if new_pip1 == new_pip6 == new_pip7:
-        trip = new_pip1
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-            if new_pip4 == new_pip5 and new_pip4 > new_pip2:
-                pair = new_pip4
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-            if new_pip3 == new_pip5 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-            if new_pip3 == new_pip4 and new_pip3 > new_pip2:
-                pair = new_pip3
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip2 == new_pip3 == new_pip4 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip3 == new_pip5 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip2 == new_pip4 == new_pip5 and new_pip2 > new_pip1:
-            trip = new_pip2
-            pair = new_pip1
-        if new_pip3 == new_pip4 == new_pip5 and new_pip3 > new_pip1:
-            trip = new_pip3
-            pair = new_pip1
-    if new_pip2 == new_pip3 == new_pip4:
-        trip = new_pip2
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip6 == new_pip7 and new_pip6 > new_pip1:
-                pair = new_pip6
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip5 == new_pip7 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip5 == new_pip6 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip5 == new_pip6 == new_pip7 and new_pip5 > new_pip2:
-            trip = new_pip5
-            pair = new_pip2
-    if new_pip2 == new_pip3 == new_pip5:
-        trip = new_pip2
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip6 == new_pip7 and new_pip6 > new_pip1:
-                pair = new_pip6
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip4 == new_pip7 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip4 == new_pip6 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip4 == new_pip6 == new_pip7 and new_pip4 > new_pip2:
-            trip = new_pip4
-            pair = new_pip2
-    if new_pip2 == new_pip3 == new_pip6:
-        trip = new_pip2
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip5 == new_pip7 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip4 == new_pip7 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip4 == new_pip5 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip4 == new_pip5 == new_pip7 and new_pip4 > new_pip2:
-            trip = new_pip4
-            pair = new_pip2
-    if new_pip2 == new_pip3 == new_pip7:
-        trip = new_pip2
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip5 == new_pip6 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip4 == new_pip6 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip4 == new_pip5 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip4 == new_pip5 == new_pip6 and new_pip4 > new_pip2:
-            trip = new_pip4
-            pair = new_pip2
-    if new_pip2 == new_pip4 == new_pip5:
-        trip = new_pip2
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip6 == new_pip7 and new_pip6 > new_pip1:
-                pair = new_pip6
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip3 == new_pip7 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip3 == new_pip6 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip3 == new_pip6:
-            pair = new_pip4
-        if new_pip3 == new_pip7:
-            pair = new_pip4
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-        if new_pip3 == new_pip6 == new_pip7 and new_pip3 > new_pip2:
-            trip = new_pip3
-            pair = new_pip2
-    if new_pip2 == new_pip4 == new_pip6:
-        trip = new_pip2
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip5 == new_pip7 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip3 == new_pip7 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip3 == new_pip5 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip3 == new_pip5:
-            pair = new_pip4
-        if new_pip3 == new_pip7:
-            pair = new_pip4
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-        if new_pip3 == new_pip5 == new_pip7 and new_pip3 > new_pip2:
-            trip = new_pip3
-            pair = new_pip2
-    if new_pip2 == new_pip4 == new_pip7:
-        trip = new_pip2
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip5 == new_pip6 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip3 == new_pip6 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip3 == new_pip5 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip3 == new_pip5:
-            pair = new_pip5
-        if new_pip3 == new_pip6:
-            pair = new_pip5
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-        if new_pip3 == new_pip5 == new_pip6 and new_pip3 > new_pip2:
-            trip = new_pip3
-            pair = new_pip2
-    if new_pip2 == new_pip5 == new_pip6:
-        trip = new_pip2
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip4 == new_pip7 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip3 == new_pip7 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip3 == new_pip4 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-        if new_pip3 == new_pip4 == new_pip7 and new_pip3 > new_pip2:
-            trip = new_pip3
-            pair = new_pip2
-    if new_pip2 == new_pip5 == new_pip7:
-        trip = new_pip2
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip4 == new_pip6 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip3 == new_pip6 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip3 == new_pip4 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-        if new_pip3 == new_pip4 == new_pip6 and new_pip3 > new_pip2:
-            trip = new_pip3
-            pair = new_pip2
-    if new_pip2 == new_pip6 == new_pip7:
-        trip = new_pip2
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip4 == new_pip5 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip3 == new_pip5 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip3 == new_pip4 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-        if new_pip3 == new_pip4 == new_pip5 and new_pip3 > new_pip2:
-            trip = new_pip3
-            pair = new_pip2
-    if new_pip3 == new_pip4 == new_pip5:
-        trip = new_pip3
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip6 == new_pip7 and new_pip6 > new_pip1:
-                pair = new_pip6
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip2 == new_pip7 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip2 == new_pip6 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-        if new_pip6 == new_pip7:
-            pair = new_pip6
-    if new_pip3 == new_pip4 == new_pip6:
-        trip = new_pip3
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip5 == new_pip7 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip2 == new_pip7 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip2 == new_pip5 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-        if new_pip5 == new_pip7:
-            pair = new_pip5
-    if new_pip3 == new_pip4 == new_pip7:
-        trip = new_pip3
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip5 == new_pip6 and new_pip5 > new_pip1:
-                pair = new_pip5
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip2 == new_pip6 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip2 == new_pip5 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-        if new_pip5 == new_pip6:
-            pair = new_pip5
-    if new_pip3 == new_pip5 == new_pip6:
-        trip = new_pip3
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip4 == new_pip7 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip2 == new_pip7 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip2 == new_pip4 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-        if new_pip4 == new_pip7:
-            pair = new_pip4
-    if new_pip3 == new_pip5 == new_pip7:
-        trip = new_pip3
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip4 == new_pip6 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip2 == new_pip6 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip2 == new_pip4 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-        if new_pip4 == new_pip6:
-            pair = new_pip4
-    if new_pip3 == new_pip6 == new_pip7:
-        trip = new_pip3
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip4 == new_pip5 and new_pip4 > new_pip1:
-                pair = new_pip4
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip2 == new_pip5 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip2 == new_pip4 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-        if new_pip4 == new_pip5:
-            pair = new_pip4
-    if new_pip4 == new_pip5 == new_pip6:
-        trip = new_pip4
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip3 == new_pip7 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip2 == new_pip7 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip7:
-            pair = new_pip1
-            if new_pip2 == new_pip3 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-        if new_pip2 == new_pip7:
-            pair = new_pip2
-        if new_pip3 == new_pip7:
-            pair = new_pip3
-    if new_pip4 == new_pip5 == new_pip7:
-        trip = new_pip4
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip3 == new_pip6 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip2 == new_pip6 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip6:
-            pair = new_pip1
-            if new_pip2 == new_pip3 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-        if new_pip2 == new_pip6:
-            pair = new_pip2
-        if new_pip3 == new_pip6:
-            pair = new_pip3
-    if new_pip4 == new_pip6 == new_pip7:
-        trip = new_pip4
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip3 == new_pip5 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip2 == new_pip5 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip5:
-            pair = new_pip1
-            if new_pip2 == new_pip3 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-        if new_pip2 == new_pip5:
-            pair = new_pip2
-        if new_pip3 == new_pip5:
-            pair = new_pip3
-    if new_pip5 == new_pip6 == new_pip7:
-        trip = new_pip5
-        if new_pip1 == new_pip2:
-            pair = new_pip1
-            if new_pip3 == new_pip4 and new_pip3 > new_pip1:
-                pair = new_pip3
-        if new_pip1 == new_pip3:
-            pair = new_pip1
-            if new_pip2 == new_pip4 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip1 == new_pip4:
-            pair = new_pip1
-            if new_pip2 == new_pip3 and new_pip2 > new_pip1:
-                pair = new_pip2
-        if new_pip2 == new_pip3:
-            pair = new_pip2
-        if new_pip2 == new_pip4:
-            pair = new_pip2
-        if new_pip3 == new_pip4:
-            pair = new_pip3
-    if (trip > 0) and (pair > 0):
-        full_house_kicker = pair
-    return full_house_kicker
+    sorted_pip = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
+    if sorted_pip[0] == sorted_pip[1] == sorted_pip[2]:
+        trip = sorted_pip[0]
+        if sorted_pip[3] == sorted_pip[4]:
+            pair = sorted_pip[3]
+        elif sorted_pip[4] == sorted_pip[5]:
+            pair = sorted_pip[4]
+        elif sorted_pip[5] == sorted_pip[6]:
+            pair = sorted_pip[5]
+    elif sorted_pip[1] == sorted_pip[2] == sorted_pip[3]:
+        trip = sorted_pip[1]
+        if sorted_pip[4] == sorted_pip[5]:
+            pair = sorted_pip[4]
+        elif sorted_pip[5] == sorted_pip[6]:
+            pair = sorted_pip[5]
+    elif sorted_pip[2] == sorted_pip[3] == sorted_pip[4]:
+        trip = sorted_pip[2]
+        if sorted_pip[0] == sorted_pip[1]:
+            pair = sorted_pip[0]
+        elif sorted_pip[5] == sorted_pip[6]:
+            pair = sorted_pip[5]
+    elif sorted_pip[3] == sorted_pip[4] == sorted_pip[5]:
+        trip = sorted_pip[3]
+        if sorted_pip[0] == sorted_pip[1]:
+            pair = sorted_pip[0]
+        elif sorted_pip[1] == sorted_pip[2]:
+            pair = sorted_pip[1]
+    elif sorted_pip[4] == sorted_pip[5] == sorted_pip[6]:
+        trip = sorted_pip[4]
+        if sorted_pip[0] == sorted_pip[1]:
+            pair = sorted_pip[0]
+        elif sorted_pip[1] == sorted_pip[2]:
+            pair = sorted_pip[1]
+        elif sorted_pip[2] == sorted_pip[3]:
+            pair = sorted_pip[2]
+    if pair == 0:
+        trip = 0
+    return pair
 
 
 def quads(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
@@ -3414,6 +1342,8 @@ def quads(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     if new_pip3 == new_pip4 == new_pip5 == new_pip6:
         quad = new_pip3
     if new_pip3 == new_pip4 == new_pip5 == new_pip7:
+        quad = new_pip3
+    if new_pip3 == new_pip4 == new_pip6 == new_pip7:
         quad = new_pip3
     if new_pip3 == new_pip5 == new_pip6 == new_pip7:
         quad = new_pip3
@@ -4013,16 +1943,29 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
             ordered_cards.append(hand_1_quads)
             ordered_cards.append(hand_1_quads)
             ordered_cards.append(hand_1_quads)
-            if high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_quads:
-                ordered_cards.append(high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7))
-            elif second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_quads:
-                ordered_cards.append(second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7))
-            elif third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_quads:
-                ordered_cards.append(third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7))
-            elif fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_quads:
-                ordered_cards.append(fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7))
+            if high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                          hand1_pip7) != hand_1_quads:
+                ordered_cards.append(
+                    high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7))
+            elif second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                   hand1_pip7) != hand_1_quads:
+                ordered_cards.append(
+                    second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                      hand1_pip7))
+            elif third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                  hand1_pip7) != hand_1_quads:
+                ordered_cards.append(
+                    third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                     hand1_pip7))
+            elif fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                   hand1_pip7) != hand_1_quads:
+                ordered_cards.append(
+                    fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                      hand1_pip7))
             else:
-                ordered_cards.append(fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7))
+                ordered_cards.append(
+                    fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                     hand1_pip7))
             score = Score(Ranking.FOUR_OF_A_KIND, ordered_cards)
         if hand_1_quads == 0:
             hand_1_full_house = full_houses(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
@@ -4042,121 +1985,20 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
                 hand_1_flush_suit = flushes_kicker(hand1_suit1, hand1_suit2, hand1_suit3, hand1_suit4, hand1_suit5,
                                                    hand1_suit6, hand1_suit7)
                 if hand_1_flush > 0:
-                    hand_1_flush_kicker1 = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                      hand1_pip6, hand1_pip7)
-                    hand_1_flush_kicker2 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                      hand1_pip6, hand1_pip7)
-                    hand_1_flush_kicker3 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                      hand1_pip6, hand1_pip7)
-                    hand_1_flush_kicker4 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                      hand1_pip6, hand1_pip7)
-                    hand_1_flush_kicker5 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                      hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip1 and hand1_suit1 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip2 and hand1_suit2 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip3 and hand1_suit3 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip4 and hand1_suit4 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip5 and hand1_suit5 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip6 and hand1_suit6 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                    if hand_1_flush_kicker1 == hand1_pip7 and hand1_suit7 != hand_1_flush_suit:
-                        hand_1_flush_kicker1 = second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                          hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker2 = third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker3 = fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker4 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                 hand1_pip5,
-                                                                 hand1_pip6, hand1_pip7)
-                        hand_1_flush_kicker5 = sixth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                hand1_pip5,
-                                                                hand1_pip6, hand1_pip7)
+                    list_of_pips2 = []
+                    list_of_suits = [hand1_suit1, hand1_suit2, hand1_suit3, hand1_suit4, hand1_suit5,
+                                     hand1_suit6, hand1_suit7]
+                    list_of_pips = [hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7]
+                    is_suit = [e == hand_1_flush_suit for e in list_of_suits]
+                    is_suit_index = [i for i, x in enumerate(is_suit) if x]
+                    for e in is_suit_index:
+                        list_of_pips2.append(list_of_pips[e])
+                    list_of_pips_sorted = sorted(list_of_pips2, reverse=True)
+                    hand_1_flush_kicker1 = list_of_pips_sorted[0]
+                    hand_1_flush_kicker2 = list_of_pips_sorted[1]
+                    hand_1_flush_kicker3 = list_of_pips_sorted[2]
+                    hand_1_flush_kicker4 = list_of_pips_sorted[3]
+                    hand_1_flush_kicker5 = list_of_pips_sorted[4]
                     ordered_cards.append(hand_1_flush_kicker1)
                     ordered_cards.append(hand_1_flush_kicker2)
                     ordered_cards.append(hand_1_flush_kicker3)
@@ -4172,6 +2014,8 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
                         ordered_cards.append(hand_1_straight - 2)
                         ordered_cards.append(hand_1_straight - 3)
                         ordered_cards.append(hand_1_straight - 4)
+                        if ordered_cards == [5, 4, 3, 2, 1]:
+                            ordered_cards = [5, 4, 3, 2, 14]
                         score = Score(Ranking.STRAIGHT, ordered_cards)
                     if hand_1_straight == 0:
                         hand_1_trips = trips(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
@@ -4182,7 +2026,7 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
                             ordered_cards.append(hand_1_trips)
                             ordered_cards.append(hand_1_trips)
                             if high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
-                                             hand1_pip7) != hand_1_trips:
+                                          hand1_pip7) != hand_1_trips:
                                 hand_1_trips_kicker = high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
                                                                  hand1_pip5, hand1_pip6, hand1_pip7)
                             elif second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
@@ -4199,23 +2043,47 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
                                                                         hand1_pip5, hand1_pip6, hand1_pip7)
                             else:
                                 hand_1_trips_kicker = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4,
-                                                                        hand1_pip5, hand1_pip6, hand1_pip7)
+                                                                       hand1_pip5, hand1_pip6, hand1_pip7)
                             ordered_cards.append(hand_1_trips_kicker)
                             if second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
-                                                 hand1_pip7) < hand_1_trips_kicker and second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_trips:
-                                ordered_cards.append(second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                   hand1_pip6, hand1_pip7))
-                            elif third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
-                                                 hand1_pip7) < hand_1_trips_kicker and third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_trips:
-                                ordered_cards.append(third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                   hand1_pip6, hand1_pip7))
-                            elif fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
-                                                 hand1_pip7) < hand_1_trips_kicker and fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_trips:
-                                ordered_cards.append(fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                   hand1_pip6, hand1_pip7))
+                                                 hand1_pip7) < hand_1_trips_kicker and second_high_cards(hand1_pip1,
+                                                                                                         hand1_pip2,
+                                                                                                         hand1_pip3,
+                                                                                                         hand1_pip4,
+                                                                                                         hand1_pip5,
+                                                                                                         hand1_pip6,
+                                                                                                         hand1_pip7) != hand_1_trips:
+                                ordered_cards.append(
+                                    second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                      hand1_pip6, hand1_pip7))
+                            elif third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                  hand1_pip6,
+                                                  hand1_pip7) < hand_1_trips_kicker and third_high_cards(hand1_pip1,
+                                                                                                         hand1_pip2,
+                                                                                                         hand1_pip3,
+                                                                                                         hand1_pip4,
+                                                                                                         hand1_pip5,
+                                                                                                         hand1_pip6,
+                                                                                                         hand1_pip7) != hand_1_trips:
+                                ordered_cards.append(
+                                    third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                     hand1_pip6, hand1_pip7))
+                            elif fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                   hand1_pip6,
+                                                   hand1_pip7) < hand_1_trips_kicker and fourth_high_cards(hand1_pip1,
+                                                                                                           hand1_pip2,
+                                                                                                           hand1_pip3,
+                                                                                                           hand1_pip4,
+                                                                                                           hand1_pip5,
+                                                                                                           hand1_pip6,
+                                                                                                           hand1_pip7) != hand_1_trips:
+                                ordered_cards.append(
+                                    fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                      hand1_pip6, hand1_pip7))
                             else:
-                                ordered_cards.append(fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                                   hand1_pip6, hand1_pip7))
+                                ordered_cards.append(
+                                    fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                     hand1_pip6, hand1_pip7))
                             score = Score(Ranking.THREE_OF_A_KIND, ordered_cards)
                         if hand_1_trips == 0:
                             hand_1_two_pair = two_pairs(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
@@ -4229,24 +2097,41 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
                                 ordered_cards.append(hand_1_two_pair_kicker)
                                 ordered_cards.append(hand_1_two_pair_kicker)
                                 if high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7) != hand_1_two_pair and high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_two_pair_kicker:
-                                    ordered_cards.append(high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7))
+                                              hand1_pip6, hand1_pip7) != hand_1_two_pair and high_cards(hand1_pip1,
+                                                                                                        hand1_pip2,
+                                                                                                        hand1_pip3,
+                                                                                                        hand1_pip4,
+                                                                                                        hand1_pip5,
+                                                                                                        hand1_pip6,
+                                                                                                        hand1_pip7) != hand_1_two_pair_kicker:
+                                    ordered_cards.append(
+                                        high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                   hand1_pip6, hand1_pip7))
                                 elif second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7) != hand_1_two_pair and second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_two_pair_kicker:
-                                    ordered_cards.append(second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7))
+                                                       hand1_pip6, hand1_pip7) != hand_1_two_pair and second_high_cards(
+                                    hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                    hand1_pip7) != hand_1_two_pair_kicker:
+                                    ordered_cards.append(
+                                        second_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                          hand1_pip6, hand1_pip7))
                                 elif third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7) != hand_1_two_pair and third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_two_pair_kicker:
-                                    ordered_cards.append(third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7))
+                                                      hand1_pip6, hand1_pip7) != hand_1_two_pair and third_high_cards(
+                                    hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                    hand1_pip7) != hand_1_two_pair_kicker:
+                                    ordered_cards.append(
+                                        third_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                         hand1_pip6, hand1_pip7))
                                 elif fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7) != hand_1_two_pair and fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7) != hand_1_two_pair_kicker:
-                                    ordered_cards.append(fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7))
+                                                       hand1_pip6, hand1_pip7) != hand_1_two_pair and fourth_high_cards(
+                                    hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6,
+                                    hand1_pip7) != hand_1_two_pair_kicker:
+                                    ordered_cards.append(
+                                        fourth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                          hand1_pip6, hand1_pip7))
                                 else:
-                                    ordered_cards.append(fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
-                                              hand1_pip6, hand1_pip7))
+                                    ordered_cards.append(
+                                        fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
+                                                         hand1_pip6, hand1_pip7))
                                 score = Score(Ranking.TWO_PAIRS, ordered_cards)
                             if hand_1_two_pair == 0:
                                 hand_1_pair = pairs(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5,
@@ -4302,8 +2187,8 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
                                                                                 hand1_pip7)
                                         if hand_1_pair_kicker3 == hand_1_pair:
                                             hand_1_pair_kicker3 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
-                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
-                                                                                    hand1_pip7)
+                                                                                   hand1_pip4, hand1_pip5, hand1_pip6,
+                                                                                   hand1_pip7)
                                         if hand_1_pair_kicker1 == hand_1_pair:
                                             hand_1_pair_kicker3 = fifth_high_cards(hand1_pip1, hand1_pip2, hand1_pip3,
                                                                                    hand1_pip4, hand1_pip5, hand1_pip6,
@@ -4341,4 +2226,4 @@ if __name__ == '__main__':
     print(hand_1)
     print(hand_2)
     print(best_hands(card_1_pip, card_2_pip, card_3_pip, card_4_pip, card_5_pip, card_6_pip, card_7_pip, card_1_suit,
-              card_2_suit, card_3_suit, card_4_suit, card_5_suit, card_6_suit, card_7_suit))
+                     card_2_suit, card_3_suit, card_4_suit, card_5_suit, card_6_suit, card_7_suit))

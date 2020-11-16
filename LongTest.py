@@ -20,7 +20,27 @@ def run_long_test():
 
 
 if __name__ == '__main__':
-    for x in range(0, 100):
+    for x in range(0, 10000):
         run_long_test()
         print()
         print()
+
+
+#Hand:  ['4H', 'TH', 'TS', 'TD', 'AS', '4C', 'TC']
+#FOUR_OF_A_KIND, ['TH', 'TS', 'TD', 'TC', '4H']
+#FOUR_OF_A_KIND, [10, 10, 10, 10, 14]      ^^
+
+
+#Hand:  ['3D', '4S', '4H', '3H', 'KH', '4D', '4C']
+#FOUR_OF_A_KIND, ['4S', '4H', '4D', '4C', '3D']
+#FOUR_OF_A_KIND, [4, 4, 4, 4, 13]
+
+
+#Hand:  ['4S', '6C', '6D', '4D', '4H', '4C', 'TS']
+#FOUR_OF_A_KIND, ['4S', '4D', '4H', '4C', '6C']
+#FOUR_OF_A_KIND, [4, 4, 4, 4, 10]
+
+
+#Hand:  ['9C', '4H', '4D', '9D', '9H', '9S', '6D']
+#FOUR_OF_A_KIND, ['9C', '9D', '9H', '9S', '4H']
+#FOUR_OF_A_KIND, [9, 9, 9, 9, 6]
