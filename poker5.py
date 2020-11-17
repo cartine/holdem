@@ -238,7 +238,7 @@ def make_flush(cards_of_one_suit):
 
 
 def get_ordered_cards(cards):
-    validate_cards(cards, 7)
+    validate_cards(cards)
     ordered_cards = sorted(cards, key=lambda c: get_pip_value(c), reverse=True)
     return ordered_cards
 
@@ -279,7 +279,10 @@ def find_match_length(ordered_cards, pos):
 def get_four_of_a_kind(match_ordered_cards):
     m = match_ordered_cards
     if m[0][0] == m[1][0] == m[2][0] == m[3][0]:
-        return Score(Ranking.FOUR_OF_A_KIND, m[0:5])
+        kicker = get_highest(m, 4)
+        hand = m[0:4]
+        hand.append(kicker)
+        return Score(Ranking.FOUR_OF_A_KIND, hand)
     else:
         return None
 

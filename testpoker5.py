@@ -37,6 +37,18 @@ class TestPoker5(unittest.TestCase):
         self.assertEqual(score.RANKING, Ranking.TWO_PAIRS)
         self.assertEqual(score.HAND, ['7D', '7H', '6C', '6H', 'QS'])
 
+        # 3 pairs; does the code select the correct 2 pairs and correct 5th card?
+        cards = ('7D', '6C', 'QS', '7H', '5C', '6H', 'QD')
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.TWO_PAIRS)
+        self.assertEqual(score.HAND, ['QS', 'QD', '7D', '7H', '6C'])
+
+        # 3 pairs; does the code select the correct 2 pairs and correct 5th card?
+        cards = ('7D', '6C', 'QS', '7H', '8C', '6H', 'QD')
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.TWO_PAIRS)
+        self.assertEqual(score.HAND, ['QS', 'QD', '7D', '7H', '8C'])
+
     def test_score_threeOfAKind(self):
         cards = ('6H', 'AC', 'QC', '4S', 'AS', 'AH', '7S')
         score = get_score(cards)
@@ -142,11 +154,23 @@ class TestPoker5(unittest.TestCase):
         self.assertEqual(score.RANKING, Ranking.FULL_HOUSE)
         self.assertEqual(score.HAND, ['TS', 'TD', 'TC', 'AD', 'AC'])
 
+        # 3-of-a-kind and two 2 pairs; does it pick the correct pair?
+        cards = ('AD', 'AC', 'TS', '7D', 'TD', 'TC', '7S')
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.FULL_HOUSE)
+        self.assertEqual(score.HAND, ['TS', 'TD', 'TC', 'AD', 'AC'])
+
+        # 3-of-a-kind and two 2 pairs; does it pick the correct pair?
+        cards = ('2D', '2C', 'TS', '7D', 'TD', 'TC', '7S')
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.FULL_HOUSE)
+        self.assertEqual(score.HAND, ['TS', 'TD', 'TC', '7D', '7S'])
+
     def test_score_fourOfAKind(self):
         cards = ('3D', '5D', '8C', '8S', '8D', '8H', '7S')
         score = get_score(cards)
         self.assertEqual(score.RANKING, Ranking.FOUR_OF_A_KIND)
-        self.assertEqual(score.HAND, ['8C', '8S', '8D', '8H', '7S'])
+        self.assertEqual(['8C', '8S', '8D', '8H', '7S'], score.HAND)
 
         cards = ('5D', 'AC', '3D', 'AS', 'AD', '7S', 'AH')
         score = get_score(cards)
@@ -157,6 +181,31 @@ class TestPoker5(unittest.TestCase):
         score = get_score(cards)
         self.assertEqual(score.RANKING, Ranking.FOUR_OF_A_KIND)
         self.assertEqual(score.HAND, ['2C', '2S', '2D', '2H', '7S'])
+
+        # The next 4 are bugs Peter found. My code was returning the wrong 5-card hand. Testing the bugfix.
+        # The bug: If it was 4-of-a-kind and 2-of-a-kind, the fifth card was chosen from the 2-of-a kind
+        #          even if it was the wrong card.
+
+        cards = ['4H', 'TH', 'TS', 'TD', 'AS', '4C', 'TC']
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.FOUR_OF_A_KIND)
+        self.assertEqual(score.HAND, ['TH', 'TS', 'TD', 'TC', 'AS'])
+
+        cards = ['3D', '4S', '4H', '3H', 'KH', '4D', '4C']
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.FOUR_OF_A_KIND)
+        self.assertEqual(score.HAND, ['4S', '4H', '4D', '4C', 'KH'])
+
+        cards = ['4S', '6C', '6D', '4D', '4H', '4C', 'TS']
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.FOUR_OF_A_KIND)
+        self.assertEqual(score.HAND, ['4S', '4D', '4H', '4C', 'TS'])
+
+        cards = ['9C', '4H', '4D', '9D', '9H', '9S', '6D']
+        score = get_score(cards)
+        self.assertEqual(score.RANKING, Ranking.FOUR_OF_A_KIND)
+        self.assertEqual(score.HAND, ['9C', '9D', '9H', '9S', '6D'])
+
 
     def test_score_straightFlush_no_ace(self):
         # 5 cards
