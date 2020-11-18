@@ -426,11 +426,6 @@ def straights(pip1, pip2, pip3, pip4, pip5, pip6, pip7):
     new_pip6 = face_cards(pip6)
     new_pip7 = face_cards(pip7)
     straight = 0
-    high_straight = 0
-    second_high_straight = 0
-    third_high_straight = 0
-    fourth_high_straight = 0
-    fifth_high_straight = 0
     unique_list = []
     sorted_pips = sorted([new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7], reverse=True)
     for x in sorted_pips:
@@ -1648,262 +1643,35 @@ def straight_flushes(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, sui
     is_flush_kicker = flushes_kicker(suit1, suit2, suit3, suit4, suit5, suit6, suit7)
     straight_flush = 0
     straight = 0
-    high_straight = 0
-    second_high_straight = 0
-    third_high_straight = 0
-    fourth_high_straight = 0
-    fifth_high_straight = 0
-    if new_pip1 - 1 == new_pip2 and suit1 == is_flush_kicker and suit2 == is_flush_kicker:
-        high_straight = new_pip1
-        second_high_straight = new_pip2
-    if new_pip1 - 1 == new_pip3 and suit1 == is_flush_kicker and suit3 == is_flush_kicker:
-        high_straight = new_pip1
-        second_high_straight = new_pip3
-    if new_pip1 - 1 == new_pip4 and suit1 == is_flush_kicker and suit4 == is_flush_kicker:
-        high_straight = new_pip1
-        second_high_straight = new_pip4
-    if new_pip1 - 1 == new_pip5 and suit1 == is_flush_kicker and suit5 == is_flush_kicker:
-        high_straight = new_pip1
-        second_high_straight = new_pip5
-    if new_pip1 - 1 == new_pip6 and suit1 == is_flush_kicker and suit6 == is_flush_kicker:
-        high_straight = new_pip1
-        second_high_straight = new_pip6
-    if new_pip1 - 1 == new_pip7 and suit1 == is_flush_kicker and suit7 == is_flush_kicker:
-        high_straight = new_pip1
-        second_high_straight = new_pip7
-    if new_pip1 + 1 == new_pip2 and suit1 == is_flush_kicker and suit2 == is_flush_kicker:
-        high_straight = new_pip2
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip3 and suit1 == is_flush_kicker and suit3 == is_flush_kicker:
-        high_straight = new_pip3
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip4 and suit1 == is_flush_kicker and suit4 == is_flush_kicker:
-        high_straight = new_pip4
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip5 and suit1 == is_flush_kicker and suit5 == is_flush_kicker:
-        high_straight = new_pip5
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip6 and suit1 == is_flush_kicker and suit6 == is_flush_kicker:
-        high_straight = new_pip6
-        second_high_straight = new_pip1
-    if new_pip1 + 1 == new_pip7 and suit1 == is_flush_kicker and suit7 == is_flush_kicker:
-        high_straight = new_pip7
-        second_high_straight = new_pip1
-    if high_straight == 0 and new_pip2 - 1 == new_pip3 and suit2 == is_flush_kicker and suit3 == is_flush_kicker:
-        high_straight = new_pip2
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip2 - 1 == new_pip4 and suit2 == is_flush_kicker and suit4 == is_flush_kicker:
-        high_straight = new_pip2
-        second_high_straight = new_pip4
-    if high_straight == 0 and new_pip2 - 1 == new_pip5 and suit2 == is_flush_kicker and suit5 == is_flush_kicker:
-        high_straight = new_pip2
-        second_high_straight = new_pip5
-    if high_straight == 0 and new_pip2 - 1 == new_pip6 and suit2 == is_flush_kicker and suit6 == is_flush_kicker:
-        high_straight = new_pip2
-        second_high_straight = new_pip6
-    if high_straight == 0 and new_pip2 - 1 == new_pip7 and suit2 == is_flush_kicker and suit7 == is_flush_kicker:
-        high_straight = new_pip2
-        second_high_straight = new_pip7
-    if high_straight == 0 and new_pip2 + 1 == new_pip3 and suit2 == is_flush_kicker and suit3 == is_flush_kicker:
-        high_straight = new_pip3
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip4 and suit2 == is_flush_kicker and suit4 == is_flush_kicker:
-        high_straight = new_pip4
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip5 and suit2 == is_flush_kicker and suit5 == is_flush_kicker:
-        high_straight = new_pip5
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip6 and suit2 == is_flush_kicker and suit6 == is_flush_kicker:
-        high_straight = new_pip6
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip2 + 1 == new_pip7 and suit2 == is_flush_kicker and suit7 == is_flush_kicker:
-        high_straight = new_pip7
-        second_high_straight = new_pip2
-    if high_straight == 0 and new_pip3 - 1 == new_pip4 and suit3 == is_flush_kicker and suit4 == is_flush_kicker:
-        high_straight = new_pip3
-        second_high_straight = new_pip4
-    if high_straight == 0 and new_pip3 - 1 == new_pip5 and suit3 == is_flush_kicker and suit5 == is_flush_kicker:
-        high_straight = new_pip3
-        second_high_straight = new_pip5
-    if high_straight == 0 and new_pip3 - 1 == new_pip6 and suit3 == is_flush_kicker and suit6 == is_flush_kicker:
-        high_straight = new_pip3
-        second_high_straight = new_pip6
-    if high_straight == 0 and new_pip3 - 1 == new_pip7 and suit3 == is_flush_kicker and suit7 == is_flush_kicker:
-        high_straight = new_pip3
-        second_high_straight = new_pip7
-    if high_straight == 0 and new_pip3 + 1 == new_pip4 and suit3 == is_flush_kicker and suit4 == is_flush_kicker:
-        high_straight = new_pip4
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip3 + 1 == new_pip5 and suit3 == is_flush_kicker and suit5 == is_flush_kicker:
-        high_straight = new_pip5
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip3 + 1 == new_pip6 and suit3 == is_flush_kicker and suit6 == is_flush_kicker:
-        high_straight = new_pip6
-        second_high_straight = new_pip3
-    if high_straight == 0 and new_pip3 + 1 == new_pip7 and suit3 == is_flush_kicker and suit7 == is_flush_kicker:
-        high_straight = new_pip7
-        second_high_straight = new_pip3
-    if second_high_straight - 1 == new_pip2 and suit2 == is_flush_kicker:
-        third_high_straight = new_pip2
-    if second_high_straight - 1 == new_pip3 and suit3 == is_flush_kicker:
-        third_high_straight = new_pip3
-    if second_high_straight - 1 == new_pip4 and suit4 == is_flush_kicker:
-        third_high_straight = new_pip4
-    if second_high_straight - 1 == new_pip5 and suit5 == is_flush_kicker:
-        third_high_straight = new_pip5
-    if second_high_straight - 1 == new_pip6 and suit6 == is_flush_kicker:
-        third_high_straight = new_pip6
-    if second_high_straight - 1 == new_pip7 and suit7 == is_flush_kicker:
-        third_high_straight = new_pip7
-    if third_high_straight - 1 == new_pip2 and suit2 == is_flush_kicker:
-        fourth_high_straight = new_pip2
-    if third_high_straight - 1 == new_pip3 and suit3 == is_flush_kicker:
-        fourth_high_straight = new_pip3
-    if third_high_straight - 1 == new_pip4 and suit4 == is_flush_kicker:
-        fourth_high_straight = new_pip4
-    if third_high_straight - 1 == new_pip5 and suit5 == is_flush_kicker:
-        fourth_high_straight = new_pip5
-    if third_high_straight - 1 == new_pip6 and suit6 == is_flush_kicker:
-        fourth_high_straight = new_pip6
-    if third_high_straight - 1 == new_pip7 and suit7 == is_flush_kicker:
-        fourth_high_straight = new_pip7
-    if fourth_high_straight - 1 == new_pip2 and suit2 == is_flush_kicker:
-        fifth_high_straight = new_pip2
-    if fourth_high_straight - 1 == new_pip3 and suit3 == is_flush_kicker:
-        fifth_high_straight = new_pip3
-    if fourth_high_straight - 1 == new_pip4 and suit4 == is_flush_kicker:
-        fifth_high_straight = new_pip4
-    if fourth_high_straight - 1 == new_pip5 and suit5 == is_flush_kicker:
-        fifth_high_straight = new_pip5
-    if fourth_high_straight - 1 == new_pip6 and suit6 == is_flush_kicker:
-        fifth_high_straight = new_pip6
-    if fourth_high_straight - 1 == new_pip7 and suit7 == is_flush_kicker:
-        fifth_high_straight = new_pip7
-    if high_straight + 1 == new_pip2 and suit2 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip2
-    if high_straight + 1 == new_pip3 and suit3 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip3
-    if high_straight + 1 == new_pip4 and suit4 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip4
-    if high_straight + 1 == new_pip5 and suit5 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip5
-    if high_straight + 1 == new_pip6 and suit6 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip6
-    if high_straight + 1 == new_pip7 and suit7 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip7
-    if high_straight + 1 == new_pip2 and suit2 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip2
-    if high_straight + 1 == new_pip3 and suit3 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip3
-    if high_straight + 1 == new_pip4 and suit4 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip4
-    if high_straight + 1 == new_pip5 and suit5 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip5
-    if high_straight + 1 == new_pip6 and suit6 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip6
-    if high_straight + 1 == new_pip7 and suit7 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip7
-    if high_straight + 1 == new_pip2 and suit2 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip2
-    if high_straight + 1 == new_pip3 and suit3 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip3
-    if high_straight + 1 == new_pip4 and suit4 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip4
-    if high_straight + 1 == new_pip5 and suit5 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip5
-    if high_straight + 1 == new_pip6 and suit6 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip6
-    if high_straight + 1 == new_pip7 and suit7 == is_flush_kicker:
-        fifth_high_straight = fourth_high_straight
-        fourth_high_straight = third_high_straight
-        third_high_straight = second_high_straight
-        second_high_straight = high_straight
-        high_straight = new_pip7
-    if high_straight and second_high_straight and third_high_straight and fourth_high_straight \
-            and fifth_high_straight > 0:
-        straight = high_straight
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip2 == 14 and suit2 == is_flush_kicker:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip3 == 14 and suit3 == is_flush_kicker:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip4 == 14 and suit4 == is_flush_kicker:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip5 == 14 and suit5 == is_flush_kicker:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip6 == 14 and suit6 == is_flush_kicker:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip7 == 14 and suit7 == is_flush_kicker:
-        straight = 5
-    if high_straight == 5 and fourth_high_straight == 2 and new_pip1 == 14 and suit1 == is_flush_kicker:
-        straight = 5
+    unique_list = []
+    list_of_pips2 = []
+    list_of_suits = [suit1, suit2, suit3, suit4, suit5, suit6, suit7]
+    list_of_pips = [new_pip1, new_pip2, new_pip3, new_pip4, new_pip5, new_pip6, new_pip7]
+    is_suit = [e == is_flush_kicker for e in list_of_suits]
+    is_suit_index = [i for i, x in enumerate(is_suit) if x]
+    for e in is_suit_index:
+        list_of_pips2.append(list_of_pips[e])
+    list_of_pips_sorted = sorted(list_of_pips2, reverse=True)
+    for x in list_of_pips_sorted:
+        if x not in unique_list:
+            unique_list.append(x)
+    if is_flush > 0:
+        if len(unique_list) > 4:
+            if unique_list[0] - 4 == unique_list[4]:
+                straight = unique_list[0]
+        if len(unique_list) > 5 and straight == 0:
+            if unique_list[1] - 4 == unique_list[5]:
+                straight = unique_list[1]
+        if len(unique_list) > 6 and straight == 0:
+            if unique_list[2] - 4 == unique_list[6]:
+                straight = unique_list[2]
+        if unique_list[0] == 14:
+            if unique_list[-1] == 2:
+                if unique_list[-2] == 3:
+                    if unique_list[-3] == 4:
+                        if unique_list[-4] == 5:
+                            if unique_list[-5] != 6:
+                                straight = 5
     if is_flush and straight > 0:
         straight_flush = straight
     return straight_flush
@@ -1935,6 +1703,8 @@ def best_hands(pip1, pip2, pip3, pip4, pip5, pip6, pip7, suit1, suit2, suit3, su
         ordered_cards.append(hand_1_straight_flush - 2)
         ordered_cards.append(hand_1_straight_flush - 3)
         ordered_cards.append(hand_1_straight_flush - 4)
+        if ordered_cards == [5, 4, 3, 2, 1]:
+            ordered_cards = [5, 4, 3, 2, 14]
         score = Score(Ranking.STRAIGHT_FLUSH, ordered_cards)
     if hand_1_straight_flush == 0:
         hand_1_quads = quads(hand1_pip1, hand1_pip2, hand1_pip3, hand1_pip4, hand1_pip5, hand1_pip6, hand1_pip7)

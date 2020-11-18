@@ -150,5 +150,14 @@ class TestPeterBestHand(unittest.TestCase):
         self.assertEqual([6, 5, 4, 3, 2], score.HAND)
 
 
+    def testStraightFlush(self):
+        hand = ['QH', 'AS', '5D', '4S', '2S', '5S', '3S']
+        pips = [i for i, j in hand]
+        suits = [j for i, j in hand]
+        score = best_hands(*pips, *suits)
+        self.assertEqual(score.RANKING, Ranking.STRAIGHT_FLUSH)
+        self.assertEqual([5, 4, 3, 2, 14], score.HAND)
+
+
 if __name__ == '__main__':
     unittest.main()
