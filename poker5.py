@@ -8,7 +8,7 @@ from random import shuffle
 class Score:
     def __init__(self, ranking, hand):
         assert (isinstance(ranking, Ranking))
-#        validate_cards(hand, 5)
+        validate_cards(hand, 5)
         self.RANKING = ranking
         self.HAND = hand
 
@@ -112,7 +112,7 @@ class Ranking(IntEnum):
 
 
 def get_pip_value(card):
-    assert (len(card) == 2)
+#    assert (len(card) == 2)
     p = card[0]
     return get_pip(p)
 

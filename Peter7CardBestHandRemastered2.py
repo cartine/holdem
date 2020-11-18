@@ -1,6 +1,5 @@
 import random
 from poker5 import Ranking
-from poker5 import Score
 
 pips = [2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']
 heart = ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
@@ -57,6 +56,26 @@ card_13_suit = card_13[1]
 card_14 = hand_2[6]
 card_14_pip = card_14[0]
 card_14_suit = card_14[1]
+
+
+class Score:
+    def __init__(self, ranking, hand):
+#        assert (isinstance(ranking, Ranking))
+#        validate_cards(hand, 5)
+        self.RANKING = ranking
+        self.HAND = hand
+
+    def __str__(self):
+        return self.RANKING.name + ", " + str(self.HAND)
+
+    def compare(self, score2):
+        r = self.RANKING - score2.RANKING
+        if r == 0:
+            for i in range(0, 5):
+                r = face_cards(self.HAND[i]) - face_cards(score2.HAND[i])
+                if r != 0:
+                    break
+        return r
 
 
 def face_cards(face_card):

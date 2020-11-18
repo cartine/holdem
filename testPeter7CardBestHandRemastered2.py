@@ -6,13 +6,13 @@ class TestPeterBestHand(unittest.TestCase):
 
     def testStraight(self):
         score = best_hands(7, 3, 9, 6, 8, 5, 'T', 'S', 'S', 'D', 'S', 'C', 'H', 'H')
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT)
+        self.assertEqual(Ranking.STRAIGHT, score.RANKING)
         self.assertEqual([10, 9, 8, 7, 6], score.HAND)
 
 
     def testPair(self):
         score = best_hands('T', 'A', 'Q', 'A', 8, 6, 7, 'H', 'H', 'D', 'C', 'S', 'H', 'C')
-        self.assertEqual(score.RANKING, Ranking.PAIR)
+        self.assertEqual(Ranking.PAIR, score.RANKING)
         self.assertEqual([14, 14, 12, 10, 8], score.HAND)
 
     def testFlush(self):
@@ -20,7 +20,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.FLUSH)
+        self.assertEqual(Ranking.FLUSH, score.RANKING)
         self.assertEqual([14, 13, 11, 5, 3], score.HAND)
 
 
@@ -29,7 +29,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.TWO_PAIRS)
+        self.assertEqual(Ranking.TWO_PAIRS, score.RANKING)
         self.assertEqual([11, 11, 10, 10, 9], score.HAND)
 
 
@@ -38,7 +38,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.TWO_PAIRS)
+        self.assertEqual(Ranking.TWO_PAIRS, score.RANKING)
         self.assertEqual([14, 14, 9, 9, 4], score.HAND)
 
 
@@ -47,7 +47,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.TWO_PAIRS)
+        self.assertEqual(Ranking.TWO_PAIRS, score.RANKING)
         self.assertEqual([6, 6, 5, 5, 14], score.HAND)
 
 
@@ -56,7 +56,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.PAIR)
+        self.assertEqual(Ranking.PAIR, score.RANKING)
         self.assertEqual([11, 11, 14, 9, 8], score.HAND)
 
 
@@ -65,7 +65,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.FULL_HOUSE)
+        self.assertEqual(Ranking.FULL_HOUSE, score.RANKING)
         self.assertEqual([13, 13, 13, 12, 12], score.HAND)
 
 
@@ -74,7 +74,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT)
+        self.assertEqual(Ranking.STRAIGHT, score.RANKING)
         self.assertEqual([5, 4, 3, 2, 14], score.HAND)
 
 
@@ -83,7 +83,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.FLUSH)
+        self.assertEqual(Ranking.FLUSH, score.RANKING)
         self.assertEqual([12, 9, 8, 6, 2], score.HAND)
 
 
@@ -92,7 +92,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.FLUSH)
+        self.assertEqual(Ranking.FLUSH, score.RANKING)
         self.assertEqual([12, 11, 10, 8, 4], score.HAND)
 
 
@@ -101,7 +101,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT)
+        self.assertEqual(Ranking.STRAIGHT, score.RANKING)
         self.assertEqual([12, 11, 10, 9, 8], score.HAND)
 
 
@@ -110,7 +110,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT)
+        self.assertEqual(Ranking.STRAIGHT, score.RANKING)
         self.assertEqual([5, 4, 3, 2, 14], score.HAND)
 
 
@@ -119,7 +119,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT)
+        self.assertEqual(Ranking.STRAIGHT, score.RANKING)
         self.assertEqual([7, 6, 5, 4, 3], score.HAND)
 
 
@@ -128,7 +128,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.HIGH_CARD)
+        self.assertEqual(Ranking.HIGH_CARD, score.RANKING)
         self.assertEqual([14, 12, 11, 10, 6], score.HAND)
 
 
@@ -137,7 +137,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.FULL_HOUSE)
+        self.assertEqual(Ranking.FULL_HOUSE, score.RANKING)
         self.assertEqual([4, 4, 4, 2, 2], score.HAND)
 
 
@@ -146,7 +146,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT)
+        self.assertEqual(Ranking.STRAIGHT, score.RANKING)
         self.assertEqual([6, 5, 4, 3, 2], score.HAND)
 
 
@@ -155,7 +155,7 @@ class TestPeterBestHand(unittest.TestCase):
         pips = [i for i, j in hand]
         suits = [j for i, j in hand]
         score = best_hands(*pips, *suits)
-        self.assertEqual(score.RANKING, Ranking.STRAIGHT_FLUSH)
+        self.assertEqual(Ranking.STRAIGHT_FLUSH, score.RANKING)
         self.assertEqual([5, 4, 3, 2, 14], score.HAND)
 
 
