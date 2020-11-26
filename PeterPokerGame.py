@@ -2,13 +2,102 @@ from Peter7CardBestHandRemastered2 import *
 
 
 class Player:
-    def __init__(self, chips, position):
+    def __init__(self, chips, name):
         self.CHIPS = chips
         self.HAND = None
-        self.POS = position  # 'BB' or 'SB/D' for Big Blind or Small Blind/Dealer
+        self.name = name
 
     def __str__(self):
-        return str(self.CHIPS) + ", " + str(self.HAND) + ", " + str(self.POS)
+        return str(self.CHIPS) + ", " + str(self.HAND) + ", " + str(self.name)
+
+
+class CPUPlayer(Player):
+    def decide(self, other, the_table):
+        decision = random.randint(1, 3)
+        if decision == 1:
+            if the_table.ACTIVE > 0:
+                self.CHIPS -= the_table.ACTIVE
+                the_table.ACTIVE *= 2
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                print('CPU CALLS')
+                return 'call'
+            else:
+                print('CPU CHECKS')
+        elif decision == 2:
+            raise_amount = random.randint(1, 10)
+            if the_table.ACTIVE > 0:
+                self.CHIPS -= the_table.ACTIVE
+                the_table.ACTIVE *= 2
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                self.CHIPS -= raise_amount
+                the_table.ACTIVE += raise_amount
+                print('CPU CALLS THEN RE-RAISES', raise_amount)
+                return
+            if the_table.ACTIVE == 0:
+                self.CHIPS -= raise_amount
+                the_table.ACTIVE += raise_amount
+                print('CPU RAISES', raise_amount)
+                return
+        elif decision == 3:
+            if the_table.ACTIVE == 0:
+                print('CPU CHECKS')
+            if the_table.ACTIVE > 0:
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                other.CHIPS += the_table.POT
+                print(f'{self.name} FOLDS \n {other.name} +' + str(the_table.POT))
+                the_table.POT = 0
+                return 'fold'
+
+
+class CLPlayer(Player):
+    def decide(self, other, the_table):
+        if (the_table.ACTIVE > 0) and (the_table.POT > 0):
+            choice = input('CALL, RAISE or FOLD?')
+            if choice.upper() == 'CALL':
+                self.CHIPS -= the_table.ACTIVE
+                the_table.ACTIVE *= 2
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                print('USER CALLS')
+                return 'call'
+            elif choice.upper() == 'RAISE':
+                raise_amount = int(input('Amount: '))
+                self.CHIPS -= the_table.ACTIVE
+                the_table.ACTIVE *= 2
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                self.CHIPS -= raise_amount
+                the_table.ACTIVE += raise_amount
+                print('USER RAISES', raise_amount)
+                return
+            else:
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                other.CHIPS += the_table.POT
+                print(f'{self.name} FOLDS \n {other.name} +' + str(the_table.POT))
+                the_table.POT = 0
+                return 'fold'
+        else:
+            choice = input('CHECK, RAISE or FOLD?')
+            if choice.upper() == 'CHECK':
+                print('USER CHECKS')
+                return
+            elif choice.upper() == 'RAISE':
+                raise_amount = int(input('Amount: '))
+                self.CHIPS -= raise_amount
+                the_table.ACTIVE += raise_amount
+                print('USER RAISES')
+                return
+            else:
+                the_table.POT += the_table.ACTIVE
+                the_table.ACTIVE = 0
+                other.CHIPS += the_table.POT
+                print(f'{self.name} FOLDS \n {other.name} +' + str(the_table.POT))
+                the_table.POT = 0
+                return 'fold'
 
 
 class Table:
@@ -31,202 +120,93 @@ spades = list(zip(pips, spade))
 clubs = list(zip(pips, club))
 diamonds = list(zip(pips, diamond))
 deck = hearts + spades + clubs + diamonds
-User = Player(1000, 'SB/D')
-CPU = Player(1000, 'BB')
+User = CLPlayer(1000, 'User')
+CPU = CPUPlayer(1000, 'CPU')
 table = Table(0, 0)
 
 
-def cpu_play():
-    decision = random.randint(1, 3)
-    if decision == 1:
-        if table.ACTIVE > 0:
-            CPU.CHIPS -= table.ACTIVE
-            table.ACTIVE *= 2
-            table.POT += table.ACTIVE
-            table.ACTIVE = 0
-            print('CPU CALLS')
-            return 'call'
-        else:
-            print('CPU CHECKS')
-    elif decision == 2:
-        raise_amount = random.randint(1, 10)
-        if table.ACTIVE > 0:
-            CPU.CHIPS -= table.ACTIVE
-            table.ACTIVE *= 2
-            table.POT += table.ACTIVE
-            table.ACTIVE = 0
-            CPU.CHIPS -= raise_amount
-            table.ACTIVE += raise_amount
-            print('CPU CALLS THEN RE-RAISES', raise_amount)
-            return
-        if table.ACTIVE == 0:
-            CPU.CHIPS -= raise_amount
-            table.ACTIVE += raise_amount
-            print('CPU RAISES', raise_amount)
-            return
-    elif decision == 3:
-        if table.ACTIVE == 0:
-            print('CPU CHECKS')
-        if table.ACTIVE > 0:
-            return 'cpu fold'
-
-
-def user_play():
-    if table.ACTIVE and table.POT > 0:
-        choice = input('CALL, RAISE or FOLD?')
-        if choice.upper() == 'CALL':
-            User.CHIPS -= table.ACTIVE
-            table.ACTIVE *= 2
-            table.POT += table.ACTIVE
-            table.ACTIVE = 0
-            print('USER CALLS')
-            return 'call'
-        elif choice.upper() == 'RAISE':
-            raise_amount = int(input('Amount: '))
-            User.CHIPS -= table.ACTIVE
-            table.ACTIVE *= 2
-            table.POT += table.ACTIVE
-            table.ACTIVE = 0
-            User.CHIPS -= raise_amount
-            table.ACTIVE += raise_amount
-            print('USER RAISES', raise_amount)
-            return
-        else:
-            return 'user fold'
-    else:
-        choice = input('CHECK, RAISE or FOLD?')
-        if choice.upper() == 'CHECK':
-            print('USER CHECKS')
-            return
-        elif choice.upper() == 'RAISE':
-            raise_amount = int(input('Amount: '))
-            User.CHIPS -= raise_amount
-            table.ACTIVE += raise_amount
-            print('USER RAISES')
-            return
-        else:
-            return 'user fold'
-
-
-def table_action(decision):
-    if decision == 'user fold':
-        table.POT += table.ACTIVE
-        table.ACTIVE = 0
-        CPU.CHIPS += table.POT
-        print('USER FOLDS \n CPU +' + str(table.POT))
-        table.POT = 0
-        return 'fold'
-    elif decision == 'cpu fold':
-        table.POT += table.ACTIVE
-        table.ACTIVE = 0
-        User.CHIPS += table.POT
-        print('CPU FOLDS \n USER +' + str(table.POT))
-        table.POT = 0
-        return 'fold'
-    elif decision == 'call':
-        return 'call'
-    else:
-        print('ACTIVE POT:', table.ACTIVE, 'CENTER POT:', table.POT)
-
-
-def bb_play():
-    if User.POS == 'BB':
-        return user_play()
-    else:
-        return cpu_play()
-
-
-def sb_play():
-    if User.POS == 'SB/D':
-        return user_play()
-    else:
-        return cpu_play()
-
-
-def play():
-    User.HAND = random.sample(deck, 2)
-    CPU.HAND = random.sample(deck, 2)
-    table.COM_CARDS = random.sample(deck, 5)
+def play2(sb_player, bb_player):
+    all_cards = random.sample(deck, 9)
+    sb_player.HAND = all_cards[:2]
+    bb_player.HAND = all_cards[2:4]
+    table.COM_CARDS = all_cards[4:]
     print(User.HAND)
+    print('Big Blind is:', bb_player.name)
+    print('Small Blind is:', sb_player.name)
     print('USER CHIPS: ', User.CHIPS)
     print('CPU CHIPS: ', CPU.CHIPS)
-    print('USER POSITION: ', User.POS)
-    table_action_var = 0
-    if User.POS == 'SB/D':
-        CPU.CHIPS -= 10
-        User.CHIPS -= 5
-        table.POT += 10
-        table.ACTIVE += 5
-    if User.POS == 'BB':
-        User.CHIPS -= 10
-        CPU.CHIPS -= 5
-        table.POT += 10
-        table.ACTIVE += 5
-    print('USER ANTES 5 \n CPU ANTES 10')
-    table_action_var = table_action(sb_play())
+    bb_player.CHIPS -= 10
+    sb_player.CHIPS -= 5
+    table.POT += 10
+    table.ACTIVE += 5
+    print(f'{sb_player.name} ANTES 5 \n{bb_player.name} ANTES 10')
+    table_action_var = sb_player.decide(bb_player, table)
     if table_action_var == 'fold':
         return 'fold'
-    table_action_var = table_action(bb_play())
+    table_action_var = bb_player.decide(sb_player, table)
     if table_action_var == 'fold':
         return 'fold'
     while table.ACTIVE > 0:
-        table_action_var = table_action(sb_play())
+        table_action_var = sb_player.decide(bb_player, table)
         if table_action_var == 'fold':
             return 'fold'
         if table_action_var == 'call':
             if table.POT == 20:
-                table_action_var = table_action(bb_play())
+                table_action_var = bb_player.decide(sb_player, table)
                 if table_action_var == 'fold':
                     return 'fold'
-    else:
+
+    # Now we've finished the first round of betting
+
+    else:  # now we are going to flip the first three shared cards (the flop)
         print(table.COM_CARDS[:3])
-        table_action_var = table_action(bb_play())
+        table_action_var = bb_player.decide(sb_player, table)
         if table_action_var == 'fold':
             return 'fold'
-        table_action_var = table_action(sb_play())
+        table_action_var = sb_player.decide(bb_player, table)
         if table_action_var == 'fold':
             return 'fold'
         while table.ACTIVE > 0:
-            table_action_var = table_action(bb_play())
+            table_action_var = bb_player.decide(sb_player, table)
             if table_action_var == 'fold':
                 return 'fold'
             if table_action_var != 'call':
-                table_action_var = table_action(sb_play())
+                table_action_var = sb_player.decide(bb_player, table)
                 if table_action_var == 'fold':
                     return 'fold'
-        else:
+        else:  # now we are going to flip the 4th shared card (the turn)
             print(table.COM_CARDS[:4])
-            table_action_var = table_action(bb_play())
+            table_action_var = bb_player.decide(sb_player, table)
             if table_action_var == 'fold':
                 return 'fold'
-            table_action_var = table_action(sb_play())
+            table_action_var = sb_player.decide(bb_player, table)
             if table_action_var == 'fold':
                 return 'fold'
             while table.ACTIVE > 0:
-                table_action_var = table_action(bb_play())
+                table_action_var = bb_player.decide(sb_player, table)
                 if table_action_var == 'fold':
                     return 'fold'
                 if table_action_var != 'call':
-                    table_action_var = table_action(sb_play())
+                    table_action_var = sb_player.decide(bb_player, table)
                     if table_action_var == 'fold':
                         return 'fold'
-            else:
+            else:  # now we are going to flip the 5th shared card (the river)
                 print(table.COM_CARDS[:5])
-                table_action_var = table_action(bb_play())
+                table_action_var = bb_player.decide(sb_player, table)
                 if table_action_var == 'fold':
                     return 'fold'
-                table_action_var = table_action(sb_play())
+                table_action_var = sb_player.decide(bb_player, table)
                 if table_action_var == 'fold':
                     return 'fold'
                 while table.ACTIVE > 0:
-                    table_action_var = table_action(bb_play())
+                    table_action_var = bb_player.decide(sb_player, table)
                     if table_action_var == 'fold':
                         return 'fold'
                     if table_action_var != 'call':
-                        table_action_var = table_action(sb_play())
+                        table_action_var = sb_player.decide(bb_player, table)
                         if table_action_var == 'fold':
                             return 'fold'
-                else:
+                else:  # Now we determine which hand won
                     hand1 = User.HAND
                     hand1.extend(table.COM_CARDS)
                     pips1 = []
@@ -248,27 +228,29 @@ def play():
                         User.CHIPS += table.POT
                         print('USER WINS WITH ' + str(score2) + ' +' + str(table.POT))
                         table.POT = 0
+                        print(CPU.HAND)
                         return 'fold'
                     elif c < 0:
                         CPU.CHIPS += table.POT
                         print('CPU WINS WITH ' + str(score2) + ' +' + str(table.POT))
                         table.POT = 0
+                        print(CPU.HAND)
                         return 'fold'
                     elif c == 0:
                         table.POT /= 2
                         User.CHIPS += table.POT
                         CPU.CHIPS += table.POT
                         print('IT\'S A TIE! \n USER +' + str(table.POT) + '\n CPU +' + str(table.POT))
+                        print(CPU.HAND)
                         return 'fold'
 
 
 if __name__ == '__main__':
+    player_1 = User
+    player_2 = CPU
     while CPU.CHIPS and User.CHIPS > 0:
-        play_return = play()
-        if play_return == 'fold':
-            if User.POS == 'BB':
-                User.POS = 'SB/D'
-                CPU.POS = 'BB'
-            else:
-                User.POS = 'BB'
-                CPU.POS = 'SB/D'
+        print()
+        play2(player_1, player_2)
+        y = player_1
+        player_1 = player_2
+        player_2 = y
