@@ -65,7 +65,10 @@ def cpu_play():
             print('CPU RAISES', raise_amount)
             return
     elif decision == 3:
-        return 'cpu fold'
+        if table.ACTIVE == 0:
+            print('CPU CHECKS')
+        if table.ACTIVE > 0:
+            return 'cpu fold'
 
 
 def user_play():
@@ -126,6 +129,20 @@ def table_action(decision):
         print('ACTIVE POT:', table.ACTIVE, 'CENTER POT:', table.POT)
 
 
+def bb_play():
+    if User.POS == 'BB':
+        return user_play()
+    else:
+        return cpu_play()
+
+
+def sb_play():
+    if User.POS == 'SB/D':
+        return user_play()
+    else:
+        return cpu_play()
+
+
 def play():
     User.HAND = random.sample(deck, 2)
     CPU.HAND = random.sample(deck, 2)
@@ -140,207 +157,109 @@ def play():
         User.CHIPS -= 5
         table.POT += 10
         table.ACTIVE += 5
-        print('USER ANTES 5 \n CPU ANTES 10')
-        table_action_var = table_action(user_play())
-        if table_action_var == 'fold':
-            return 'fold'
-        table_action_var = table_action(cpu_play())
-        if table_action_var == 'fold':
-            return 'fold'
-        while table.ACTIVE > 0:
-            table_action_var = table_action(user_play())
-            if table_action_var == 'fold':
-                return 'fold'
-            if table_action_var == 'call':
-                if table.POT == 20:
-                    table_action_var = table_action(cpu_play())
-                    if table_action_var == 'fold':
-                        return 'fold'
-        else:
-            print(table.COM_CARDS[:3])
-            table_action_var = table_action(cpu_play())
-            if table_action_var == 'fold':
-                return 'fold'
-            table_action_var = table_action(user_play())
-            if table_action_var == 'fold':
-                return 'fold'
-            while table.ACTIVE > 0:
-                table_action_var = table_action(cpu_play())
-                if table_action_var == 'fold':
-                    return 'fold'
-                if table_action_var != 'call':
-                    table_action_var = table_action(user_play())
-                    if table_action_var == 'fold':
-                        return 'fold'
-            else:
-                print(table.COM_CARDS[:4])
-                table_action_var = table_action(cpu_play())
-                if table_action_var == 'fold':
-                    return 'fold'
-                table_action_var = table_action(user_play())
-                if table_action_var == 'fold':
-                    return 'fold'
-                while table.ACTIVE > 0:
-                    table_action_var = table_action(cpu_play())
-                    if table_action_var == 'fold':
-                        return 'fold'
-                    if table_action_var != 'call':
-                        table_action_var = table_action(user_play())
-                        if table_action_var == 'fold':
-                            return 'fold'
-                else:
-                    print(table.COM_CARDS[:5])
-                    table_action_var = table_action(cpu_play())
-                    if table_action_var == 'fold':
-                        return 'fold'
-                    table_action_var = table_action(user_play())
-                    if table_action_var == 'fold':
-                        return 'fold'
-                    while table.ACTIVE > 0:
-                        table_action_var = table_action(cpu_play())
-                        if table_action_var == 'fold':
-                            return 'fold'
-                        if table_action_var != 'call':
-                            table_action_var = table_action(user_play())
-                            if table_action_var == 'fold':
-                                return 'fold'
-                    else:
-                        hand1 = User.HAND
-                        hand1.extend(table.COM_CARDS)
-                        pips1 = []
-                        suits1 = []
-                        for e in hand1:
-                            pips1.append(e[0])
-                            suits1.append(e[1])
-                        hand2 = CPU.HAND
-                        hand2.extend(table.COM_CARDS)
-                        pips2 = []
-                        suits2 = []
-                        for x in hand2:
-                            pips2.append(x[0])
-                            suits2.append(x[1])
-                        score1 = best_hands(*pips1, *suits1)
-                        score2 = best_hands(*pips2, *suits2)
-                        c = score1.compare(score2)
-                        if c > 0:
-                            User.CHIPS += table.POT
-                            print('USER WINS WITH ' + str(score2) + ' +' + str(table.POT))
-                            table.POT = 0
-                            return 'fold'
-                        elif c < 0:
-                            CPU.CHIPS += table.POT
-                            print('CPU WINS WITH ' + str(score2) + ' +' + str(table.POT))
-                            table.POT = 0
-                            return 'fold'
-                        elif c == 0:
-                            table.POT /= 2
-                            User.CHIPS += table.POT
-                            CPU.CHIPS += table.POT
-                            print('IT\'S A TIE! \n USER +' + str(table.POT) + '\n CPU +' + str(table.POT))
-                            return 'fold'
     if User.POS == 'BB':
         User.CHIPS -= 10
         CPU.CHIPS -= 5
         table.POT += 10
         table.ACTIVE += 5
-        print('CPU ANTES 5 \n USER ANTES 10')
-        table_action_var = table_action(cpu_play())
+    print('USER ANTES 5 \n CPU ANTES 10')
+    table_action_var = table_action(sb_play())
+    if table_action_var == 'fold':
+        return 'fold'
+    table_action_var = table_action(bb_play())
+    if table_action_var == 'fold':
+        return 'fold'
+    while table.ACTIVE > 0:
+        table_action_var = table_action(sb_play())
         if table_action_var == 'fold':
             return 'fold'
-        table_action_var = table_action(user_play())
+        if table_action_var == 'call':
+            if table.POT == 20:
+                table_action_var = table_action(bb_play())
+                if table_action_var == 'fold':
+                    return 'fold'
+    else:
+        print(table.COM_CARDS[:3])
+        table_action_var = table_action(bb_play())
+        if table_action_var == 'fold':
+            return 'fold'
+        table_action_var = table_action(sb_play())
         if table_action_var == 'fold':
             return 'fold'
         while table.ACTIVE > 0:
-            table_action_var = table_action(cpu_play())
+            table_action_var = table_action(bb_play())
             if table_action_var == 'fold':
                 return 'fold'
-            if table_action_var == 'call':
-                if table.POT == 20:
-                    table_action_var = table_action(user_play())
-                    if table_action_var == 'fold':
-                        return 'fold'
+            if table_action_var != 'call':
+                table_action_var = table_action(sb_play())
+                if table_action_var == 'fold':
+                    return 'fold'
         else:
-            print(table.COM_CARDS[:3])
-            table_action_var = table_action(user_play())
+            print(table.COM_CARDS[:4])
+            table_action_var = table_action(bb_play())
             if table_action_var == 'fold':
                 return 'fold'
-            table_action_var = table_action(cpu_play())
+            table_action_var = table_action(sb_play())
             if table_action_var == 'fold':
                 return 'fold'
             while table.ACTIVE > 0:
-                table_action_var = table_action(user_play())
+                table_action_var = table_action(bb_play())
                 if table_action_var == 'fold':
                     return 'fold'
-                if table_action_var == 'call':
-                    table_action_var = table_action(cpu_play())
+                if table_action_var != 'call':
+                    table_action_var = table_action(sb_play())
                     if table_action_var == 'fold':
                         return 'fold'
             else:
-                print(table.COM_CARDS[:4])
-                table_action_var = table_action(user_play())
+                print(table.COM_CARDS[:5])
+                table_action_var = table_action(bb_play())
                 if table_action_var == 'fold':
                     return 'fold'
-                table_action_var = table_action(cpu_play())
+                table_action_var = table_action(sb_play())
                 if table_action_var == 'fold':
                     return 'fold'
                 while table.ACTIVE > 0:
-                    table_action_var = table_action(user_play())
+                    table_action_var = table_action(bb_play())
                     if table_action_var == 'fold':
                         return 'fold'
-                    if table_action_var == 'call':
-                        table_action_var = table_action(cpu_play())
+                    if table_action_var != 'call':
+                        table_action_var = table_action(sb_play())
                         if table_action_var == 'fold':
                             return 'fold'
                 else:
-                    print(table.COM_CARDS[:5])
-                    table_action_var = table_action(user_play())
-                    if table_action_var == 'fold':
+                    hand1 = User.HAND
+                    hand1.extend(table.COM_CARDS)
+                    pips1 = []
+                    suits1 = []
+                    for e in hand1:
+                        pips1.append(e[0])
+                        suits1.append(e[1])
+                    hand2 = CPU.HAND
+                    hand2.extend(table.COM_CARDS)
+                    pips2 = []
+                    suits2 = []
+                    for x in hand2:
+                        pips2.append(x[0])
+                        suits2.append(x[1])
+                    score1 = best_hands(*pips1, *suits1)
+                    score2 = best_hands(*pips2, *suits2)
+                    c = score1.compare(score2)
+                    if c > 0:
+                        User.CHIPS += table.POT
+                        print('USER WINS WITH ' + str(score2) + ' +' + str(table.POT))
+                        table.POT = 0
                         return 'fold'
-                    table_action_var = table_action(cpu_play())
-                    if table_action_var == 'fold':
+                    elif c < 0:
+                        CPU.CHIPS += table.POT
+                        print('CPU WINS WITH ' + str(score2) + ' +' + str(table.POT))
+                        table.POT = 0
                         return 'fold'
-                    while table.ACTIVE > 0:
-                        table_action_var = table_action(user_play())
-                        if table_action_var == 'fold':
-                            return 'fold'
-                        if table_action_var == 'call':
-                            table_action_var = table_action(cpu_play())
-                            if table_action_var == 'fold':
-                                return 'fold'
-                    else:
-                        hand1 = User.HAND
-                        hand1.extend(table.COM_CARDS)
-                        pips1 = []
-                        suits1 = []
-                        for e in hand1:
-                            pips1.append(e[0])
-                            suits1.append(e[1])
-                        hand2 = CPU.HAND
-                        hand2.extend(table.COM_CARDS)
-                        pips2 = []
-                        suits2 = []
-                        for x in hand2:
-                            pips2.append(x[0])
-                            suits2.append(x[1])
-                        score1 = best_hands(*pips1, *suits1)
-                        score2 = best_hands(*pips2, *suits2)
-                        c = score1.compare(score2)
-                        if c > 0:
-                            User.CHIPS += table.POT
-                            print('USER WINS WITH ' + str(score2) + ' +' + str(table.POT))
-                            table.POT = 0
-                            return 'fold'
-                        elif c < 0:
-                            CPU.CHIPS += table.POT
-                            print('CPU WINS WITH ' + str(score2) + ' +' + str(table.POT))
-                            table.POT = 0
-                            return 'fold'
-                        elif c == 0:
-                            table.POT /= 2
-                            User.CHIPS += table.POT
-                            CPU.CHIPS += table.POT
-                            print('IT\'S A TIE! \n USER +' + str(table.POT) + '\n CPU +' + str(table.POT))
-                            return 'fold'
+                    elif c == 0:
+                        table.POT /= 2
+                        User.CHIPS += table.POT
+                        CPU.CHIPS += table.POT
+                        print('IT\'S A TIE! \n USER +' + str(table.POT) + '\n CPU +' + str(table.POT))
+                        return 'fold'
 
 
 if __name__ == '__main__':
