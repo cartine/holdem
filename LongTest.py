@@ -20,7 +20,7 @@ def run_long_test():
 
 
 if __name__ == '__main__':
-    for x in range(0, 10000000):
+    for x in range(0, 10000):
         run_long_test()
         print()
         print()

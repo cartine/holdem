@@ -1,21 +1,21 @@
-import random
 from Peter7CardBestHandRemastered2 import *
 
+
 class Player:
-    def __init__(self, chips, hand, position):
+    def __init__(self, chips, position):
         self.CHIPS = chips
-        self.HAND = hand
-        self.POS = position
+        self.HAND = None
+        self.POS = position  # 'BB' or 'SB/D' for Big Blind or Small Blind/Dealer
 
     def __str__(self):
         return str(self.CHIPS) + ", " + str(self.HAND) + ", " + str(self.POS)
 
 
 class Table:
-    def __init__(self, active_pot, pot, com_cards):
+    def __init__(self, active_pot, pot):
         self.ACTIVE = active_pot
         self.POT = pot
-        self.COM_CARDS = com_cards
+        self.COM_CARDS = None
 
     def __str__(self):
         return self.POT + ", " + str(self.COM_CARDS)
@@ -31,9 +31,9 @@ spades = list(zip(pips, spade))
 clubs = list(zip(pips, club))
 diamonds = list(zip(pips, diamond))
 deck = hearts + spades + clubs + diamonds
-User = Player(1000, random.sample(deck, 2), 'SB/D')
-CPU = Player(1000, random.sample(deck, 2), 'BB')
-table = Table(0, 0, random.sample(deck, 5))
+User = Player(1000, 'SB/D')
+CPU = Player(1000, 'BB')
+table = Table(0, 0)
 
 
 def cpu_play():
@@ -349,11 +349,7 @@ if __name__ == '__main__':
         if play_return == 'fold':
             if User.POS == 'BB':
                 User.POS = 'SB/D'
+                CPU.POS = 'BB'
             else:
                 User.POS = 'BB'
-            if CPU.POS == 'BB':
                 CPU.POS = 'SB/D'
-            else:
-                CPU.POS = 'BB'
-
-
