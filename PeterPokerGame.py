@@ -6,6 +6,7 @@ class Player:
         self.CHIPS = chips
         self.HAND = None
         self.name = name
+        self.POS = None
 
     def __str__(self):
         return str(self.CHIPS) + ", " + str(self.HAND) + ", " + str(self.name)
@@ -105,6 +106,7 @@ class Table:
         self.ACTIVE = active_pot
         self.POT = pot
         self.COM_CARDS = None
+        self.ROUND = None
 
     def __str__(self):
         return self.POT + ", " + str(self.COM_CARDS)
@@ -130,6 +132,8 @@ def play2(sb_player, bb_player):
     sb_player.HAND = all_cards[:2]
     bb_player.HAND = all_cards[2:4]
     table.COM_CARDS = all_cards[4:]
+    bb_player.POS = 'BB'
+    sb_player.POS = 'SB/D'
     print(User.HAND)
     print('Big Blind is:', bb_player.name)
     print('Small Blind is:', sb_player.name)
@@ -139,6 +143,7 @@ def play2(sb_player, bb_player):
     sb_player.CHIPS -= 5
     table.POT += 10
     table.ACTIVE += 5
+    table.ROUND = 'PRE-FLOP'
     print(f'{sb_player.name} ANTES 5 \n{bb_player.name} ANTES 10')
     table_action_var = sb_player.decide(bb_player, table)
     if table_action_var == 'fold':
@@ -160,6 +165,7 @@ def play2(sb_player, bb_player):
 
     else:  # now we are going to flip the first three shared cards (the flop)
         print(table.COM_CARDS[:3])
+        table.ROUND = 'FLOP'
         table_action_var = bb_player.decide(sb_player, table)
         if table_action_var == 'fold':
             return 'fold'
@@ -176,6 +182,7 @@ def play2(sb_player, bb_player):
                     return 'fold'
         else:  # now we are going to flip the 4th shared card (the turn)
             print(table.COM_CARDS[:4])
+            table.ROUND = 'TURN'
             table_action_var = bb_player.decide(sb_player, table)
             if table_action_var == 'fold':
                 return 'fold'
@@ -192,6 +199,7 @@ def play2(sb_player, bb_player):
                         return 'fold'
             else:  # now we are going to flip the 5th shared card (the river)
                 print(table.COM_CARDS[:5])
+                table.ROUND = 'RIVER'
                 table_action_var = bb_player.decide(sb_player, table)
                 if table_action_var == 'fold':
                     return 'fold'
@@ -207,14 +215,14 @@ def play2(sb_player, bb_player):
                         if table_action_var == 'fold':
                             return 'fold'
                 else:  # Now we determine which hand won
-                    hand1 = User.HAND
+                    hand1 = sb_player.HAND
                     hand1.extend(table.COM_CARDS)
                     pips1 = []
                     suits1 = []
                     for e in hand1:
                         pips1.append(e[0])
                         suits1.append(e[1])
-                    hand2 = CPU.HAND
+                    hand2 = bb_player.HAND
                     hand2.extend(table.COM_CARDS)
                     pips2 = []
                     suits2 = []
@@ -225,23 +233,23 @@ def play2(sb_player, bb_player):
                     score2 = best_hands(*pips2, *suits2)
                     c = score1.compare(score2)
                     if c > 0:
-                        User.CHIPS += table.POT
+                        sb_player.CHIPS += table.POT
                         print('USER WINS WITH ' + str(score2) + ' +' + str(table.POT))
                         table.POT = 0
-                        print(CPU.HAND)
+                        print(bb_player.HAND)
                         return 'fold'
                     elif c < 0:
-                        CPU.CHIPS += table.POT
+                        bb_player.CHIPS += table.POT
                         print('CPU WINS WITH ' + str(score2) + ' +' + str(table.POT))
                         table.POT = 0
-                        print(CPU.HAND)
+                        print(bb_player.HAND)
                         return 'fold'
                     elif c == 0:
                         table.POT /= 2
-                        User.CHIPS += table.POT
-                        CPU.CHIPS += table.POT
+                        sb_player.CHIPS += table.POT
+                        bb_player.CHIPS += table.POT
                         print('IT\'S A TIE! \n USER +' + str(table.POT) + '\n CPU +' + str(table.POT))
-                        print(CPU.HAND)
+                        print(bb_player.HAND)
                         return 'fold'
 
 
