@@ -256,6 +256,7 @@ def play2(sb_player, bb_player):
 if __name__ == '__main__':
     player_1 = User
     player_2 = CPU
+    # Next line isn't right
     while CPU.CHIPS and User.CHIPS > 0:
         print()
         play2(player_1, player_2)
