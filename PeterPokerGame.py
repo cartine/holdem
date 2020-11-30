@@ -134,7 +134,8 @@ def play2(sb_player, bb_player):
     table.COM_CARDS = all_cards[4:]
     bb_player.POS = 'BB'
     sb_player.POS = 'SB/D'
-    print(User.HAND)
+    print(sb_player.HAND)
+    print(bb_player.HAND)
     print('Big Blind is:', bb_player.name)
     print('Small Blind is:', sb_player.name)
     print('USER CHIPS: ', User.CHIPS)
@@ -234,22 +235,25 @@ def play2(sb_player, bb_player):
                     c = score1.compare(score2)
                     if c > 0:
                         sb_player.CHIPS += table.POT
-                        print('USER WINS WITH ' + str(score2) + ' +' + str(table.POT))
+                        print(f'{sb_player.name} WINS WITH ' + str(score1) + ' +' + str(table.POT))
                         table.POT = 0
-                        print(bb_player.HAND)
+                        print(sb_player.HAND[:2])
+                        print(bb_player.HAND[:2])
                         return 'fold'
                     elif c < 0:
                         bb_player.CHIPS += table.POT
-                        print('CPU WINS WITH ' + str(score2) + ' +' + str(table.POT))
+                        print(f'{bb_player.name} WINS WITH ' + str(score2) + ' +' + str(table.POT))
                         table.POT = 0
-                        print(bb_player.HAND)
+                        print(sb_player.HAND[:2])
+                        print(bb_player.HAND[:2])
                         return 'fold'
                     elif c == 0:
                         table.POT /= 2
                         sb_player.CHIPS += table.POT
                         bb_player.CHIPS += table.POT
-                        print('IT\'S A TIE! \n USER +' + str(table.POT) + '\n CPU +' + str(table.POT))
-                        print(bb_player.HAND)
+                        print(f'IT\'S A TIE! \n {sb_player.name} +' + str(table.POT) + f'\n {bb_player.name} +' + str(table.POT))
+                        print(sb_player.HAND[:2])
+                        print(bb_player.HAND[:2])
                         return 'fold'
 
 
