@@ -232,6 +232,13 @@ def play_hand(smallblind_player: Player, bigblind_player: Player, table: Table, 
     # give the winner his winnings
     if winner is not None:
         winner.CHIPS += table.POT + table.ACTIVE
+    else:
+        # In this case we have a tie, and the pot has to  be split
+        assert(table.ACTIVE == 0)  # It should be impossible for it not to be zero here
+        halfpot = table.POT/2
+        assert(2 * halfpot == table.POT)  # In 2 player game, if no one folds, the pot has to be an even number
+        smallblind_player.CHIPS += halfpot
+        bigblind_player.CHIPS += halfpot
 
 
 # Play until one player has zero or less chips
