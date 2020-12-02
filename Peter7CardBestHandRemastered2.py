@@ -81,31 +81,32 @@ class Score:
 def face_cards(face_card):
     if face_card == '2':
         return 2
-    if face_card == '3':
+    elif face_card == '3':
         return 3
-    if face_card == '4':
+    elif face_card == '4':
         return 4
-    if face_card == '5':
+    elif face_card == '5':
         return 5
-    if face_card == '6':
+    elif face_card == '6':
         return 6
-    if face_card == '7':
+    elif face_card == '7':
         return 7
-    if face_card == '8':
+    elif face_card == '8':
         return 8
-    if face_card == '9':
+    elif face_card == '9':
         return 9
-    if face_card == 'T':
+    elif face_card == 'T':
         return 10
-    if face_card == 'J':
+    elif face_card == 'J':
         return 11
-    if face_card == 'Q':
+    elif face_card == 'Q':
         return 12
-    if face_card == 'K':
+    elif face_card == 'K':
         return 13
-    if face_card == 'A':
+    elif face_card == 'A':
         return 14
-    return face_card
+    else:
+        return face_card
 
 
 def reverse_face_cards(rev_face_card):

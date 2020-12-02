@@ -1,4 +1,5 @@
 from poker5 import *
+from MessAround import *
 import random
 
 # todo z
@@ -35,7 +36,7 @@ class Player:
     # This is what you override in a child class to make a Player useful
     # returns a Choice, and the raise amount.
     # The raise amount will be ignored if the Choice is not Choice.RAISE.
-    def decide(self, the_table):
+    def decide(self, the_table: Table, betting_round: BettingRound):
         return Choice.FOLD, 0
 
     def __str__(self):
@@ -43,7 +44,7 @@ class Player:
 
 
 class CPUPlayer(Player):
-    def decide(self, the_table):
+    def decide(self, the_table: Table, betting_round: BettingRound):
         if the_table.ACTIVE > 0:
             decision = random.randint(1, 3)
         else:
@@ -60,7 +61,7 @@ class CPUPlayer(Player):
 
 
 class CLPlayer(Player):
-    def decide(self, the_table):
+    def decide(self, the_table: Table, betting_round: BettingRound):
         print()
         print(f'{self.HAND} -> cards dealt to {self.NAME}')
         print(f'{the_table.SHARED_CARDS_SHOWING} -> shared cards showing')
@@ -160,19 +161,19 @@ def play_betting_round(betting_round: BettingRound, table: Table, smallblind_pla
     else:
         p1, p2 = bigblind_player, smallblind_player
 
-    choice, raze = p1.decide(table)
+    choice, raze = p1.decide(table, betting_round)
     check_and_announce(p1, choice, raze)
     table.take_chips(p1, choice, raze)
 
     if choice is not Choice.FOLD:
         p1, p2 = p2, p1
-        choice, raze = p1.decide(table)
+        choice, raze = p1.decide(table, betting_round)
         check_and_announce(p1, choice, raze)
         table.take_chips(p1, choice, raze)
 
     while choice is Choice.RAISE:
         p1, p2 = p2, p1
-        choice, raze = p1.decide(table)
+        choice, raze = p1.decide(table, betting_round)
         check_and_announce(p1, choice, raze)
         table.take_chips(p1, choice, raze)
 
