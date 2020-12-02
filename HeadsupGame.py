@@ -1,4 +1,5 @@
 from poker5 import *
+from MessAround import *
 import random
 
 # todo z
@@ -43,7 +44,7 @@ class Player:
 
 
 class CPUPlayer(Player):
-    def decide(self, the_table):
+    def decide(self, the_table, betting_round):
         if the_table.ACTIVE > 0:
             decision = random.randint(1, 3)
         else:
@@ -60,7 +61,7 @@ class CPUPlayer(Player):
 
 
 class CLPlayer(Player):
-    def decide(self, the_table):
+    def decide(self, the_table, betting_round):
         print()
         print(f'{self.HAND} -> cards dealt to {self.NAME}')
         print(f'{the_table.SHARED_CARDS_SHOWING} -> shared cards showing')
@@ -158,19 +159,19 @@ def play_betting_round(betting_round: BettingRound, table: Table, smallblind_pla
     else:
         p1, p2 = bigblind_player, smallblind_player
 
-    choice, raze = p1.decide(table)
+    choice, raze = p1.decide(table, betting_round)
     check_and_announce(p1, choice, raze)
     table.take_chips(p1, choice, raze)
 
     if choice is not Choice.FOLD:
         p1, p2 = p2, p1
-        choice, raze = p1.decide(table)
+        choice, raze = p1.decide(table, betting_round)
         check_and_announce(p1, choice, raze)
         table.take_chips(p1, choice, raze)
 
     while choice is Choice.RAISE:
         p1, p2 = p2, p1
-        choice, raze = p1.decide(table)
+        choice, raze = p1.decide(table, betting_round)
         check_and_announce(p1, choice, raze)
         table.take_chips(p1, choice, raze)
 
@@ -240,8 +241,8 @@ def play_holdem(chips_per_player: int, small_blind: int, big_blind: int) -> None
     # initialize stuff
     print("Starting a Heads up game")
     print("========================")
-    player1 = CLPlayer(chips_per_player, 'command-line-player')
-    player2 = CPUPlayer(chips_per_player, 'cpu-player')
+    player1 = CPUPlayer(chips_per_player, 'cpu-player')
+    player2 = CPUPlayer2(chips_per_player, 'cpu-player2')
     smallblind_player, bigblind_player = player1, player2
     table = Table(small_blind, big_blind)
     hand_number = 0
@@ -262,4 +263,4 @@ def play_holdem(chips_per_player: int, small_blind: int, big_blind: int) -> None
 
 
 if __name__ == '__main__':
-    play_holdem(50, 5, 10)
+    play_holdem(1000, 5, 10)

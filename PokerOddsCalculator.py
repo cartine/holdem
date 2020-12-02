@@ -1,11 +1,12 @@
 from Peter7CardBestHandRemastered2 import *
+from HeadsupGame import *
 import itertools
 import numpy as np
 import pandas as pd
 
 
 class DataFrameWrapper:
-    def __init__(self):
+    def __init__(self, the_table):
         self.CARDS = None
         self.POT = None
         self.SCORE_RESULTS = None
@@ -79,21 +80,33 @@ class DataFrameWrapper:
         return score_results
 
     def current_score(self, score_results):
-        card_score = score_results.loc[score_results['Value'].min()]
-        card_score = card_score['Score']
+        card_score = score_results.Value.min()
         return card_score
 
+    def hit_percent(self, score_results, card_score):
+        hit_percent = score_results[score_results['Value'] > card_score]
+        hit_percent = hit_percent.Percent.sum()
+        return hit_percent
 
-    def break_even_percent(self, pot, active_pot):
-        if active_pot > 0:
-            break_even_percent = active_pot / (active_pot + pot)
+    def call_break_even_percent(self, pot, active_pot):
+        break_even_percent = active_pot / (active_pot + pot)
+        break_even_percent *= 100
+        return break_even_percent
+
+    def raise_break_even_percent(self, pot, hit_percent):
+        raise_amount = ((hit_percent/100) * pot * -1)/((hit_percent/100) - 1)
+        return raise_amount
 
 
 if __name__ == '__main__':
-    elebu = DataFrameWrapper
-    elebu.calculator(elebu, random.sample(deck, 5))
-    print(elebu.better_hands(elebu, random.sample(deck, 3)))
-
-
-if __name__ == '__main__':
-    pass
+    first_hand = DataFrameWrapper(Table)
+    score_results = first_hand.calculator(random.sample(deck, 5))
+    card_score = first_hand.current_score(score_results)
+    hit_percent = first_hand.hit_percent(score_results, card_score)
+    raise_break_even_percent = first_hand.raise_break_even_percent(50, 10)
+    call_break_even_percent = first_hand.call_break_even_percent(50, raise_break_even_percent)
+    print(score_results)
+    print(card_score)
+    print(hit_percent)
+    print(call_break_even_percent)
+    print(raise_break_even_percent)
