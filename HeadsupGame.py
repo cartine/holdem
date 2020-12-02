@@ -137,7 +137,9 @@ def find_winner_and_loser(p1, p2, shared_cards) -> [Player, Player]:
 
 # If a player folds, return the winner and the loser. Otherwise, return None, None
 def check_and_announce(p1, choice, raze):
-    if choice is Choice.RAISE:
+    if choice is None:
+        raise Exception("choice is 'None' - invalid")
+    elif choice is Choice.RAISE:
         if raze <= 0:
             raise Exception(f'A raise amount must be positive. Player {p1.NAME} raised "{raze}".')
         print(f'Action: {p1.NAME} | {choice.name} | amount={raze}')
@@ -232,17 +234,16 @@ def play_hand(smallblind_player: Player, bigblind_player: Player, table: Table, 
 
 
 # Play until one player has zero or less chips
-def play_holdem(chips_per_player: int, small_blind: int, big_blind: int) -> None:
+def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_blind: int) -> None:
     assert(small_blind > 0)
     assert(big_blind > small_blind)
-    assert(chips_per_player >= big_blind)
+    assert(firstdealer.CHIPS >= big_blind)
+    assert(otherguy.CHIPS >= big_blind)
 
     # initialize stuff
     print("Starting a Heads up game")
     print("========================")
-    player1 = CLPlayer(chips_per_player, 'command-line-player')
-    player2 = CPUPlayer(chips_per_player, 'cpu-player')
-    smallblind_player, bigblind_player = player1, player2
+    smallblind_player, bigblind_player = firstdealer, otherguy
     table = Table(small_blind, big_blind)
     hand_number = 0
 
@@ -262,4 +263,6 @@ def play_holdem(chips_per_player: int, small_blind: int, big_blind: int) -> None
 
 
 if __name__ == '__main__':
-    play_holdem(50, 5, 10)
+    player1 = CLPlayer(50, "Player 1")
+    player2 = CLPlayer(25, "Player 2")
+    play_holdem(player1, player2, 5, 10)
