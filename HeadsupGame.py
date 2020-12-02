@@ -36,7 +36,7 @@ class Player:
     # This is what you override in a child class to make a Player useful
     # returns a Choice, and the raise amount.
     # The raise amount will be ignored if the Choice is not Choice.RAISE.
-    def decide(self, the_table: Table, betting_round: BettingRound):
+    def decide(self, the_table: Table, betting_round):
         return Choice.FOLD, 0
 
     def __str__(self):
@@ -44,7 +44,7 @@ class Player:
 
 
 class CPUPlayer(Player):
-    def decide(self, the_table: Table, betting_round: BettingRound):
+    def decide(self, the_table: Table, betting_round):
         if the_table.ACTIVE > 0:
             decision = random.randint(1, 3)
         else:
@@ -61,7 +61,7 @@ class CPUPlayer(Player):
 
 
 class CLPlayer(Player):
-    def decide(self, the_table: Table, betting_round: BettingRound):
+    def decide(self, the_table: Table, betting_round):
         print()
         print(f'{self.HAND} -> cards dealt to {self.NAME}')
         print(f'{the_table.SHARED_CARDS_SHOWING} -> shared cards showing')
@@ -264,6 +264,6 @@ def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_bli
 
 
 if __name__ == '__main__':
-    player1 = CLPlayer(50, "Player 1")
-    player2 = CLPlayer(25, "Player 2")
+    player1 = CPUPlayer(50, "Player 1")
+    player2 = CPUPlayer2(25, "Player 2")
     play_holdem(player1, player2, 5, 10)
