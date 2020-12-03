@@ -22,11 +22,6 @@ from HeadsupGame import *
 class CPUPlayer2(Player):
 
     def decide(self, the_table, betting_round):
-        x = self.decide_inside(the_table, betting_round)
-        print('***** debugging CPUPlayer2.decide(): x =', x)
-        assert(len(x) == 2)
-
-    def decide_inside(self, the_table, betting_round):
         nums1 = []
         shapes = []
         raise_amount = 0

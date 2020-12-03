@@ -177,7 +177,7 @@ def play_betting_round(betting_round: BettingRound, table: Table, smallblind_pla
         check_and_announce(p1, choice, raze)
         table.take_chips(p1, choice, raze)
 
-    if choice is Choice.FOLD:
+    if choice == Choice.FOLD:
         return p2, p1
     else:
         return None, None
