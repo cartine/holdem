@@ -16,16 +16,10 @@
 # pyautogui.moveTo(100, 100)
 from PeterPokerGame import *
 from PokerOddsCalculator import DataFrameWrapper
-from HeadsupGame import *
+from game import *
 
 
 class CPUPlayer2(Player):
-
-    # def decide(self, the_table, betting_round):
-    #     x = self.decide_inside(the_table, betting_round)
-    #     print('***** debugging CPUPlayer2.decide(): x =', x)
-    #     assert(len(x) == 2)
-    #     return x
 
     def decide(self, the_table, betting_round):
         nums1 = []
@@ -36,7 +30,7 @@ class CPUPlayer2(Player):
             shapes.append(e[1])
         nums2 = [face_cards(num) for num in nums1]
         nums = sorted(nums2, reverse=True)
-        if betting_round is BettingRound.PRE_FLOP:
+        if betting_round == BettingRound.PRE_FLOP:
             if the_table.ACTIVE == 0:
                 if nums[0] == nums[1]:
                     if nums[0] > 6:
@@ -169,7 +163,7 @@ class CPUPlayer2(Player):
                                 return Choice.FOLD, 0
                         else:
                             return Choice.FOLD, 0
-        if betting_round is BettingRound.POST_FLOP:
+        if betting_round == BettingRound.POST_FLOP:
             hand = []
             for e in the_table.SHARED_CARDS_SHOWING:
                 hand.append(e)
@@ -244,5 +238,3 @@ if __name__ == '__main__':
     #     y = player_1
     #     player_1 = player_2
     #     player_2 = y
-
-
