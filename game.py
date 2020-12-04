@@ -100,3 +100,13 @@ class Table:
 
     # def __str__(self):
     #     return self.POT + ", " + str(self.COM_CARDS)
+
+
+class CLPlayerWhoDoesNotFold(Player):
+    def decide(self, the_table, betting_round):
+        decision = random.randint(1, 3)
+        if (the_table.ACTIVE > 0) and (decision == 1):
+            raise_amount = random.randint(1, max(1, round(self.CHIPS)))
+            return Choice.RAISE, raise_amount
+        else:
+            return Choice.CALL, 0

@@ -3,36 +3,6 @@ from poker5 import get_score
 from poker5 import get_deck
 import numpy as np
 
-# todo z
-# after I make the other changes, make a game that works for more than 2 players
-#
-# change poker5 so it uses a 'card' object (make it into poker6?)
-#
-# make poker5 work for less than 7 cards
-#
-# make it impossible to go below zero chips (remember case where chips > 0 but chips < big blind for bb player)
-#
-# refactor so we don't inherit Player; we use a strategy pattern instead
-#
-# what should we do when one player bets more than the other player has?
-# currently we let a player go into the negative.
-#
-# currently there is no way for a player to see how many chips the other player has, or who that
-# player is. How can I show a player everything about the other players except his cards?
-#
-# don't let players bet money they don't have
-#
-# handle the case where a player doesn't have enough chips to call
-#
-# we currently don't show any of the cards till the hand is over. Should we show the players cards
-# so we can follow the game better?
-# - Maybe whether to show a player's card on the screen is a game option?
-#
-# we don't show the flop, turn or river on the screen. Should we?
-#
-# write results to file
-
-
 
 # Return the winner and the loser. But if it is a tie, return None, None.
 def find_winner_and_loser(p1, p2, shared_cards) -> [Player, Player]:
@@ -159,7 +129,7 @@ def play_hand(smallblind_player: Player, bigblind_player: Player, table: Table, 
 
 
 # Play until one player has zero or less chips
-def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_blind: int) -> None:
+def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_blind: int):
     assert(small_blind > 0)
     assert(big_blind > small_blind)
     assert(firstdealer.CHIPS >= big_blind)
@@ -183,8 +153,8 @@ def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_bli
     print()
     print('========================')
     print(f'{hand_number} hands were played. Here is how the players fared:')
-    print(player1)
-    print(player2)
+    print(firstdealer)
+    print(otherguy)
     return hand_number
 
 
