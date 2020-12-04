@@ -1,13 +1,13 @@
-from poker5 import *
-from MessAround import *
-import random
+from game import *
+from poker5 import get_score
+from poker5 import get_deck
 
 # todo z
-# move the classes out of the file with the program. Need to write multiple programs that access the classes.
-#
 # after I make the other changes, make a game that works for more than 2 players
 #
 # change poker5 so it uses a 'card' object (make it into poker6?)
+#
+# make poker5 work for less than 7 cards
 #
 # make it impossible to go below zero chips (remember case where chips > 0 but chips < big blind for bb player)
 #
@@ -18,106 +18,19 @@ import random
 #
 # currently there is no way for a player to see how many chips the other player has, or who that
 # player is. How can I show a player everything about the other players except his cards?
+#
+# don't let players bet money they don't have
+#
+# handle the case where a player doesn't have enough chips to call
+#
+# we currently don't show any of the cards till the hand is over. Should we show the players cards
+# so we can follow the game better?
+# - Maybe whether to show a player's card on the screen is a game option?
+#
+# we don't show the flop, turn or river on the screen. Should we?
+#
+# write results to file
 
-
-class Choice(Enum):
-    # Note that there is no 'pass' or 'check'. For that, use 'call'
-    FOLD = "fold"
-    CALL = "call"  # match the bet in the active pot (which could be zero or more), but do not raise
-    RAISE = "raise"  # match the bet in the active pot, and also bet more
-
-
-class Player:
-    def __init__(self, chips, name):
-        self.CHIPS = chips
-        self.HAND = None
-        self.NAME = name
-
-    # This is what you override in a child class to make a Player useful
-    # returns a Choice, and the raise amount.
-    # The raise amount will be ignored if the Choice is not Choice.RAISE.
-    def decide(self, the_table: Table, betting_round):
-        return Choice.FOLD, 0
-
-    def __str__(self):
-        return f'player name = {self.NAME}, player type = ' + str(type(self)) + f', chips = {self.CHIPS}'
-
-
-class CPUPlayer(Player):
-    def decide(self, the_table: Table, betting_round):
-        if the_table.ACTIVE > 0:
-            decision = random.randint(1, 3)
-        else:
-            decision = random.randint(1, 2)
-        if decision == 1:
-            return Choice.CALL, 0
-        elif decision == 2:
-            raise_amount = random.randint(1, 10)
-            return Choice.RAISE, raise_amount
-        elif decision == 3:
-            return Choice.FOLD, 0
-        else:
-            raise Exception('Illegal State')
-
-
-class CLPlayer(Player):
-    def decide(self, the_table: Table, betting_round):
-        print()
-        print(f'{self.HAND} -> cards dealt to {self.NAME}')
-        print(f'{the_table.SHARED_CARDS_SHOWING} -> shared cards showing')
-        print(f'{the_table.POT} -> the pot')
-        print(f'{the_table.ACTIVE} -> the active pot')
-        if the_table.ACTIVE > 0:
-            choice = input(f'Enter decision for {self.NAME}: CALL, RAISE or FOLD? ')
-            if choice.upper() == 'CALL':
-                return Choice.CALL, 0
-            elif choice.upper() == 'RAISE':
-                raise_amount = int(input('Amount of raise: '))
-                return Choice.RAISE, raise_amount
-            else:
-                return Choice.FOLD, 0
-        else:
-            choice = input(f'Enter decision for {self.NAME}: RAISE or CHECK? ')
-            if choice.upper() == 'RAISE':
-                raise_amount = int(input('Amount of raise: '))
-                return Choice.RAISE, raise_amount
-            else:
-                return Choice.CALL, 0
-
-
-class BettingRound(Enum):
-    # value indicates the number of shared cards that are visible
-    PRE_FLOP = 0
-    POST_FLOP = 3
-    POST_TURN = 4
-    POST_RIVER = 5
-
-
-class Table:
-    def __init__(self, small_blind: int, big_blind: int):
-        self.SMALL_BLIND = small_blind
-        self.BIG_BLIND = big_blind
-        self.ACTIVE = 0
-        self.POT = 0
-        self.SHARED_CARDS_SHOWING = None
-
-    def reset(self):
-        self.ACTIVE = 0
-        self.POT = 0
-        self.SHARED_CARDS_SHOWING = []
-
-    def take_chips(self, p: Player, c: Choice, raze: int):
-        if c is Choice.CALL:
-            p.CHIPS -= self.ACTIVE
-            self.POT += 2 * self.ACTIVE
-            self.ACTIVE = 0
-        elif c is Choice.RAISE:
-            p.CHIPS -= self.ACTIVE + raze
-            self.POT += 2 * self.ACTIVE
-            self.ACTIVE = raze
-
-    # def __str__(self):
-    #     return self.POT + ", " + str(self.COM_CARDS)
 
 
 # Return the winner and the loser. But if it is a tie, return None, None.
@@ -140,7 +53,7 @@ def find_winner_and_loser(p1, p2, shared_cards) -> [Player, Player]:
 def check_and_announce(p1, choice, raze):
     if choice is None:
         raise Exception("choice is 'None' - invalid")
-    elif choice is Choice.RAISE:
+    elif choice == Choice.RAISE:
         if raze <= 0:
             raise Exception(f'A raise amount must be positive. Player {p1.NAME} raised "{raze}".')
         print(f'Action: {p1.NAME} | {choice.name} | amount={raze}')
@@ -154,8 +67,10 @@ def play_betting_round(betting_round: BettingRound, table: Table, smallblind_pla
     print()
     print(f'Betting round: {betting_round}')
 
-    if betting_round is BettingRound.PRE_FLOP:
+    if betting_round == BettingRound.PRE_FLOP:
+        check_and_announce(smallblind_player, Choice.RAISE, table.SMALL_BLIND)
         table.take_chips(smallblind_player, Choice.RAISE, table.SMALL_BLIND)
+        check_and_announce(bigblind_player, Choice.RAISE, table.BIG_BLIND - table.SMALL_BLIND)
         table.take_chips(bigblind_player, Choice.RAISE, table.BIG_BLIND - table.SMALL_BLIND)
         p1, p2 = smallblind_player, bigblind_player
     else:
@@ -165,13 +80,13 @@ def play_betting_round(betting_round: BettingRound, table: Table, smallblind_pla
     check_and_announce(p1, choice, raze)
     table.take_chips(p1, choice, raze)
 
-    if choice is not Choice.FOLD:
+    if choice != Choice.FOLD:
         p1, p2 = p2, p1
         choice, raze = p1.decide(table, betting_round)
         check_and_announce(p1, choice, raze)
         table.take_chips(p1, choice, raze)
 
-    while choice is Choice.RAISE:
+    while choice == Choice.RAISE:
         p1, p2 = p2, p1
         choice, raze = p1.decide(table, betting_round)
         check_and_announce(p1, choice, raze)
@@ -256,7 +171,7 @@ def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_bli
     hand_number = 0
 
     # play
-    while (smallblind_player.CHIPS > big_blind) and (bigblind_player.CHIPS > big_blind):
+    while (smallblind_player.CHIPS >= big_blind) and (bigblind_player.CHIPS >= big_blind):
         hand_number += 1
         play_hand(smallblind_player, bigblind_player, table, hand_number)
         # switch smallblind and bigblind
@@ -272,5 +187,6 @@ def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_bli
 
 if __name__ == '__main__':
     player1 = CPUPlayer(50, "Player 1")
+    from MessAround import CPUPlayer2
     player2 = CPUPlayer2(25, "Player 2")
     play_holdem(player1, player2, 5, 10)
