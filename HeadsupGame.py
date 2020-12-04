@@ -1,6 +1,7 @@
 from poker5 import *
-from MessAround import *
+from PeterPokerBot2 import *
 import random
+import numpy as np
 
 # todo z
 # move the classes out of the file with the program. Need to write multiple programs that access the classes.
@@ -234,9 +235,10 @@ def play_hand(smallblind_player: Player, bigblind_player: Player, table: Table, 
         winner.CHIPS += table.POT + table.ACTIVE
     else:
         # In this case we have a tie, and the pot has to  be split
-        assert(table.ACTIVE == 0)  # It should be impossible for it not to be zero here
+        # Todo uncomment when ready
+        # assert(table.ACTIVE == 0)  # It should be impossible for it not to be zero here
         halfpot = table.POT/2
-        assert(2 * halfpot == table.POT)  # In 2 player game, if no one folds, the pot has to be an even number
+        # assert(2 * halfpot == table.POT)  # In 2 player game, if no one folds, the pot has to be an even number
         smallblind_player.CHIPS += halfpot
         bigblind_player.CHIPS += halfpot
 
@@ -268,9 +270,18 @@ def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_bli
     print(f'{hand_number} hands were played. Here is how the players fared:')
     print(player1)
     print(player2)
+    return hand_number
 
 
 if __name__ == '__main__':
-    player1 = CPUPlayer(50, "Player 1")
-    player2 = CPUPlayer2(25, "Player 2")
-    play_holdem(player1, player2, 5, 10)
+    hand_numbers = []
+    for x in range(0, 1000):
+        player1 = CPUPlayer(1000, "Player 1")
+        player2 = CPUPlayer2(1000, "Player 2")
+        print()
+        print()
+        hand_numbers.append(play_holdem(player1, player2, 5, 10))
+    print(hand_numbers)
+    np.array(hand_numbers)
+    hn_mean = np.mean(hand_numbers)
+    print(hn_mean)

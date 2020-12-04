@@ -19,14 +19,15 @@ from PokerOddsCalculator import DataFrameWrapper
 from HeadsupGame import *
 
 
-class CPUPlayer2(Player):
+class CPUPlayer3(Player):
+
+    # def decide(self, the_table, betting_round):
+    #     x = self.decide_inside(the_table, betting_round)
+    #     print('***** debugging CPUPlayer2.decide(): x =', x)
+    #     assert(len(x) == 2)
+    #     return x
 
     def decide(self, the_table, betting_round):
-        x = self.decide_inside(the_table, betting_round)
-        print('***** debugging CPUPlayer2.decide(): x =', x)
-        assert(len(x) == 2)
-
-    def decide_inside(self, the_table, betting_round):
         nums1 = []
         shapes = []
         raise_amount = 0
@@ -175,19 +176,23 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if the_table.ACTIVE == 0:
-                raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
-                if raise_amount > 0:
-                    return Choice.RAISE, raise_amount
-                else:
-                    return Choice.CALL, 0
+            if hand_data.current_score(hand_data.calculator(hand)) >= 3:
+                raise_amount = random.randint((the_table.POT/2), the_table.POT)
+                return Choice.RAISE, raise_amount
             else:
-                break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
-                hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
-                if hit_percent > break_even_percent:
-                    return Choice.CALL, 0
+                if the_table.ACTIVE == 0:
+                    raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
+                    if raise_amount > 0:
+                        return Choice.RAISE, raise_amount
+                    else:
+                        return Choice.CALL, 0
                 else:
-                    return Choice.FOLD, 0
+                    break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
+                    hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
+                    if hit_percent > break_even_percent:
+                        return Choice.CALL, 0
+                    else:
+                        return Choice.FOLD, 0
         if betting_round is BettingRound.POST_TURN:
             hand = []
             for e in the_table.SHARED_CARDS_SHOWING:
@@ -195,19 +200,23 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if the_table.ACTIVE == 0:
-                raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
-                if raise_amount > 0:
-                    return Choice.RAISE, raise_amount
-                else:
-                    return Choice.CALL, 0
+            if hand_data.current_score(hand_data.calculator(hand)) >= 3:
+                raise_amount = random.randint((the_table.POT/2), the_table.POT)
+                return Choice.RAISE, raise_amount
             else:
-                break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
-                hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
-                if hit_percent > break_even_percent:
-                    return Choice.CALL, 0
+                if the_table.ACTIVE == 0:
+                    raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
+                    if raise_amount > 0:
+                        return Choice.RAISE, raise_amount
+                    else:
+                        return Choice.CALL, 0
                 else:
-                    return Choice.FOLD, 0
+                    break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
+                    hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
+                    if hit_percent > break_even_percent:
+                        return Choice.CALL, 0
+                    else:
+                        return Choice.FOLD, 0
         if betting_round is BettingRound.POST_RIVER:
             hand = []
             for e in the_table.SHARED_CARDS_SHOWING:
@@ -215,19 +224,12 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if the_table.ACTIVE == 0:
-                raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
-                if raise_amount > 0:
-                    return Choice.RAISE, raise_amount
-                else:
-                    return Choice.CALL, 0
+            hit_score = hand_data.current_score(hand_data.calculator(hand))
+            if hit_score >= 3:
+                raise_amount = random.randint((the_table.POT/2), (the_table.POT/4) * hit_score)
+                return Choice.RAISE, raise_amount
             else:
-                break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
-                hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
-                if hit_percent > break_even_percent:
-                    return Choice.CALL, 0
-                else:
-                    return Choice.FOLD, 0
+                return Choice.FOLD, 0
         return Choice.FOLD, 0
 
 
@@ -242,5 +244,3 @@ if __name__ == '__main__':
     #     y = player_1
     #     player_1 = player_2
     #     player_2 = y
-
-

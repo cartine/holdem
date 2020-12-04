@@ -1,5 +1,6 @@
 from Peter7CardBestHandRemastered2 import *
 from HeadsupGame import *
+from PeterBestHand import *
 import itertools
 import numpy as np
 import pandas as pd
@@ -79,7 +80,96 @@ class DataFrameWrapper:
         self.SCORE_RESULTS = score_results
         return score_results
 
-    def current_score(self, score_results):
+    def current_score(self, cards):
+        pips1 = []
+        suits1 = []
+        for part in cards:
+            pips1.append(part[0])
+            suits1.append(part[1])
+        current_score = Best_Hand(*pips1, *suits1)
+        return current_score
+
+    def betting_value_results(self, cards, current_score):
+        results = []
+        argpip = []
+        argsuit = []
+        deck2 = deck
+        for arg in cards:
+            if arg in deck2: deck2.remove(arg)
+        holes = list(itertools.combinations(deck2, 2))
+        for x in holes:
+            for e in x:
+                list(e)
+                argpip.append(e[0])
+                argsuit.append(e[1])
+            for arg in cards:
+                argpip.append(arg[0])
+                argsuit.append(arg[1])
+            results.append(str(best_hands(*argpip, *argsuit)))
+            for arg in cards:
+                argpip.remove(arg[0])
+                argsuit.remove(arg[1])
+            for e in x:
+                argpip.remove(e[0])
+                argsuit.remove(e[1])
+        results = np.array(results)
+        unique_results = []
+        unique_results_percent = []
+        for x in results:
+            if x not in unique_results:
+                unique_results.append(x)
+        results = list(unique_results)
+        print(results)
+        results1 = [x.split(',', 1)[0] for x in results]
+        results2 = [x.split(',', 1)[1] for x in results]
+        hand_pip1 = [x.split(',', 1)[0] for x in results2]
+        hand_pip1 = [x.split('[', 1)[1] for x in hand_pip1]
+        hand_pip2 = [x.split(',', 2)[1] for x in results2]
+        hand_pip3 = [x.split(',', 3)[2] for x in results2]
+        hand_pip4 = [x.split(',', 4)[3] for x in results2]
+        hand_pip5 = [x.split(',', 5)[4] for x in results2]
+        hand_pip5 = [x.split(']', 1)[0] for x in hand_pip5]
+        hand_pip1 = [int(e.strip()) for e in hand_pip1]
+        hand_pip2 = [int(e.strip()) for e in hand_pip2]
+        hand_pip3 = [int(e.strip()) for e in hand_pip3]
+        hand_pip4 = [int(e.strip()) for e in hand_pip4]
+        hand_pip5 = [int(e.strip()) for e in hand_pip5]
+        # print(results1)
+        # print(results2)
+        # print(hand_pip1)
+        # print(hand_pip2)
+        # print(hand_pip3)
+        # print(hand_pip4)
+        # print(hand_pip5)
+        # results = list(zip(results1, results2, unique_results_percent))
+        results = pd.DataFrame(results1, columns=['Score'])
+        results['Card1'] = hand_pip1
+        results['Card2'] = hand_pip2
+        results['Card3'] = hand_pip3
+        results['Card4'] = hand_pip4
+        results['Card5'] = hand_pip5
+        # score_results = hand_results.groupby('Score').Percent.sum().reset_index()
+        # score_results.sort_values(by='Percent', inplace=True, ignore_index=True)
+        # score_results['Percent'] *= 100
+        print(current_score)
+        current_score = str(current_score).split(',')
+        current_score[1] = current_score[1].split('[')[1]
+        current_score[5] = current_score[5].split(']')[0]
+        current_score1 = [current_score[0]]
+        current_score2 = [int(e) for e in current_score[1:]]
+        current_score = current_score1
+        current_score.append(current_score2)
+        current_score1 = current_score[0]
+        print(current_score)
+        results.append(current_score, ignore_index=True)
+        results['Value'] = results["Score"].apply(lambda x: getattr(Ranking, x).value)
+        results.sort_values(by=['Value', 'Card1', 'Card2', 'Card3', 'Card4', 'Card5'], ascending=False, inplace=True)
+        results = results.reset_index(drop=True)
+        # self.SCORE_RESULTS = score_results
+        value_betting_index = 0 #Todo find index of current score
+        return value_betting_index
+
+    def card_score(self, cards):
         card_score = score_results.Value.min()
         return card_score
 
@@ -101,11 +191,15 @@ class DataFrameWrapper:
 if __name__ == '__main__':
     first_hand = DataFrameWrapper(Table)
     score_results = first_hand.calculator(random.sample(deck, 5))
-    card_score = first_hand.current_score(score_results)
+    current_score = first_hand.current_score(random.sample(deck, 5))
+    value_betting_percent = first_hand.betting_value_results(random.sample(deck, 5), current_score)
+    card_score = first_hand.card_score(score_results)
     hit_percent = first_hand.hit_percent(score_results, card_score)
     raise_break_even_percent = first_hand.raise_break_even_percent(50, 10)
     call_break_even_percent = first_hand.call_break_even_percent(50, raise_break_even_percent)
     print(score_results)
+    print(current_score)
+    print(value_betting_percent)
     print(card_score)
     print(hit_percent)
     print(call_break_even_percent)
