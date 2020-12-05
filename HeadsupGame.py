@@ -128,7 +128,10 @@ def play_hand(smallblind_player: Player, bigblind_player: Player, table: Table, 
         bigblind_player.CHIPS += halfpot
 
 
-# Play until one player has zero or less chips
+# Play headsup (which means 2 players) until one player does not have enough chips at the end of a hand to cover
+# the big blind in the next hand.
+# Currently, the game does not stop a player from betting more chips than he has.
+# There are no rules restricting raises.
 def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_blind: int):
     assert(small_blind > 0)
     assert(big_blind > small_blind)
