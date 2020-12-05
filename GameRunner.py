@@ -5,7 +5,7 @@ from HeadsupGame import play_holdem
 # todo 2: make the game let players come and go during the game
 
 # todo z
-# after I make the other changes, make a game that works for more than 2 players
+# make a game that works for more than 2 players
 #
 # change poker5 so it uses a 'card' object (make it into poker6?)
 #
