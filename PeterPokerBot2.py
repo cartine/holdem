@@ -147,7 +147,7 @@ class CPUPlayer2(Player):
                         if nums[0] == 14:
                             if nums[1] > 10:
                                 if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT / 4) - 1, (the_table.POT / 2))
+                                    raise_amount = random.randint((the_table.POT / 4), (the_table.POT / 2))
                                 if nums[1] == 13:
                                     raise_amount = random.randint((the_table.POT / 4) + 1,
                                                                   (the_table.POT / 2) + 1)

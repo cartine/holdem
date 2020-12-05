@@ -21,12 +21,6 @@ from HeadsupGame import *
 
 class CPUPlayer3(Player):
 
-    # def decide(self, the_table, betting_round):
-    #     x = self.decide_inside(the_table, betting_round)
-    #     print('***** debugging CPUPlayer2.decide(): x =', x)
-    #     assert(len(x) == 2)
-    #     return x
-
     def decide(self, the_table, betting_round):
         nums1 = []
         shapes = []
@@ -121,11 +115,11 @@ class CPUPlayer3(Player):
                                 if nums[1] == 10:
                                     raise_amount = random.randint((the_table.POT / 4), (the_table.POT / 2))
                                 if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT / 4) + 1,
-                                                                  (the_table.POT / 2) + 1)
+                                    raise_amount = random.randint((the_table.POT / 4),
+                                                                  (the_table.POT / 2))
                                 if nums[1] == 13:
-                                    raise_amount = random.randint((the_table.POT / 4) + 1,
-                                                                  (the_table.POT / 2) + 2)
+                                    raise_amount = random.randint((the_table.POT / 4),
+                                                                  (the_table.POT / 2))
                                 return Choice.RAISE, raise_amount
                             else:
                                 if (nums[1] == 9) or (nums[1] == 8) or (nums[1] == 7) or (nums[1] == 5):
@@ -134,8 +128,8 @@ class CPUPlayer3(Player):
                                     return Choice.FOLD, 0
                         elif nums[0] == 13:
                             if nums[1] == 12:
-                                raise_amount = random.randint((the_table.POT / 4) - 1,
-                                                              (the_table.POT / 2) - 1)
+                                raise_amount = random.randint((the_table.POT / 4),
+                                                              (the_table.POT / 2))
                                 return Choice.RAISE, raise_amount
                             else:
                                 if (nums[1] == 9) or (nums[1] == 10) or (nums[1] == 11):
@@ -153,7 +147,7 @@ class CPUPlayer3(Player):
                         if nums[0] == 14:
                             if nums[1] > 10:
                                 if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT / 4) - 1, (the_table.POT / 2))
+                                    raise_amount = random.randint((the_table.POT / 4), (the_table.POT / 2))
                                 if nums[1] == 13:
                                     raise_amount = random.randint((the_table.POT / 4) + 1,
                                                                   (the_table.POT / 2) + 1)
@@ -176,7 +170,7 @@ class CPUPlayer3(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if hand_data.current_score(hand_data.calculator(hand)) >= 3:
+            if hand_data.betting_value_results(hand, hand_data.current_score(hand)) >= 50:
                 raise_amount = random.randint((the_table.POT/2), the_table.POT)
                 return Choice.RAISE, raise_amount
             else:

@@ -114,10 +114,11 @@ class DataFrameWrapper:
                 argsuit.remove(e[1])
         results = np.array(results)
         unique_results = []
-        unique_results_percent = []
         for x in results:
             if x not in unique_results:
                 unique_results.append(x)
+        if current_score not in unique_results:
+            unique_results.append(str(current_score))
         results = list(unique_results)
         print(results)
         results1 = [x.split(',', 1)[0] for x in results]
@@ -134,24 +135,12 @@ class DataFrameWrapper:
         hand_pip3 = [int(e.strip()) for e in hand_pip3]
         hand_pip4 = [int(e.strip()) for e in hand_pip4]
         hand_pip5 = [int(e.strip()) for e in hand_pip5]
-        # print(results1)
-        # print(results2)
-        # print(hand_pip1)
-        # print(hand_pip2)
-        # print(hand_pip3)
-        # print(hand_pip4)
-        # print(hand_pip5)
-        # results = list(zip(results1, results2, unique_results_percent))
         results = pd.DataFrame(results1, columns=['Score'])
         results['Card1'] = hand_pip1
         results['Card2'] = hand_pip2
         results['Card3'] = hand_pip3
         results['Card4'] = hand_pip4
         results['Card5'] = hand_pip5
-        # score_results = hand_results.groupby('Score').Percent.sum().reset_index()
-        # score_results.sort_values(by='Percent', inplace=True, ignore_index=True)
-        # score_results['Percent'] *= 100
-        print(current_score)
         current_score = str(current_score).split(',')
         current_score[1] = current_score[1].split('[')[1]
         current_score[5] = current_score[5].split(']')[0]
@@ -159,15 +148,27 @@ class DataFrameWrapper:
         current_score2 = [int(e) for e in current_score[1:]]
         current_score = current_score1
         current_score.append(current_score2)
-        current_score1 = current_score[0]
-        print(current_score)
-        results.append(current_score, ignore_index=True)
         results['Value'] = results["Score"].apply(lambda x: getattr(Ranking, x).value)
         results.sort_values(by=['Value', 'Card1', 'Card2', 'Card3', 'Card4', 'Card5'], ascending=False, inplace=True)
         results = results.reset_index(drop=True)
         # self.SCORE_RESULTS = score_results
-        value_betting_index = 0 #Todo find index of current score
-        return value_betting_index
+        score_score = results.loc[results.Score == current_score[0]]
+        if len(score_score) > 1:
+            score_score = score_score.loc[score_score.Card1 == current_score2[0]]
+            if len(score_score) > 1:
+                score_score = score_score.loc[score_score.Card2 == current_score2[1]]
+                if len(score_score) > 1:
+                    score_score = score_score.loc[score_score.Card3 == current_score2[2]]
+                    if len(score_score) > 1:
+                        score_score = score_score.loc[score_score.Card4 == current_score2[3]]
+                        if len(score_score) > 1:
+                            score_score = score_score.loc[score_score.Card5 == current_score2[4]]
+        value_betting_index = score_score.index.max()
+        results_index = results.index.max()
+        value_betting_index += 1
+        results_index += 1
+        value_betting_percent = (value_betting_index / results_index) * 100
+        return value_betting_percent
 
     def card_score(self, cards):
         card_score = score_results.Value.min()
