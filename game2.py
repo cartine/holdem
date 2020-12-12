@@ -1,6 +1,8 @@
 from enum import Enum
 import random
 
+from typing import List
+
 
 class Choice(Enum):
     # Note that there is no 'pass' or 'check'. For that, use 'call'
@@ -38,15 +40,24 @@ class Player:
     # This is what you override in a child class to make a Player useful
     # returns a Choice, and the raise amount.
     # The raise amount will be ignored if the Choice is not Choice.RAISE.
-    def decide(self, the_table, betting_round, call_amount):
+    # note: seats[your_index] is YOUR seat
+    def decide(self, the_table, betting_round, call_amount, seats, your_index):
         return Choice.FOLD, 0
 
     def __str__(self):
         return f'player name = {self.NAME}, player type = ' + str(type(self)) + f', chips = {self.CHIPS}'
 
 
+class Seat:
+    def __init__(self, player: Player):
+        self.PLAYER = player
+        self.NOT_FOLDED = True
+        self.AMOUNT_NEEDED_TO_CALL = 0
+        self.HAD_CHANCE_TO_ACT = False
+
+
 class CPUPlayer(Player):
-    def decide(self, the_table, betting_round, call_amount):
+    def decide(self, the_table, betting_round, call_amount, seats, your_index):
         if call_amount > 0:
             decision = random.randint(1, 4)
         else:
@@ -63,7 +74,7 @@ class CPUPlayer(Player):
 
 
 class CLPlayer(Player):
-    def decide(self, the_table, betting_round, call_amount):
+    def decide(self, the_table, betting_round, call_amount, seats, your_index):
         print()
         print(f'{self.HAND} -> cards dealt to {self.NAME}')
         print(f'{the_table.SHARED_CARDS_SHOWING} -> shared cards showing')
@@ -89,7 +100,7 @@ class CLPlayer(Player):
 
 
 class CPUPlayerWhoDoesNotFold(Player):
-    def decide(self, the_table, betting_round, call_amount):
+    def decide(self, the_table, betting_round, call_amount, seats, your_index):
         decision = random.randint(1, 3)
         if decision == 1:
             raise_amount = random.randint(1, 10)

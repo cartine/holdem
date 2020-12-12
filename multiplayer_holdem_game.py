@@ -9,14 +9,6 @@ import copy
 PLAYER_NAME_MAX_LENGTH = 20
 
 
-class Seat:
-    def __init__(self, player: Player):
-        self.PLAYER = player
-        self.NOT_FOLDED = True
-        self.AMOUNT_NEEDED_TO_CALL = 0
-        self.HAD_CHANCE_TO_ACT = False
-
-
 class TableState:
     def __init__(self, table: Table, players: List[Player], betting_round: BettingRound):
         self.TABLE = table
@@ -76,7 +68,7 @@ class TableState:
             raise Exception("Illegal State - This player can't play - he had his chance and there is no bet to call")
 
         # play
-        choice, raze = player.decide(self.TABLE, self.BETTING_ROUND, seat.AMOUNT_NEEDED_TO_CALL)
+        choice, raze = player.decide(self.TABLE, self.BETTING_ROUND, seat.AMOUNT_NEEDED_TO_CALL, self.SEATS, index_of_player)
         if choice == Choice.RAISE and raze <= 0:
             raise Exception(f"Illegal action, a raise must be a positive amount. raise={raze}, player={player.NAME}")
         seat.HAD_CHANCE_TO_ACT = True
