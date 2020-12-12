@@ -1,11 +1,12 @@
-from game import *
-from HeadsupGame import play_holdem
-
-# todo 1: make the game work with more players
-# todo 2: make the game let players come and go during the game
+# from game import *
+# from HeadsupGame import play_holdem
+from game2 import *
+from multiplayer_holdem_game import play_holdem
 
 # todo z
-# make a game that works for more than 2 players
+# make the game let players come and go during the game
+#
+# add all the callbacks to Players so they have all the information they need
 #
 # change poker5 so it uses a 'card' object (make it into poker6?)
 #
@@ -40,9 +41,49 @@ from HeadsupGame import play_holdem
 # figure out how people organize python files into packages, and start doing that
 #
 # Show the pot and the active pot every time we print a line that starts with "Action: "
+#
+# Need a way to pass all the information to each player about the other players, without giving a player a way
+# to change the information for another player.
+#
+# At some point Peter's bot will need more information than it is getting. It will need to know
+# how many players already called before him, how many players will get to bet after him, how
+# many players already folded, stuff like that. Work out the details with Peter.
+# One idea I have is passing in a history object, showing everything that happened in this betting
+# round so far. Another is to have callbacks to other players when a player makes a decision.
+#
+# check that a player's name has no newlines or line returns, and has a maximum length. In the Player class
 
 
 if __name__ == '__main__':
-    player1 = CPUPlayer(25, "Player 1")
-    player2 = CLPlayerWhoDoesNotFold(55, "Player 2")
-    play_holdem(player1, player2, 5, 10)
+    # player0 = CPUPlayer(5000, "Player 0")
+    # player1 = CPUPlayer(5000, "Player 1")
+    # player2 = CPUPlayer(5000, "Player 2")
+    # player3 = CPUPlayer(5000, "Player 3")
+    # player4 = CPUPlayer(5000, "Player 4")
+    # player5 = CPUPlayer(5000, "Player 5")
+    # player6 = CPUPlayer(5000, "Player 6")
+    # player7 = CPUPlayer(5000, "Player 7")
+    # player8 = CPUPlayer(5000, "Player 8")
+    # player9 = CPUPlayer(5000, "Player 9")
+    # player10 = CPUPlayer(5000, "Player 10")
+    # player11 = CPUPlayer(5000, "Player 11")
+    # player12 = CPUPlayer(5000, "Player 12")
+    # player13 = CPUPlayer(5000, "Player 13")
+    # player14 = CPUPlayer(5000, "Player 14")
+    # player15 = CPUPlayer(5000, "Player 15")
+    # player16 = CPUPlayer(5000, "Player 16")
+    # player17 = CPUPlayer(5000, "Player 17")
+    # player18 = CPUPlayerWhoDoesNotFold(5000, "Player 18")
+    # player19 = CPUPlayerWhoDoesNotFold(5000, "Player 19")
+    # x = [player0, player1, player2, player3, player4, player5, player6, player7, player8, player9]
+    # y = [player10, player11, player12, player13, player14, player15, player16, player17, player18, player19]
+    # players = x + y
+
+    player0 = CPUPlayer(50, "Player 0")
+    player1 = CPUPlayer(50, "Player 1")
+    player2 = CPUPlayer(50, "Player 2")
+    player3 = CPUPlayer(50, "Player 3")
+    players = [player0, player1, player2, player3]
+
+    play_holdem(players, 1, 2)
+

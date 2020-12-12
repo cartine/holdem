@@ -1,7 +1,6 @@
 from game import *
 from poker5 import get_score
 from poker5 import get_deck
-import numpy as np
 
 
 # Return the winner and the loser. But if it is a tie, return None, None.
@@ -120,15 +119,15 @@ def play_hand(smallblind_player: Player, bigblind_player: Player, table: Table, 
         winner.CHIPS += table.POT + table.ACTIVE
     else:
         # In this case we have a tie, and the pot has to  be split
-        # Todo uncomment when ready
-        # assert(table.ACTIVE == 0)  # It should be impossible for it not to be zero here
         halfpot = table.POT/2
-        # assert(2 * halfpot == table.POT)  # In 2 player game, if no one folds, the pot has to be an even number
         smallblind_player.CHIPS += halfpot
         bigblind_player.CHIPS += halfpot
 
 
-# Play until one player has zero or less chips
+# Play headsup (which means 2 players) until one player does not have enough chips at the end of a hand to cover
+# the big blind in the next hand.
+# Currently, the game does not stop a player from betting more chips than he has.
+# There are no rules restricting raises.
 def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_blind: int):
     assert(small_blind > 0)
     assert(big_blind > small_blind)
@@ -156,18 +155,3 @@ def play_holdem(firstdealer: Player, otherguy: Player, small_blind: int, big_bli
     print(firstdealer)
     print(otherguy)
     return hand_number
-
-
-# if __name__ == '__main__':
-#     hand_numbers = []
-#     for x in range(0, 1000):
-#         player1 = CPUPlayer(1000, "Player 1")
-#         from PeterPokerBot2 import CPUPlayer2
-#         player2 = CPUPlayer2(1000, "Player 2")
-#         print()
-#         print()
-#         hand_numbers.append(play_holdem(player1, player2, 5, 10))
-#     print(hand_numbers)
-#     np.array(hand_numbers)
-#     hn_mean = np.mean(hand_numbers)
-#     print(hn_mean)

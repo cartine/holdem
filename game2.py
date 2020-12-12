@@ -5,8 +5,28 @@ import random
 class Choice(Enum):
     # Note that there is no 'pass' or 'check'. For that, use 'call'
     FOLD = "fold"
-    CALL = "call"  # match the bet in the active pot (which could be zero or more), but do not raise
-    RAISE = "raise"  # match the bet in the active pot, and also bet more
+    CALL = "call"
+    RAISE = "raise"
+
+
+class BettingRound(Enum):
+    # value indicates the number of shared cards that are visible
+    PRE_FLOP = 0
+    POST_FLOP = 3
+    POST_TURN = 4
+    POST_RIVER = 5
+
+
+class Table:
+    def __init__(self, small_blind: int, big_blind: int):
+        self.SMALL_BLIND = small_blind
+        self.BIG_BLIND = big_blind
+        self.POT = 0
+        self.SHARED_CARDS_SHOWING = None
+
+    def reset(self):
+        self.POT = 0
+        self.SHARED_CARDS_SHOWING = []
 
 
 class Player:
@@ -18,7 +38,7 @@ class Player:
     # This is what you override in a child class to make a Player useful
     # returns a Choice, and the raise amount.
     # The raise amount will be ignored if the Choice is not Choice.RAISE.
-    def decide(self, the_table, betting_round):
+    def decide(self, the_table, betting_round, call_amount):
         return Choice.FOLD, 0
 
     def __str__(self):
@@ -26,31 +46,32 @@ class Player:
 
 
 class CPUPlayer(Player):
-    def decide(self, the_table, betting_round):
-        if the_table.ACTIVE > 0:
-            decision = random.randint(1, 3)
+    def decide(self, the_table, betting_round, call_amount):
+        if call_amount > 0:
+            decision = random.randint(1, 4)
         else:
-            decision = random.randint(1, 2)
+            decision = random.randint(2, 4)
         if decision == 1:
-            return Choice.CALL, 0
+            return Choice.FOLD, 0
         elif decision == 2:
             raise_amount = random.randint(1, 10)
             return Choice.RAISE, raise_amount
-        elif decision == 3:
-            return Choice.FOLD, 0
+        if decision >= 3:
+            return Choice.CALL, 0
         else:
             raise Exception('Illegal State')
 
 
 class CLPlayer(Player):
-    def decide(self, the_table, betting_round):
+    def decide(self, the_table, betting_round, call_amount):
         print()
         print(f'{self.HAND} -> cards dealt to {self.NAME}')
         print(f'{the_table.SHARED_CARDS_SHOWING} -> shared cards showing')
         print(f'{the_table.POT} -> the pot')
-        print(f'{the_table.ACTIVE} -> the active pot')
-        if the_table.ACTIVE > 0:
+        print(f'{call_amount} -> the amount needed to call')
+        if call_amount > 0:
             choice = input(f'Enter decision for {self.NAME}: CALL, RAISE or FOLD? ')
+            print()
             if choice.upper() == 'CALL':
                 return Choice.CALL, 0
             elif choice.upper() == 'RAISE':
@@ -67,46 +88,11 @@ class CLPlayer(Player):
                 return Choice.CALL, 0
 
 
-class BettingRound(Enum):
-    # value indicates the number of shared cards that are visible
-    PRE_FLOP = 0
-    POST_FLOP = 3
-    POST_TURN = 4
-    POST_RIVER = 5
-
-
-class Table:
-    def __init__(self, small_blind: int, big_blind: int):
-        self.SMALL_BLIND = small_blind
-        self.BIG_BLIND = big_blind
-        self.ACTIVE = 0
-        self.POT = 0
-        self.SHARED_CARDS_SHOWING = None
-
-    def reset(self):
-        self.ACTIVE = 0
-        self.POT = 0
-        self.SHARED_CARDS_SHOWING = []
-
-    def take_chips(self, p: Player, c: Choice, raze: int):
-        if c == Choice.CALL:
-            p.CHIPS -= self.ACTIVE
-            self.POT += 2 * self.ACTIVE
-            self.ACTIVE = 0
-        elif c == Choice.RAISE:
-            p.CHIPS -= self.ACTIVE + raze
-            self.POT += 2 * self.ACTIVE
-            self.ACTIVE = raze
-
-    # def __str__(self):
-    #     return self.POT + ", " + str(self.COM_CARDS)
-
-
 class CPUPlayerWhoDoesNotFold(Player):
-    def decide(self, the_table, betting_round):
+    def decide(self, the_table, betting_round, call_amount):
         decision = random.randint(1, 3)
-        if (the_table.ACTIVE > 0) and (decision == 1):
-            raise_amount = random.randint(1, max(1, round(self.CHIPS)))
+        if decision == 1:
+            raise_amount = random.randint(1, 10)
             return Choice.RAISE, raise_amount
         else:
             return Choice.CALL, 0
