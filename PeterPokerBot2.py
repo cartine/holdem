@@ -17,6 +17,7 @@
 from PeterPokerGame import *
 from PokerOddsCalculator import DataFrameWrapper
 from game import *
+import math
 
 
 class CPUPlayer2(Player):
@@ -35,21 +36,21 @@ class CPUPlayer2(Player):
                 if nums[0] == nums[1]:
                     if nums[0] > 6:
                         if nums[0] == 7:
-                            raise_amount = random.randint(the_table.POT/4, (the_table.POT/2))
+                            raise_amount = random.randint(math.floor(the_table.POT/4) + 1, math.floor((the_table.POT/2))) + 1
                         if nums[0] == 8:
-                            raise_amount = random.randint((the_table.POT/4) + 1, (the_table.POT/2) + 3)
+                            raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2) + 3)) + 1
                         if nums[0] == 9:
-                            raise_amount = random.randint((the_table.POT/4) + 2, (the_table.POT/8) * 5)
+                            raise_amount = random.randint(math.floor((the_table.POT/4)) + 2, math.floor((the_table.POT/8) * 5) + 1) + 1
                         if nums[0] == 10:
-                            raise_amount = random.randint((the_table.POT/4) + 3, (the_table.POT/4) * 3)
+                            raise_amount = random.randint(math.floor((the_table.POT/4)) + 3, math.floor((the_table.POT/4) * 3) + 1) + 1
                         if nums[0] == 11:
-                            raise_amount = random.randint((the_table.POT/2), (the_table.POT/8) * 7)
+                            raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor((the_table.POT/8) * 7) + 1) + 1
                         if nums[0] == 12:
-                            raise_amount = random.randint((the_table.POT/2), the_table.POT)
+                            raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
                         if nums[0] == 13:
-                            raise_amount = random.randint((the_table.POT/2), the_table.POT)
+                            raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
                         if nums[0] == 14:
-                            raise_amount = random.randint((the_table.POT/2), the_table.POT)
+                            raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
                         return Choice.RAISE, raise_amount
                     else:
                         return Choice.CALL, 0
@@ -57,16 +58,19 @@ class CPUPlayer2(Player):
                     if nums[0] >= 13:
                         if shapes[0] == shapes[1]:
                             if nums[0] == 14:
-                                if nums[1] == 10:
-                                    raise_amount = random.randint((the_table.POT/4), (the_table.POT/2))
-                                if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT/4) + 1, (the_table.POT/2) + 1)
-                                if nums[1] == 13:
-                                    raise_amount = random.randint((the_table.POT/4) + 1, (the_table.POT/2) + 2)
-                                return Choice.RAISE, raise_amount
+                                if nums[1] > 9:
+                                    if nums[1] == 10:
+                                        raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2))) + 1
+                                    if 13 > nums[1] > 10:
+                                        raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2) + 1)) + 1
+                                    if nums[1] == 13:
+                                        raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2) + 2)) + 1
+                                    return Choice.RAISE, raise_amount
+                                else:
+                                    return Choice.CALL, 0
                             elif nums[0] == 13:
                                 if nums[1] == 12:
-                                    raise_amount = random.randint((the_table.POT/4) - 1, (the_table.POT/2) - 1)
+                                    raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2) + 1)) + 1
                                     return Choice.RAISE, raise_amount
                                 else:
                                     return Choice.CALL, 0
@@ -74,11 +78,14 @@ class CPUPlayer2(Player):
                                 return Choice.CALL, 0
                         else:
                             if nums[0] == 14:
-                                if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT/4) - 1, (the_table.POT/2))
-                                if nums[1] == 13:
-                                    raise_amount = random.randint((the_table.POT/4) + 1, (the_table.POT/2) + 1)
-                                return Choice.RAISE, raise_amount
+                                if nums[1] > 10:
+                                    if 13 > nums[1] > 10:
+                                        raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2))) + 1
+                                    if nums[1] == 13:
+                                        raise_amount = random.randint(math.floor((the_table.POT/4)) + 1, math.floor((the_table.POT/2) + 1)) + 1
+                                    return Choice.RAISE, raise_amount
+                                else:
+                                    return Choice.CALL, 0
                             else:
                                 return Choice.CALL, 0
                     else:
@@ -87,21 +94,21 @@ class CPUPlayer2(Player):
                 if nums[0] == nums[1]:
                     if nums[0] > 6:
                         if nums[0] == 7:
-                            raise_amount = random.randint(the_table.POT / 4, (the_table.POT / 2))
+                            raise_amount = random.randint(math.floor(the_table.POT / 4) + 1, math.floor((the_table.POT / 2))) + 1
                         if nums[0] == 8:
-                            raise_amount = random.randint((the_table.POT / 4) + 1, (the_table.POT / 2) + 3)
+                            raise_amount = random.randint(math.floor((the_table.POT / 4)) + 1, math.floor((the_table.POT / 2) + 3)) + 1
                         if nums[0] == 9:
-                            raise_amount = random.randint((the_table.POT / 4) + 2, (the_table.POT / 8) * 5)
+                            raise_amount = random.randint(math.floor((the_table.POT / 4)) + 2, math.floor((the_table.POT / 8) * 5)) + 1
                         if nums[0] == 10:
-                            raise_amount = random.randint((the_table.POT / 4) + 3, (the_table.POT / 4) * 3)
+                            raise_amount = random.randint(math.floor((the_table.POT / 4)) + 3, math.floor((the_table.POT / 4) * 3)) + 1
                         if nums[0] == 11:
-                            raise_amount = random.randint((the_table.POT / 2), (the_table.POT / 8) * 7)
+                            raise_amount = random.randint(math.floor((the_table.POT / 2)), math.floor((the_table.POT / 8) * 7)) + 1
                         if nums[0] == 12:
-                            raise_amount = random.randint((the_table.POT / 2), the_table.POT)
+                            raise_amount = random.randint(math.floor((the_table.POT / 2)), math.floor(the_table.POT)) + 1
                         if nums[0] == 13:
-                            raise_amount = random.randint((the_table.POT / 2), the_table.POT)
+                            raise_amount = random.randint(math.floor((the_table.POT / 2)), math.floor(the_table.POT)) + 1
                         if nums[0] == 14:
-                            raise_amount = random.randint((the_table.POT / 2), the_table.POT)
+                            raise_amount = random.randint(math.floor((the_table.POT / 2)), math.floor(the_table.POT)) + 1
                         return Choice.RAISE, raise_amount
                     else:
                         if (nums[0] == 5) or (nums[0] == 6):
@@ -113,13 +120,13 @@ class CPUPlayer2(Player):
                         if nums[0] == 14:
                             if nums[1] > 9:
                                 if nums[1] == 10:
-                                    raise_amount = random.randint((the_table.POT / 4), (the_table.POT / 2))
+                                    raise_amount = random.randint(math.floor((the_table.POT / 4)) + 1, math.floor((the_table.POT / 2))) + 1
                                 if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT / 4) + 1,
-                                                                  (the_table.POT / 2) + 1)
+                                    raise_amount = random.randint(math.floor((the_table.POT / 4)) + 1,
+                                                                  math.floor((the_table.POT / 2) + 1)) + 1
                                 if nums[1] == 13:
-                                    raise_amount = random.randint((the_table.POT / 4) + 1,
-                                                                  (the_table.POT / 2) + 2)
+                                    raise_amount = random.randint(math.floor(the_table.POT / 4) + 1,
+                                                                  math.floor((the_table.POT / 2) + 2)) + 1
                                 return Choice.RAISE, raise_amount
                             else:
                                 if (nums[1] == 9) or (nums[1] == 8) or (nums[1] == 7) or (nums[1] == 5):
@@ -128,8 +135,8 @@ class CPUPlayer2(Player):
                                     return Choice.FOLD, 0
                         elif nums[0] == 13:
                             if nums[1] == 12:
-                                raise_amount = random.randint((the_table.POT / 4) - 1,
-                                                              (the_table.POT / 2) - 1)
+                                raise_amount = random.randint(math.floor((the_table.POT / 4)) + 1,
+                                                              math.floor((the_table.POT / 2) + 1)) + 1
                                 return Choice.RAISE, raise_amount
                             else:
                                 if (nums[1] == 9) or (nums[1] == 10) or (nums[1] == 11):
@@ -147,10 +154,10 @@ class CPUPlayer2(Player):
                         if nums[0] == 14:
                             if nums[1] > 10:
                                 if 13 > nums[1] > 10:
-                                    raise_amount = random.randint((the_table.POT / 4), (the_table.POT / 2))
+                                    raise_amount = random.randint(math.floor((the_table.POT / 4)) + 1, math.floor((the_table.POT / 2))) + 1
                                 if nums[1] == 13:
-                                    raise_amount = random.randint((the_table.POT / 4) + 1,
-                                                                  (the_table.POT / 2) + 1)
+                                    raise_amount = random.randint(math.floor((the_table.POT / 4)) + 1,
+                                                                  math.floor((the_table.POT / 2) + 1)) + 1
                                 return Choice.RAISE, raise_amount
                             elif nums[1] == 10:
                                 return Choice.CALL, 0
@@ -170,19 +177,19 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if hand_data.current_score(hand_data.calculator(hand)) >= 3:
-                raise_amount = random.randint((the_table.POT/2), the_table.POT)
+            if hand_data.current_score5(hand).RANKING >= 3:
+                raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
                 return Choice.RAISE, raise_amount
             else:
                 if the_table.ACTIVE == 0:
-                    raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
+                    raise_amount = math.floor(hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand)))) + 1
                     if raise_amount > 0:
                         return Choice.RAISE, raise_amount
                     else:
                         return Choice.CALL, 0
                 else:
                     break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
-                    hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
+                    hit_percent = hand_data.hit_percent(hand_data.calculator(hand))
                     if hit_percent > break_even_percent:
                         return Choice.CALL, 0
                     else:
@@ -194,19 +201,19 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if hand_data.current_score(hand_data.calculator(hand)) >= 3:
-                raise_amount = random.randint((the_table.POT/2), the_table.POT)
+            if int(hand_data.current_score6(hand)['Value']) >= 3:
+                raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
                 return Choice.RAISE, raise_amount
             else:
                 if the_table.ACTIVE == 0:
-                    raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand))))
+                    raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand))) + 1
                     if raise_amount > 0:
                         return Choice.RAISE, raise_amount
                     else:
                         return Choice.CALL, 0
                 else:
                     break_even_percent = hand_data.call_break_even_percent(the_table.POT, the_table.ACTIVE)
-                    hit_percent = hand_data.hit_percent(hand_data.calculator(hand), hand_data.current_score(hand_data.calculator(hand)))
+                    hit_percent = hand_data.hit_percent(hand_data.calculator(hand))
                     if hit_percent > break_even_percent:
                         return Choice.CALL, 0
                     else:
@@ -218,9 +225,9 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            hit_score = hand_data.current_score(hand_data.calculator(hand))
-            if hit_score >= 3:
-                raise_amount = random.randint((the_table.POT/2), (the_table.POT/4) * hit_score)
+            hit_score = hand_data.current_score7(hand)
+            if hit_score.RANKING >= 3:
+                raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor((the_table.POT) * hit_score.RANKING)) + 1
                 return Choice.RAISE, raise_amount
             else:
                 return Choice.FOLD, 0
