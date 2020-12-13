@@ -54,7 +54,7 @@ from multiplayer_holdem_game import play_holdem
 # check that a player's name has no newlines or line returns, and has a maximum length. In the Player class
 
 
-if __name__ == '__main__':
+def run():
     # player0 = CPUPlayer(5000, "Player 0")
     # player1 = CPUPlayer(5000, "Player 1")
     # player2 = CPUPlayer(5000, "Player 2")
@@ -87,3 +87,6 @@ if __name__ == '__main__':
 
     play_holdem(players, 1, 2)
 
+
+if __name__ == '__main__':
+    run()
