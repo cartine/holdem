@@ -4,7 +4,7 @@ import random
 from typing import List
 
 
-class Choice(Enum):
+class Action(Enum):
     # Note that there is no 'pass' or 'check'. For that, use 'call'
     FOLD = "fold"
     CALL = "call"
@@ -42,7 +42,7 @@ class Player:
     # The raise amount will be ignored if the Choice is not Choice.RAISE.
     # note: seats[your_index] is YOUR seat
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
-        return Choice.FOLD, 0
+        return Action.FOLD, 0
 
     def __str__(self):
         return f'player name = {self.NAME}, player type = ' + str(type(self)) + f', chips = {self.CHIPS}'
@@ -63,12 +63,12 @@ class CPUPlayer(Player):
         else:
             decision = random.randint(2, 4)
         if decision == 1:
-            return Choice.FOLD, 0
+            return Action.FOLD, 0
         elif decision == 2:
             raise_amount = random.randint(1, 10)
-            return Choice.RAISE, raise_amount
+            return Action.RAISE, raise_amount
         if decision >= 3:
-            return Choice.CALL, 0
+            return Action.CALL, 0
         else:
             raise Exception('Illegal State')
 
@@ -84,19 +84,19 @@ class CLPlayer(Player):
             choice = input(f'Enter decision for {self.NAME}: CALL, RAISE or FOLD? ')
             print()
             if choice.upper() == 'CALL':
-                return Choice.CALL, 0
+                return Action.CALL, 0
             elif choice.upper() == 'RAISE':
                 raise_amount = int(input('Amount of raise: '))
-                return Choice.RAISE, raise_amount
+                return Action.RAISE, raise_amount
             else:
-                return Choice.FOLD, 0
+                return Action.FOLD, 0
         else:
             choice = input(f'Enter decision for {self.NAME}: RAISE or CHECK? ')
             if choice.upper() == 'RAISE':
                 raise_amount = int(input('Amount of raise: '))
-                return Choice.RAISE, raise_amount
+                return Action.RAISE, raise_amount
             else:
-                return Choice.CALL, 0
+                return Action.CALL, 0
 
 
 class CPUPlayerWhoDoesNotFold(Player):
@@ -104,6 +104,6 @@ class CPUPlayerWhoDoesNotFold(Player):
         decision = random.randint(1, 3)
         if decision == 1:
             raise_amount = random.randint(1, 10)
-            return Choice.RAISE, raise_amount
+            return Action.RAISE, raise_amount
         else:
-            return Choice.CALL, 0
+            return Action.CALL, 0

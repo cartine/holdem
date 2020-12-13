@@ -69,16 +69,16 @@ class TableState:
 
         # play
         choice, raze = player.decide(self.TABLE, self.BETTING_ROUND, seat.AMOUNT_NEEDED_TO_CALL, self.SEATS, index_of_player)
-        if choice == Choice.RAISE and raze <= 0:
+        if choice == Action.RAISE and raze <= 0:
             raise Exception(f"Illegal action, a raise must be a positive amount. raise={raze}, player={player.NAME}")
         seat.HAD_CHANCE_TO_ACT = True
-        if choice == Choice.FOLD:
+        if choice == Action.FOLD:
             seat.NOT_FOLDED = False
-        elif choice == Choice.CALL:
+        elif choice == Action.CALL:
             player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL
             self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL
             seat.AMOUNT_NEEDED_TO_CALL = 0
-        elif choice == Choice.RAISE:
+        elif choice == Action.RAISE:
             player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
             self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL + raze
             seat.AMOUNT_NEEDED_TO_CALL = 0
@@ -86,11 +86,11 @@ class TableState:
                 if i != index_of_player:
                     self.SEATS[i].AMOUNT_NEEDED_TO_CALL += raze
         else:
-            raise Exception(f"Player's choice not recognized. Choice={str(choice)}, player={player.NAME}")
+            raise Exception(f"Player's choice not recognized. Choice={choice}, player={player.NAME}")
 
         # output what happened
         x = str(choice)
-        if choice == Choice.RAISE:
+        if choice == Action.RAISE:
             x = x + ' ' + str(raze)
         print(f'Action: {player.NAME} | {x} | Chips Left: {player.CHIPS} | Pot={self.TABLE.POT}')
 

@@ -26,8 +26,8 @@ class Player:
 
 
 class CPUPlayer(Player):
-    def decide(self, the_table, betting_round):
-        if the_table.ACTIVE > 0:
+    def decide(self, the_table, betting_round, call_amount, seats, your_index):
+        if call_amount > 0:
             decision = random.randint(1, 3)
         else:
             decision = random.randint(1, 2)
