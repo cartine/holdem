@@ -179,7 +179,7 @@ class CPUPlayer2(Player):
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
             if hand_data.current_score5(hand).RANKING >= 3:
-                raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
+                raise_amount = math.floor(random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1)
                 return Action.RAISE, raise_amount
             else:
                 if call_amount == 0:
@@ -203,11 +203,11 @@ class CPUPlayer2(Player):
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
             if int(hand_data.current_score6(hand)['Value']) >= 3:
-                raise_amount = random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1
+                raise_amount = math.floor(random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1)
                 return Action.RAISE, raise_amount
             else:
                 if call_amount == 0:
-                    raise_amount = hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand))) + 1
+                    raise_amount = math.floor(hand_data.raise_break_even_percent(the_table.POT, hand_data.hit_percent(hand_data.calculator(hand)))) + 1
                     if raise_amount > 0:
                         return Action.RAISE, raise_amount
                     else:
@@ -235,11 +235,11 @@ class CPUPlayer2(Player):
         return Action.FOLD, 0
 
 
-if __name__ == '__main__':
-    CPU2 = CPUPlayer2(1000, 'CPU2')
-    player_1 = CPU
-    player_2 = CPU2
-    play2(player_1, player_2)
+# if __name__ == '__main__':
+    # CPU2 = CPUPlayer2(1000, 'CPU2')
+    # player_1 = CPU
+    # player_2 = CPU2
+    # play2(player_1, player_2)
     # while CPU.CHIPS and CPU2.CHIPS > 0:
     #     print()
     #     play2(player_1, player_2)

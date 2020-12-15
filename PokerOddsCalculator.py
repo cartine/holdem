@@ -276,9 +276,9 @@ class DataFrameWrapper:
         return break_even_percent
 
     def raise_break_even_percent(self, pot, hit_percent):
-        if hit_percent == 100.0:
+        if hit_percent > 99:
             return 0
-        raise_amount = math.floor(((hit_percent/100) * pot * -1)/((hit_percent/100) - 1) - 1)
+        raise_amount = abs(math.floor((hit_percent/100) * pot * -1)/((hit_percent/100) - 1))
         return raise_amount
 
 

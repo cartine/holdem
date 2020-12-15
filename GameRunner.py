@@ -4,23 +4,28 @@ from game2 import *
 from multiplayer_holdem_game import play_holdem
 
 # todo z
+#
+# Tell the program what cards were dealt to us and what the shared cards are
+#
 # make the game let players come and go during the game
 #
 # add all the callbacks to Players so they have all the information they need
+#
+# write results to file
+#
+# allow players to buy back in
+#
+# make it impossible to go below zero chips (remember case where chips > 0 but chips < big blind for bb player)
 #
 # change poker5 so it uses a 'card' object (make it into poker6?)
 #
 # make poker5 work for less than 7 cards
 #
-# make it impossible to go below zero chips (remember case where chips > 0 but chips < big blind for bb player)
 #
 # refactor so we don't inherit Player; we use a strategy pattern instead
 #
 # what should we do when one player bets more than the other player has?
 # currently we let a player go into the negative.
-#
-# currently there is no way for a player to see how many chips the other player has, or who that
-# player is. How can I show a player everything about the other players except his cards?
 #
 # don't let players bet money they don't have
 #
@@ -32,18 +37,12 @@ from multiplayer_holdem_game import play_holdem
 #
 # we don't show the flop, turn or river on the screen. Should we?
 #
-# write results to file
-#
 # make the game run as a service somehow, and attach a UI to it
 #
 # learn the correct conventions for naming files, classes, etc, and start using them
 #
 # figure out how people organize python files into packages, and start doing that
 #
-# Show the pot and the active pot every time we print a line that starts with "Action: "
-#
-# Need a way to pass all the information to each player about the other players, without giving a player a way
-# to change the information for another player.
 #
 # At some point Peter's bot will need more information than it is getting. It will need to know
 # how many players already called before him, how many players will get to bet after him, how

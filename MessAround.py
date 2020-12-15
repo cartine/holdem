@@ -1,37 +1,142 @@
-import numpy as np
-from HeadsupGame import get_deck
-from Peter7CardBestHand import face_cards
+from PeterPokerBot3 import *
+import itertools
+import threading
+import time
 
 
-dealer_starting_hands_3bet = ['AA', 'KK', 'A5s']
-dealer_starting_hands_call = ['QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AKs', 'AQs', 'AJs', 'ATs', 'KQs', 'KJs', 'KTs', 'QJs', 'QTs', 'JTs', 'T9s', '98s', '87s', '76s', 'AK']
-dealer_starting_hands_open_raise = ['A9s', 'A8s', 'A7s', 'A6s', 'A4s', 'A3s', 'A2s', 'K9s', 'K8s', 'K7s', 'K6s', 'K5s', 'K4s', 'K3s', 'K2s', 'Q9s', 'Q8s', 'Q7s', 'Q6s', 'Q5s', 'J9s', 'J8s', 'J7s', 'T8s', 'T7s', '97s', '96s', '86s', '75s', '65s', '64s', '54s', '53s', '43s', 'AQ', 'AJ', 'AT', 'A9', 'A8', 'A7', 'KQ', 'KJ', 'KT', 'K9', 'QJ', 'QT', 'JT']
-cutoff_starting_hands_3bet = ['AA', 'KK', 'A5s']
-cutoff_starting_hands_call = ['QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AKs', 'AQs', 'AJs', 'ATs', 'KQs', 'KJs', 'KTs', 'QJs', 'QTs', 'JTs', 'T9s', '98s', '87s', '76s', 'AK']
-cutoff_starting_hands_open_raise = ['A9s', 'A8s', 'A7s', 'A6s', 'A4s', 'A3s', 'A2s', 'K9s', 'K8s', 'K7s', 'Q9s', 'J9s', 'T8s', '97s', '86s', '75s', '65s', '64s', '54s', '53s', '43s', 'AQ', 'AJ', 'AT', 'KQ', 'KJ']
-ep_and_blind_raise_starting_hands_3bet = ['AA', 'KK', 'A5s']
-ep_and_blind_raise_starting_hands_call = ['QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AKs', 'AQs', 'AJs', 'ATs', 'KQs', 'KJs', 'KTs', 'QJs', 'QTs', 'JTs', 'T9s', '98s', '87s', '76s', 'AK']
-ep_starting_hands_open_raise = ['A9s', 'A8s', 'A7s', 'A6s', 'A4s', 'A3s', 'A2s', 'AQ']
-blind_limp_starting_hands_open_raise = ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', 'AKs', 'AQs', 'AJs', 'ATs', 'KQs', 'KJs', 'AK', 'AQ']
+def monte_carlo_pre_flop(hand, num_of_opponents):
+    print(hand)
+    deck2 = deck
+    results = []
+    win = []
+    my_pips = []
+    my_suits = []
+    for x in hand:
+        if x in deck2:
+            deck2.remove(x)
+        my_pips.append(x[0])
+        my_suits.append(x[1])
+    for j in range(0, 3000):
+        random.shuffle(deck2)
+        opponents_beaten = 0
+        ties = 0
+        i = 0
+        hands = []
+        for k in range(0, num_of_opponents):
+            hands.append(deck2[i:i + 2])
+            i = i + 2
+        shared_cards = deck2[-5:]
+        for e in shared_cards:
+            my_pips.append(e[0])
+            my_suits.append(e[1])
+        current_score = best_hands(*my_pips, *my_suits)
+        del my_pips[-5:]
+        del my_suits[-5:]
+        pips = []
+        suits = []
+        for x in shared_cards:
+            pips.append(x[0])
+            suits.append(x[1])
+        for e in hands:
+            score = 0
+            x = e[0]
+            y = e[1]
+            pips.append(x[0])
+            pips.append(y[0])
+            suits.append(x[1])
+            suits.append(y[1])
+            score = best_hands(*pips, *suits)
+            c = current_score.compare(score)
+            if c > 0:
+                opponents_beaten += 1
+            if c == 0:
+                ties += 1
+            del pips[-2:]
+            del suits[-2:]
+        if opponents_beaten == (num_of_opponents - ties):
+            for i in range(0, (num_of_opponents - ties)):
+                win.append(True)
+        else:
+            for i in range(0, num_of_opponents):
+                win.append(False)
+    wins = np.array(win)
+    win_percent = np.mean(wins == True)
+    win_percent = win_percent * 100
+    print(win_percent)
+    return win_percent
+
+def monte_carlo_post_flop(hand, shared_cards, num_of_opponents):
+    print(hand) # todo test accuracy
+    deck2 = deck
+    results = []
+    win = []
+    my_pips = []
+    my_suits = []
+    for x in hand:
+        if x in deck2:
+            deck2.remove(x)
+        my_pips.append(x[0])
+        my_suits.append(x[1])
+    for x in shared_cards:
+        if x in deck2:
+            deck2.remove(x)
+    for j in range(0, 3000):
+        random.shuffle(deck2)
+        oppenents_beaten = 0
+        ties = 0
+        i = 0
+        hands = []
+        for k in range(0, num_of_opponents):
+            hands.append(deck2[i:i + 2])
+            i = i + 2
+        if len(shared_cards) < 5:
+            shared_cards2 = shared_cards + deck2[-(5 - len(shared_cards)):]
+        else:
+            shared_cards2 = shared_cards
+        for e in shared_cards2:
+            my_pips.append(e[0])
+            my_suits.append(e[1])
+        current_score = best_hands(*my_pips, *my_suits)
+        del my_pips[-5:]
+        del my_suits[-5:]
+        pips = []
+        suits = []
+        for x in shared_cards2:
+            pips.append(x[0])
+            suits.append(x[1])
+        for e in hands:
+            score = 0
+            x = e[0]
+            y = e[1]
+            pips.append(x[0])
+            pips.append(y[0])
+            suits.append(x[1])
+            suits.append(y[1])
+            score = best_hands(*pips, *suits)
+            c = current_score.compare(score)
+            if c > 0:
+                oppenents_beaten += 1
+            if c == 0:
+                ties += 1
+            del pips[-2:]
+            del suits[-2:]
+        if oppenents_beaten == (num_of_opponents - ties):
+            for i in range(0, (num_of_opponents - ties)):
+                win.append(True)
+        else:
+            for i in range(0, num_of_opponents):
+                win.append(False)
+    wins = np.array(win)
+    win_percent = np.mean(wins == True)
+    win_percent = win_percent * 100
+    print(win_percent)
+    return win_percent
 
 
 if __name__ == '__main__':
-    deck = get_deck()
-    hand = deck[:2]
-    pips = []
-    suits = []
-    for e in hand:
-        pips.append(e[0])
-        suits.append(e[1])
-    print(hand)
-    print(pips)
-    print(suits)
-    pips = sorted(pips, key= lambda x: int(face_cards(x)), reverse=True)
-    if suits[0] == suits[1]:
-        hand = pips[0] + pips[1] + 's'
-    else:
-        hand = pips[0] + pips[1]
-        hand = str(hand)
-    print(hand)
-    hand_index = hand in dealer_starting_hands_open_raise
-    print(hand_index)
+    start = time.time()
+    for x in range(0, 8):
+        doopdoop = random.sample(deck, 5)
+        monte_carlo_post_flop(doopdoop[:2], doopdoop[2:5], 4)
+    end = time.time()
+    print('Time taken in seconds -', end - start)
