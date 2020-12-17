@@ -1,4 +1,4 @@
-from Peter7CardBestHandRemastered2 import *
+from PeterBestHand6 import *
 from HeadsupGame import *
 from PeterBestHand import *
 import itertools
@@ -90,53 +90,12 @@ class DataFrameWrapper:
         return current_score
 
     def current_score6(self, cards):
-        results = []
         argpip = []
         argsuit = []
-        deck2 = deck
-        for arg in cards:
-            if arg in deck2: deck2.remove(arg)
-        hole = deck2
         for x in cards:
             argpip.append(x[0])
             argsuit.append((x[1]))
-        for e in hole:
-            argpip.append(e[0])
-            argsuit.append((e[1]))
-            results.append(str(best_hands(*argpip, *argsuit)))
-            argpip.remove(e[0])
-            argsuit.remove(e[1])
-        unique_results = []
-        for x in results:
-            if x not in unique_results:
-                unique_results.append(x)
-        results = list(unique_results)
-        results1 = [x.split(',', 1)[0] for x in results]
-        results2 = [x.split(',', 1)[1] for x in results]
-        hand_pip1 = [x.split(',', 1)[0] for x in results2]
-        hand_pip1 = [x.split('[', 1)[1] for x in hand_pip1]
-        hand_pip2 = [x.split(',', 2)[1] for x in results2]
-        hand_pip3 = [x.split(',', 3)[2] for x in results2]
-        hand_pip4 = [x.split(',', 4)[3] for x in results2]
-        hand_pip5 = [x.split(',', 5)[4] for x in results2]
-        hand_pip5 = [x.split(']', 1)[0] for x in hand_pip5]
-        hand_pip1 = [int(e.strip()) for e in hand_pip1]
-        hand_pip2 = [int(e.strip()) for e in hand_pip2]
-        hand_pip3 = [int(e.strip()) for e in hand_pip3]
-        hand_pip4 = [int(e.strip()) for e in hand_pip4]
-        hand_pip5 = [int(e.strip()) for e in hand_pip5]
-        results = pd.DataFrame(results1, columns=['Score'])
-        results['Card1'] = hand_pip1
-        results['Card2'] = hand_pip2
-        results['Card3'] = hand_pip3
-        results['Card4'] = hand_pip4
-        results['Card5'] = hand_pip5
-        results['Value'] = results["Score"].apply(lambda x: getattr(Ranking, x).value)
-        results.sort_values(by=['Value', 'Card1', 'Card2', 'Card3', 'Card4', 'Card5'], ascending=False,
-                            inplace=True)
-        results = results.reset_index(drop=True)
-        results_index = results.index.max()
-        current_score = results.loc[results.index == results_index]
+        current_score = best_hands6(*argpip, *argsuit)
         return current_score
 
     def current_score7(self, cards):
@@ -184,7 +143,7 @@ class DataFrameWrapper:
                 for arg in cards:
                     argpip.append(arg[0])
                     argsuit.append(arg[1])
-                results.append(str(current_score6(argpip[0], argsuit[0], argpip[1], argsuit[1], argpip[2], argsuit[2], argpip[3], argsuit[3], argpip[4], argsuit[4], argpip[5], argsuit[5])))
+                results.append(str(best_hands6(*argpip, *argsuit)))
                 for arg in cards:
                     argpip.remove(arg[0])
                     argsuit.remove(arg[1])
@@ -210,7 +169,6 @@ class DataFrameWrapper:
                 for e in x:
                     argpip.remove(e[0])
                     argsuit.remove(e[1])
-        results = np.array(results)
         if str(current_score) not in results:
             results.append(str(current_score))
         results = list(results)

@@ -202,7 +202,8 @@ class CPUPlayer2(Player):
             for e in self.HAND:
                 hand.append(e)
             hand_data = DataFrameWrapper(hand)
-            if int(hand_data.current_score6(hand)['Value']) >= 3:
+            print(hand)
+            if hand_data.current_score6(hand).RANKING >= 3:
                 raise_amount = math.floor(random.randint(math.floor((the_table.POT/2)), math.floor(the_table.POT)) + 1)
                 return Action.RAISE, raise_amount
             else:
