@@ -58,6 +58,8 @@ class Seat:
 
 class CPUPlayer(Player):
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
+        if self.CHIPS < 10:
+            return Action.CALL, 0
         if call_amount > 0:
             decision = random.randint(1, 4)
         else:

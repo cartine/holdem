@@ -24,6 +24,8 @@ import math
 class CPUPlayer2(Player):
 
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
+        if self.CHIPS < 10:
+            return Action.CALL, 0
         nums1 = []
         shapes = []
         raise_amount = 0

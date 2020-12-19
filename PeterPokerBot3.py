@@ -3,6 +3,7 @@ from PokerOddsCalculator import DataFrameWrapper
 from multiplayer_holdem_game import *
 from game2 import *
 from StartingHandsBot3 import *
+from OpponentsRanges import *
 from EquityCalculator import *
 import math
 
@@ -11,16 +12,16 @@ class CPUPlayer3(Player):
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
         # print('vvvvvvvvvvvvvvvv')
         # print('^^^^^^^^^^^^^^^^')
-        num_seats = 0
+        if self.CHIPS < 10:
+            return Action.CALL, 0
+        num_seats = len(seats)
         pos = 0
-        for seat in seats:
-            num_seats += 1
         if num_seats == 2:
             if your_index == 1:
                 pos = 'post_flop_last'
             elif your_index == 0:
                 pos = 'post_flop_first'
-        else:
+        if num_seats > 2:
             if num_seats - 1 == your_index:
                 pos = 'BU'
             elif your_index == 0:
@@ -30,16 +31,16 @@ class CPUPlayer3(Player):
             elif num_seats - 2 > 1:
                 if num_seats - 2 == your_index:
                     pos = 'CU'
-            else:
-                pos = 'EP'
+                else:
+                    pos = 'EP'
         nums = []
         shapes = []
         raise_amount = 0
         for e in self.HAND:
             nums.append(e[0])
             shapes.append(e[1])
+
         if betting_round == BettingRound.PRE_FLOP:
-            print(pos)
             limps = 0
             nums = sorted(nums, key=lambda x: int(face_cards(x)), reverse=True)
             if shapes[0] == shapes[1]:
@@ -48,7 +49,6 @@ class CPUPlayer3(Player):
                 hand2 = nums[0] + nums[1]
                 hand2 = str(hand2)
             if pos == 'SB':
-                print(call_amount)
                 if seats[your_index].HAD_CHANCE_TO_ACT is False:
                     if call_amount != (the_table.BIG_BLIND/2):
                         hand_index = hand2 in ep_and_blind_raise_starting_hands_3bet
@@ -106,7 +106,7 @@ class CPUPlayer3(Player):
                         raise_amount = (3 * the_table.BIG_BLIND) + (limps * the_table.BIG_BLIND)
                         return Action.RAISE, raise_amount
                     else:
-                        return Action.FOLD, 0
+                        return Action.CALL, 0
             if pos == 'BU':
                 if seats[your_index].HAD_CHANCE_TO_ACT is False:
                     if call_amount != the_table.BIG_BLIND:
@@ -217,7 +217,7 @@ class CPUPlayer3(Player):
                     if call_amount > (the_table.BIG_BLIND/2):
                         hand_index = hand2 in dealer_starting_hands_3bet
                         if hand_index is True:
-                            raise_amount = (call_amount - the_table.BIG_BLIND) * 3.5
+                            raise_amount = call_amount * 3.5
                             return Action.RAISE, raise_amount
                         else:
                             hand_index = hand2 in dealer_starting_hands_call
@@ -237,12 +237,22 @@ class CPUPlayer3(Player):
                             return Action.RAISE, raise_amount
                         else:
                             return Action.FOLD, 0
+                else:
+                    hand_index = hand2 in dealer_starting_hands_3bet
+                    if hand_index is True:
+                        return Action.CALL, 0
+                    else:
+                        hand_index = hand2 in dealer_starting_hands_call
+                        if hand_index is True:
+                            return Action.CALL, 0
+                        else:
+                            return Action.FOLD, 0
             if pos == 'post_flop_first':
                 if seats[your_index].HAD_CHANCE_TO_ACT is False:
                     if call_amount > 0:
                         hand_index = hand2 in ep_and_blind_raise_starting_hands_3bet
                         if hand_index is True:
-                            raise_amount = (call_amount - the_table.BIG_BLIND) * 3.5
+                            raise_amount = call_amount * 3.5
                             return Action.RAISE, raise_amount
                         else:
                             hand_index = hand2 in ep_and_blind_raise_starting_hands_call
@@ -262,6 +272,16 @@ class CPUPlayer3(Player):
                             return Action.RAISE, raise_amount
                         else:
                             return Action.FOLD, 0
+                else:
+                    hand_index = hand2 in ep_and_blind_raise_starting_hands_3bet
+                    if hand_index is True:
+                        return Action.CALL, 0
+                    else:
+                        hand_index = hand2 in ep_and_blind_raise_starting_hands_call
+                        if hand_index is True:
+                            return Action.CALL, 0
+                        else:
+                            return Action.FOLD, 0
         if betting_round == BettingRound.POST_FLOP:
             value_betting_percent = 0
             pot_odds = 0
@@ -274,8 +294,8 @@ class CPUPlayer3(Player):
                 hand2.append(e)
             hand_data = DataFrameWrapper(hand2)
             if call_amount == 0:
-                value_betting_percent = hand_data.betting_value_results(hand_data.current_score5(hand2), hand_data.betting_value_index(hand2, hand_data.current_score5(hand2)))
-                if value_betting_percent > 50:
+                value_betting_percent = hand_data.betting_value_results(hand_data.current_score5(hand2), hand_data.betting_value_index(hand2, hand_data.current_score5(hand2), thirt_three_percent))
+                if value_betting_percent < 50:
                     raise_amount = math.floor((the_table.POT/4)*3)
                     return Action.RAISE, raise_amount
                 else:
@@ -301,10 +321,9 @@ class CPUPlayer3(Player):
             for e in self.HAND:
                 hand3.append(e)
             hand_data2 = DataFrameWrapper(hand3)
-            print(call_amount)
             if call_amount == 0:
-                value_betting_percent = hand_data2.betting_value_results(hand_data2.current_score6(hand3), hand_data2.betting_value_index(the_table.SHARED_CARDS_SHOWING, hand_data2.current_score6(hand3)))
-                if value_betting_percent > 50:
+                value_betting_percent = hand_data2.betting_value_results(hand_data2.current_score6(hand3), hand_data2.betting_value_index(the_table.SHARED_CARDS_SHOWING, hand_data2.current_score6(hand3), thirt_three_percent))
+                if value_betting_percent < 50:
                     raise_amount = math.floor((the_table.POT/4)*3)
                     return Action.RAISE, raise_amount
                 else:
@@ -319,8 +338,8 @@ class CPUPlayer3(Player):
                     return Action.CALL, 0
                 else:
                     return Action.FOLD, 0
+            return Action.CALL, 0
         if betting_round is BettingRound.POST_RIVER:
-            print(call_amount)
             value_betting_percent = 0
             pot_odds = 0
             equity = 0
@@ -332,8 +351,8 @@ class CPUPlayer3(Player):
                 hand4.append(e)
             hand_data3 = DataFrameWrapper(hand4)
             if call_amount == 0:
-                value_betting_percent = hand_data3.betting_value_results(hand_data3.current_score7(hand4), hand_data3.betting_value_index(hand4, hand_data3.current_score7(hand4)))
-                if value_betting_percent > 50:
+                value_betting_percent = hand_data3.betting_value_results(hand_data3.current_score7(hand4), hand_data3.betting_value_index(hand4, hand_data3.current_score7(hand4), thirt_three_percent))
+                if value_betting_percent < 50:
                     raise_amount = math.floor((the_table.POT/4)*3)
                     return Action.RAISE, raise_amount
                 else:
@@ -348,6 +367,7 @@ class CPUPlayer3(Player):
                     return Action.CALL, 0
                 else:
                     return Action.FOLD, 0
+            return Action.CALL, 0
 
     def interpret(self, input):
         pass

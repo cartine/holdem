@@ -1,6 +1,7 @@
 from PeterBestHand6 import *
 from HeadsupGame import *
 from PeterBestHand import *
+from OpponentsRanges import *
 import itertools
 import numpy as np
 import pandas as pd
@@ -107,16 +108,40 @@ class DataFrameWrapper:
         current_score = best_hands(*pips1, *suits1)
         return current_score
 
-    def betting_value_index(self, cards, current_score):
+    def betting_value_index(self, cards, current_score, opp_range):
         results = []
         argpip = []
         argsuit = []
+        hand = []
         deck2 = deck
         if len(cards) == 3:
             for arg in cards:
                 if arg in deck2: deck2.remove(arg)
             holes = list(itertools.combinations(deck2, 2))
+            if opp_range != 'one_hundred_percent':
+                for e, x in holes:
+                    argpip = []
+                    argsuit = []
+                    hand = []
+                    argpip.append(e[0])
+                    argsuit.append(e[1])
+                    argpip.append(x[0])
+                    argsuit.append(x[1])
+                    argpip = sorted(argpip, key= lambda x: int(face_cards(x)), reverse=True)
+                    if argsuit[0] == argsuit[1]:
+                        hand = str(pips[0]) + str(pips[1]) + 's'
+                    else:
+                        hand = pips[0] + pips[1]
+                        hand = str(hand)
+                    if hand in opp_range:
+                        holes.remove(e)
+                    argpip.delete[-2:]
+                    argsuit.delete[-2:]
+                    hand.delete[0]
             for x in holes:
+                argpip = []
+                argsuit = []
+                hand = []
                 for e in x:
                     list(e)
                     argpip.append(e[0])
@@ -135,7 +160,30 @@ class DataFrameWrapper:
             for arg in cards:
                 if arg in deck2: deck2.remove(arg)
             holes = list(itertools.combinations(deck2, 2))
+            if opp_range != 'one_hundred_percent':
+                for e, x in holes:
+                    argpip = []
+                    argsuit = []
+                    hand = []
+                    argpip.append(e[0])
+                    argsuit.append(e[1])
+                    argpip.append(x[0])
+                    argsuit.append(x[1])
+                    argpip = sorted(argpip, key= lambda x: int(face_cards(x)), reverse=True)
+                    if argsuit[0] == argsuit[1]:
+                        hand = str(pips[0]) + str(pips[1]) + 's'
+                    else:
+                        hand = pips[0] + pips[1]
+                        hand = str(hand)
+                    if hand in opp_range:
+                        holes.remove(e)
+                    del argpip
+                    del argsuit
+                    del hand
             for x in holes:
+                argpip = []
+                argsuit = []
+                hand = []
                 for e in x:
                     list(e)
                     argpip.append(e[0])
@@ -154,7 +202,30 @@ class DataFrameWrapper:
             for arg in cards:
                 if arg in deck2: deck2.remove(arg)
             holes = list(itertools.combinations(deck2, 2))
+            if opp_range != 'one_hundred_percent':
+                for e, x in holes:
+                    argpip = []
+                    argsuit = []
+                    hand = []
+                    argpip.append(e[0])
+                    argsuit.append(e[1])
+                    argpip.append(x[0])
+                    argsuit.append(x[1])
+                    argpip = sorted(argpip, key= lambda x: int(face_cards(x)), reverse=True)
+                    if argsuit[0] == argsuit[1]:
+                        hand = str(pips[0]) + str(pips[1]) + 's'
+                    else:
+                        hand = pips[0] + pips[1]
+                        hand = str(hand)
+                    if hand in opp_range:
+                        holes.remove(e)
+                    del argpip
+                    del argsuit
+                    del hand
             for x in holes:
+                argpip = []
+                argsuit = []
+                hand = []
                 for e in x:
                     list(e)
                     argpip.append(e[0])
@@ -248,7 +319,7 @@ if __name__ == '__main__':
     current_score5 = first_hand.current_score5(random.sample(deck, 5))
     current_score6 = first_hand.current_score6(random.sample(deck, 6))
     current_score7 = first_hand.current_score7(hand)
-    value_betting_index = first_hand.betting_value_index(hand[:5], current_score7)
+    value_betting_index = first_hand.betting_value_index(hand[:5], current_score7, thirt_three_percent)
     value_betting_percent = first_hand.betting_value_results(current_score7, value_betting_index)
     hit_percent = first_hand.hit_percent(score_results)
     raise_break_even_percent = first_hand.raise_break_even_percent(50, 10)
