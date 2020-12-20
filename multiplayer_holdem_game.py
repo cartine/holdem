@@ -77,23 +77,19 @@ class TableState:
         elif choice == Action.CALL:
             if seat.AMOUNT_NEEDED_TO_CALL <= player.CHIPS:
                 player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL
-                player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL
                 self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL
                 seat.AMOUNT_NEEDED_TO_CALL = 0
             else:
                 player.CHIPS -= player.CHIPS
-                player.CHIPS_IN += player.CHIPS
                 self.TABLE.POT += player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
         elif choice == Action.RAISE:
             if seat.AMOUNT_NEEDED_TO_CALL + raze <= player.CHIPS:
                 player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
-                player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL + raze
                 self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL + raze
                 seat.AMOUNT_NEEDED_TO_CALL = 0
             else:
                 player.CHIPS -= player.CHIPS
-                player.CHIPS_IN += player.CHIPS
                 self.TABLE.POT += player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
             for i in range(self.NUM_PLAYERS):
