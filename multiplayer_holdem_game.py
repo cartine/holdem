@@ -63,7 +63,7 @@ class TableState:
 
         # make sure this player should be allowed to play
         if not seat.NOT_FOLDED:
-            raise Exception("Illegal State - this player can't play, he already folded")
+            raise Exception("Illegal State - this player can't play, he already folded or has no chips")
         elif seat.HAD_CHANCE_TO_ACT and seat.AMOUNT_NEEDED_TO_CALL == 0:
             raise Exception("Illegal State - This player can't play - he had his chance and there is no bet to call")
 
@@ -75,13 +75,27 @@ class TableState:
         if choice == Action.FOLD:
             seat.NOT_FOLDED = False
         elif choice == Action.CALL:
-            player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL
-            self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL
-            seat.AMOUNT_NEEDED_TO_CALL = 0
+            if seat.AMOUNT_NEEDED_TO_CALL <= player.CHIPS:
+                player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL
+                player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL
+                self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL
+                seat.AMOUNT_NEEDED_TO_CALL = 0
+            else:
+                player.CHIPS -= player.CHIPS
+                player.CHIPS_IN += player.CHIPS
+                self.TABLE.POT += player.CHIPS
+                seat.AMOUNT_NEEDED_TO_CALL = 0
         elif choice == Action.RAISE:
-            player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
-            self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL + raze
-            seat.AMOUNT_NEEDED_TO_CALL = 0
+            if seat.AMOUNT_NEEDED_TO_CALL + raze <= player.CHIPS:
+                player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
+                player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL + raze
+                self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL + raze
+                seat.AMOUNT_NEEDED_TO_CALL = 0
+            else:
+                player.CHIPS -= player.CHIPS
+                player.CHIPS_IN += player.CHIPS
+                self.TABLE.POT += player.CHIPS
+                seat.AMOUNT_NEEDED_TO_CALL = 0
             for i in range(self.NUM_PLAYERS):
                 if i != index_of_player:
                     self.SEATS[i].AMOUNT_NEEDED_TO_CALL += raze
@@ -210,6 +224,7 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
             raise Exception(f'Invalid state: results should be all 1s and 0s, but results={results}')
 
     # give the winner his winnings
+
     number_of_winners = sum(results)
     assert number_of_winners >= 1
     total = table.POT
