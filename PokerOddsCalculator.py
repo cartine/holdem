@@ -1,5 +1,4 @@
 from PeterBestHand6 import *
-from HeadsupGame import *
 from PeterBestHand import *
 from OpponentsRanges import *
 import itertools

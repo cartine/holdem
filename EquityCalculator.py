@@ -1,6 +1,6 @@
 from multiprocessing import Pool
 from Peter7CardBestHandRemastered2 import *
-from PeterPokerBot3 import *
+import numpy as np
 
 
 def monte_carlo_pre_flop(hand, num_of_opponents):

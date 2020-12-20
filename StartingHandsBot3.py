@@ -1,5 +1,5 @@
 import numpy as np
-from HeadsupGame import get_deck
+from multiplayer_holdem_game import get_deck
 from Peter7CardBestHand import face_cards
 
 
