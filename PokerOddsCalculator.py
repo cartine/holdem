@@ -318,7 +318,7 @@ if __name__ == '__main__':
     current_score5 = first_hand.current_score5(random.sample(deck, 5))
     current_score6 = first_hand.current_score6(random.sample(deck, 6))
     current_score7 = first_hand.current_score7(hand)
-    value_betting_index = first_hand.betting_value_index(hand[:5], current_score7, thirt_three_percent)
+    value_betting_index = first_hand.betting_value_index(hand[:5], current_score7, thirty_three_percent)
     value_betting_percent = first_hand.betting_value_results(current_score7, value_betting_index)
     hit_percent = first_hand.hit_percent(score_results)
     raise_break_even_percent = first_hand.raise_break_even_percent(50, 10)

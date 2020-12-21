@@ -60,6 +60,7 @@ class TableState:
         # initialize things
         seat = self.SEATS[index_of_player]
         player = seat.PLAYER
+        new_pots = 0
 
         # make sure this player should be allowed to play
         if not seat.NOT_FOLDED:
@@ -75,23 +76,29 @@ class TableState:
         if choice == Action.FOLD:
             seat.NOT_FOLDED = False
         elif choice == Action.CALL:
-            if seat.AMOUNT_NEEDED_TO_CALL <= player.CHIPS:
+            if seat.AMOUNT_NEEDED_TO_CALL < player.CHIPS:
                 player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL
+                player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL
                 self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL
                 seat.AMOUNT_NEEDED_TO_CALL = 0
             else:
-                player.CHIPS -= player.CHIPS
+                player.CHIPS_IN += player.CHIPS
                 self.TABLE.POT += player.CHIPS
+                player.CHIPS -= player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
+                new_pots += 1
         elif choice == Action.RAISE:
-            if seat.AMOUNT_NEEDED_TO_CALL + raze <= player.CHIPS:
+            if seat.AMOUNT_NEEDED_TO_CALL + raze < player.CHIPS:
                 player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
+                player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL + raze
                 self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL + raze
                 seat.AMOUNT_NEEDED_TO_CALL = 0
             else:
-                player.CHIPS -= player.CHIPS
                 self.TABLE.POT += player.CHIPS
+                player.CHIPS_IN += player.CHIPS
+                player.CHIPS -= player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
+                new_pots += 1
             for i in range(self.NUM_PLAYERS):
                 if i != index_of_player:
                     self.SEATS[i].AMOUNT_NEEDED_TO_CALL += raze
@@ -189,12 +196,34 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
     # play the betting rounds
     still_in = players
     for betting_round in BettingRound:
+        players_all_in = []
+        not_all_in = [still_in]
         table.SHARED_CARDS_SHOWING = shared_cards[0:betting_round.value]
         still_in = play_betting_round(betting_round, table, still_in)  # returns players who haven't folded (ordered)
         if len(still_in) <= 0:
             raise Exception("Internal Error - the players cannot all fold!")
         elif len(still_in) == 1:
             break
+        for player in still_in:
+            if player.ALL_IN is True:
+                players_all_in.append(player)
+        if len(players_all_in) >= 1:
+            players_all_in = sorted(players_all_in, key=player.CHIPS_IN)
+            for i in range(0, len(players_all_in)):
+                table.SIDE_POT.append({"Name": [], "Chips In": [], "Side Pot Total": 0})
+                for player2 in players:
+                    if player2.CHIPS_IN <= players_all_in[i].CHIPS_IN:
+                        table.SIDE_POT[i]["Name"].append({player2})
+                        table.SIDE_POT[i]["Chips In"].append({player2.CHIPS_IN})
+                        table.SIDE_POT[i]["Side Pot Total"] += player2.CHIPS_IN
+                        table.POT -= player2.CHIPS_IN
+                        player2.CHIPS_IN -= player2.CHIPS_IN
+                    else:
+                        table.SIDE_POT[i]["Name"].append({player2})
+                        table.SIDE_POT[i]["Chips In"].append({players_all_in[i].CHIPS_IN})
+                        table.SIDE_POT[i]["Side Pot Total"] += players_all_in[i].CHIPS_IN
+                        table.POT -= players_all_in[i].CHIPS_IN
+                        player2.CHIPS_IN -= players_all_in[i].CHIPS_IN
 
     # betting is done. If there's more than one player who stayed to the end, figure out who won
     if len(still_in) >= 1:
@@ -220,19 +249,46 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
             raise Exception(f'Invalid state: results should be all 1s and 0s, but results={results}')
 
     # give the winner his winnings
-
     number_of_winners = sum(results)
     assert number_of_winners >= 1
     total = table.POT
     players_paid = 0
     amt_paid = 0
-    for i in range(0, len(still_in)):
-        if results[i] == 1:
-            players_paid += 1
-            total_paid = round(total * players_paid / number_of_winners)
-            still_in[i].CHIPS += (total_paid - amt_paid)
-            amt_paid = total_paid
-    leftover = total - amt_paid
+    if len(players_all_in) >= 1:
+        table.SIDE_POT.append({"Name": [], "Chips In": [], "Side Pot Total": 0})
+        players_refund = sorted(still_in, key=player.CHIPS_IN, reverse=True)
+        if players_refund[0].CHIPS_IN > players_refund[1].CHIPS_IN:
+            players_refund[0].CHIPS += players_refund[0].CHIPS_IN - players_refund[1].CHIPS_IN
+            players_refund[0].CHIPS_IN -= (players_refund[0].CHIPS_IN - players_refund[1].CHIPS_IN)
+        for i in range(0, len(still_in)):
+            if still_in[i].ALL_IN is False:
+                table.SIDE_POT[-1]["Name"] += still_in[i].CHIPS_IN
+                table.SIDE_POT[-1]["Chips In"] += still_in[i].CHIPS_IN
+                table.SIDE_POT[-1]["Side Pot Total"] += still_in[i].CHIPS_IN
+                table.POT -= still_in[i].CHIPS_IN
+                still_in[i].CHIPS_IN -= still_in[i].CHIPS_IN
+        winners = []
+        for i in range(0, len(still_in)):
+            if results[i] == 1:
+                winners.append(still_in[i])
+        for e in range(0, len(winners)):
+            winners[e].POT_ELIGIBILITY = [winners[e].NAME in table.SIDE_POT[i]["Name"] for i in table.SIDE_POT]
+        sorted(winners, key=player.POT_ELIGIBILITY.count(True))
+        for e in range(0, len(winners)):
+            winnings = 0
+            for i in range(0, len(table.SIDE_POT)):
+                if winners[e].NAME in table.SIDE_POT[i]["Name"]:
+                    winnings += table.SIDE_POT[i]["Side Pot Total"]
+            winnings /= len(winners) - e
+            winners[e:].CHIPS += winnings
+    else:
+        for i in range(0, len(still_in)):
+            if results[i] == 1:
+                players_paid += 1
+                total_paid = round(total * players_paid / number_of_winners)
+                still_in[i].CHIPS += (total_paid - amt_paid)
+                amt_paid = total_paid
+        leftover = total - amt_paid
     if leftover != 0:
         raise Exception(f'"leftover" must be zero, but it is {leftover}')
 

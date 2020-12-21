@@ -24,6 +24,7 @@ class Table:
         self.SMALL_BLIND = small_blind
         self.BIG_BLIND = big_blind
         self.POT = 0
+        self.SIDE_POT = []
         self.SHARED_CARDS_SHOWING = None
 
     def reset(self):
@@ -36,6 +37,9 @@ class Player:
         self.CHIPS = chips
         self.HAND = None
         self.NAME = name
+        self.ALL_IN = False
+        self.CHIPS_IN = 0
+        self.POT_ELIGIBILITY = []
 
     # This is what you override in a child class to make a Player useful
     # returns a Choice, and the raise amount.
