@@ -60,7 +60,6 @@ class TableState:
         # initialize things
         seat = self.SEATS[index_of_player]
         player = seat.PLAYER
-        new_pots = 0
 
         # make sure this player should be allowed to play
         if not seat.NOT_FOLDED:
@@ -70,6 +69,8 @@ class TableState:
 
         # play
         choice, raze = player.decide(self.TABLE, self.BETTING_ROUND, seat.AMOUNT_NEEDED_TO_CALL, self.SEATS, index_of_player)
+        if player.ALL_IN is True:
+            pass
         if choice == Action.RAISE and raze <= 0:
             raise Exception(f"Illegal action, a raise must be a positive amount. raise={raze}, player={player.NAME}")
         seat.HAD_CHANCE_TO_ACT = True
@@ -86,7 +87,6 @@ class TableState:
                 self.TABLE.POT += player.CHIPS
                 player.CHIPS -= player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
-                new_pots += 1
         elif choice == Action.RAISE:
             if seat.AMOUNT_NEEDED_TO_CALL + raze < player.CHIPS:
                 player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
@@ -96,9 +96,9 @@ class TableState:
             else:
                 self.TABLE.POT += player.CHIPS
                 player.CHIPS_IN += player.CHIPS
+                raze = player.CHIPS
                 player.CHIPS -= player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
-                new_pots += 1
             for i in range(self.NUM_PLAYERS):
                 if i != index_of_player:
                     self.SEATS[i].AMOUNT_NEEDED_TO_CALL += raze
@@ -208,22 +208,23 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
             if player.ALL_IN is True:
                 players_all_in.append(player)
         if len(players_all_in) >= 1:
-            players_all_in = sorted(players_all_in, key=player.CHIPS_IN)
+            sorted(players_all_in, key=lambda player6: player6.CHIPS_IN)
             for i in range(0, len(players_all_in)):
                 table.SIDE_POT.append({"Name": [], "Chips In": [], "Side Pot Total": 0})
                 for player2 in players:
-                    if player2.CHIPS_IN <= players_all_in[i].CHIPS_IN:
+                    if player2.CHIPS_IN == 0:
+                        pass
+                    elif player2.CHIPS_IN <= players_all_in[i].CHIPS_IN:
                         table.SIDE_POT[i]["Name"].append({player2})
                         table.SIDE_POT[i]["Chips In"].append({player2.CHIPS_IN})
                         table.SIDE_POT[i]["Side Pot Total"] += player2.CHIPS_IN
-                        table.POT -= player2.CHIPS_IN
-                        player2.CHIPS_IN -= player2.CHIPS_IN
+                        player2.CHIPS_IN = 0
                     else:
                         table.SIDE_POT[i]["Name"].append({player2})
                         table.SIDE_POT[i]["Chips In"].append({players_all_in[i].CHIPS_IN})
                         table.SIDE_POT[i]["Side Pot Total"] += players_all_in[i].CHIPS_IN
-                        table.POT -= players_all_in[i].CHIPS_IN
                         player2.CHIPS_IN -= players_all_in[i].CHIPS_IN
+                    print(table.SIDE_POT)
 
     # betting is done. If there's more than one player who stayed to the end, figure out who won
     if len(still_in) >= 1:
@@ -256,31 +257,33 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
     amt_paid = 0
     if len(players_all_in) >= 1:
         table.SIDE_POT.append({"Name": [], "Chips In": [], "Side Pot Total": 0})
-        players_refund = sorted(still_in, key=player.CHIPS_IN, reverse=True)
+        players_refund = sorted(still_in, key=lambda player6: player6.CHIPS_IN, reverse=True)
         if players_refund[0].CHIPS_IN > players_refund[1].CHIPS_IN:
             players_refund[0].CHIPS += players_refund[0].CHIPS_IN - players_refund[1].CHIPS_IN
             players_refund[0].CHIPS_IN -= (players_refund[0].CHIPS_IN - players_refund[1].CHIPS_IN)
+            table.POT -= (players_refund[0].CHIPS_IN - players_refund[1].CHIPS_IN)
         for i in range(0, len(still_in)):
-            if still_in[i].ALL_IN is False:
-                table.SIDE_POT[-1]["Name"] += still_in[i].CHIPS_IN
+            if still_in[i].CHIPS_IN > 0:
+                table.SIDE_POT[-1]["Name"] += still_in[i].NAME
                 table.SIDE_POT[-1]["Chips In"] += still_in[i].CHIPS_IN
                 table.SIDE_POT[-1]["Side Pot Total"] += still_in[i].CHIPS_IN
-                table.POT -= still_in[i].CHIPS_IN
                 still_in[i].CHIPS_IN -= still_in[i].CHIPS_IN
         winners = []
         for i in range(0, len(still_in)):
             if results[i] == 1:
                 winners.append(still_in[i])
         for e in range(0, len(winners)):
-            winners[e].POT_ELIGIBILITY = [winners[e].NAME in table.SIDE_POT[i]["Name"] for i in table.SIDE_POT]
-        sorted(winners, key=player.POT_ELIGIBILITY.count(True))
+            for i in table.SIDE_POT:
+                winners[e].POT_ELIGIBILITY = [winners[e].NAME in i["Name"] for i in table.SIDE_POT]
+        sorted(winners, key=lambda player6: player6.POT_ELIGIBILITY.count(True))
         for e in range(0, len(winners)):
             winnings = 0
             for i in range(0, len(table.SIDE_POT)):
                 if winners[e].NAME in table.SIDE_POT[i]["Name"]:
                     winnings += table.SIDE_POT[i]["Side Pot Total"]
             winnings /= len(winners) - e
-            winners[e:].CHIPS += winnings
+            for i in range(0, len(winners) - e):
+                winners[e + i].CHIPS += winnings
     else:
         for i in range(0, len(still_in)):
             if results[i] == 1:
@@ -289,8 +292,8 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
                 still_in[i].CHIPS += (total_paid - amt_paid)
                 amt_paid = total_paid
         leftover = total - amt_paid
-    if leftover != 0:
-        raise Exception(f'"leftover" must be zero, but it is {leftover}')
+        if leftover != 0:
+            raise Exception(f'"leftover" must be zero, but it is {leftover}')
 
 
 def check_params(starting_players: List[Player], small_blind: int, big_blind: int):

@@ -12,8 +12,8 @@ class CPUPlayer3(Player):
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
         # print('vvvvvvvvvvvvvvvv')
         # print('^^^^^^^^^^^^^^^^')
-        if self.CHIPS < 10:
-            return Action.CALL, 0
+        if self.CHIPS == 0:
+            self.ALL_IN is True
         num_seats = len(seats)
         pos = 0
         if num_seats == 2:
@@ -213,54 +213,38 @@ class CPUPlayer3(Player):
                             return Action.FOLD, 0
             if pos == 'post_flop_last':
                 if seats[your_index].HAD_CHANCE_TO_ACT is False:
-                    if call_amount > (the_table.BIG_BLIND/2):
-                        hand_index = hand2 in dealer_starting_hands_3bet
-                        if hand_index is True:
-                            raise_amount = math.floor(call_amount * 3.5)
-                            return Action.RAISE, raise_amount
-                        else:
-                            hand_index = hand2 in dealer_starting_hands_call
-                            if hand_index is True:
-                                return Action.CALL, 0
-                            else:
-                                return Action.FOLD, 0
+                    hand_index = hand2 in heads_up_button_open_raise
+                    for seat in seats:
+                        if seat.HAD_CHANCE_TO_ACT is True:
+                            limps += 1
+                        if seat.NOT_FOLDED is False:
+                            limps -= 1
+                    if hand_index is True:
+                        raise_amount = math.floor((3 * the_table.BIG_BLIND) + (limps * the_table.BIG_BLIND))
+                        return Action.RAISE, raise_amount
                     else:
-                        hand_index = hand2 in dealer_starting_hands_open_raise
-                        for seat in seats:
-                            if seat.HAD_CHANCE_TO_ACT is True:
-                                limps += 1
-                            if seat.NOT_FOLDED is False:
-                                limps -= 1
-                        if hand_index is True:
-                            raise_amount = math.floor((3 * the_table.BIG_BLIND) + (limps * the_table.BIG_BLIND))
-                            return Action.RAISE, raise_amount
-                        else:
-                            return Action.FOLD, 0
+                        return Action.FOLD, 0
                 else:
-                    hand_index = hand2 in dealer_starting_hands_3bet
+                    hand_index = hand2 in heads_up_button_open_raise
                     if hand_index is True:
                         return Action.CALL, 0
                     else:
-                        hand_index = hand2 in dealer_starting_hands_call
-                        if hand_index is True:
-                            return Action.CALL, 0
-                        else:
-                            return Action.FOLD, 0
+                        return Action.FOLD, 0
             if pos == 'post_flop_first':
                 if seats[your_index].HAD_CHANCE_TO_ACT is False:
                     if call_amount > 0:
-                        hand_index = hand2 in ep_and_blind_raise_starting_hands_3bet
+                        hand_index = hand2 in heads_up_ep_3bet
                         if hand_index is True:
                             raise_amount = math.floor(call_amount * 3.5)
                             return Action.RAISE, raise_amount
                         else:
-                            hand_index = hand2 in ep_and_blind_raise_starting_hands_call
+                            hand_index = hand2 in heads_up_ep_open_raise
                             if hand_index is True:
                                 return Action.CALL, 0
                             else:
                                 return Action.FOLD, 0
                     else:
-                        hand_index = hand2 in blind_limp_starting_hands_open_raise
+                        hand_index = hand2 in heads_up_ep_open_raise
                         for seat in seats:
                             if seat.HAD_CHANCE_TO_ACT is True:
                                 limps += 1
@@ -270,17 +254,13 @@ class CPUPlayer3(Player):
                             raise_amount = math.floor((3 * the_table.BIG_BLIND) + (limps * the_table.BIG_BLIND))
                             return Action.RAISE, raise_amount
                         else:
-                            return Action.FOLD, 0
+                            return Action.CALL, 0
                 else:
-                    hand_index = hand2 in ep_and_blind_raise_starting_hands_3bet
+                    hand_index = hand2 in heads_up_ep_3bet
                     if hand_index is True:
                         return Action.CALL, 0
                     else:
-                        hand_index = hand2 in ep_and_blind_raise_starting_hands_call
-                        if hand_index is True:
-                            return Action.CALL, 0
-                        else:
-                            return Action.FOLD, 0
+                        return Action.FOLD, 0
         if betting_round == BettingRound.POST_FLOP:
             value_betting_percent = 0
             pot_odds = 0
