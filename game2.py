@@ -31,6 +31,9 @@ class Table:
         self.POT = 0
         self.SHARED_CARDS_SHOWING = []
 
+    def input_new_shared_cards(self, cards):
+        self.SHARED_CARDS_SHOWING = cards.split(' ')
+
 
 class Player:
     def __init__(self, chips, name):
@@ -47,6 +50,9 @@ class Player:
     # note: seats[your_index] is YOUR seat
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
         return Action.FOLD, 0
+
+    def change_hand(self, cards):
+        self.HAND = cards.split(' ')
 
     def __str__(self):
         return f'player name = {self.NAME}, player type = ' + str(type(self)) + f', chips = {self.CHIPS}'

@@ -11,6 +11,7 @@ import math
 class CPUPlayer3(Player):
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
         # print('vvvvvvvvvvvvvvvv')
+        # print(the_table.SHARED_CARDS_SHOWING)
         # print('^^^^^^^^^^^^^^^^')
         if self.CHIPS == 0:
             self.ALL_IN is True

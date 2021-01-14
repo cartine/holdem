@@ -1,5 +1,6 @@
 from typing import List
-
+from PeterPokerBot2 import CPUPlayer2
+from PeterPokerBot3 import CPUPlayer3
 from game2 import *
 from poker5 import get_score
 from poker5 import Score
@@ -9,7 +10,7 @@ import copy
 PLAYER_NAME_MAX_LENGTH = 20
 
 
-class TableState:
+class TableState3:
     def __init__(self, table: Table, players: List[Player], betting_round: BettingRound):
         self.TABLE = table
         self.PLAYERS = players.copy()
@@ -20,13 +21,11 @@ class TableState:
     def update_blinds(self, index_of_sb, index_of_bb):
         sb = self.PLAYERS[index_of_sb]
         sb.CHIPS -= self.TABLE.SMALL_BLIND
-        sb.CHIPS_IN += self.TABLE.SMALL_BLIND
         self.TABLE.POT += self.TABLE.SMALL_BLIND
         print(f'Action: {sb.NAME} | SMALL BLIND | Chips Left: {sb.CHIPS} | Pot={self.TABLE.POT}')
 
         bb = self.PLAYERS[index_of_bb]
         bb.CHIPS -= self.TABLE.BIG_BLIND
-        bb.CHIPS_IN += self.TABLE.BIG_BLIND
         self.TABLE.POT += self.TABLE.BIG_BLIND
         print(f'Action: {bb.NAME} | BIG BLIND | Chips Left: {bb.CHIPS} | Pot={self.TABLE.POT}')
 
@@ -76,9 +75,6 @@ class TableState:
         if choice == Action.RAISE and raze <= 0:
             raise Exception(f"Illegal action, a raise must be a positive amount. raise={raze}, player={player.NAME}")
         seat.HAD_CHANCE_TO_ACT = True
-        print('AAAAAAAAAAAAAAAAAAAA', seat.AMOUNT_NEEDED_TO_CALL)
-        print('BBBBBBBBBBBBBBBBB', raze)
-        # raze -= seat.AMOUNT_NEEDED_TO_CALL
         if choice == Action.FOLD:
             seat.NOT_FOLDED = False
         elif choice == Action.CALL:
@@ -92,19 +88,18 @@ class TableState:
                 self.TABLE.POT += player.CHIPS
                 player.CHIPS -= player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
-                player.ALL_IN = True
         elif choice == Action.RAISE:
-            if (seat.AMOUNT_NEEDED_TO_CALL + raze) < player.CHIPS:
+            if seat.AMOUNT_NEEDED_TO_CALL + raze < player.CHIPS:
                 player.CHIPS -= seat.AMOUNT_NEEDED_TO_CALL + raze
                 player.CHIPS_IN += seat.AMOUNT_NEEDED_TO_CALL + raze
                 self.TABLE.POT += seat.AMOUNT_NEEDED_TO_CALL + raze
                 seat.AMOUNT_NEEDED_TO_CALL = 0
             else:
-                self.TABLE.POT += player.CHIPS + seat.AMOUNT_NEEDED_TO_CALL
-                player.CHIPS_IN += player.CHIPS + seat.AMOUNT_NEEDED_TO_CALL
+                self.TABLE.POT += player.CHIPS
+                player.CHIPS_IN += player.CHIPS
+                raze = player.CHIPS
                 player.CHIPS -= player.CHIPS
                 seat.AMOUNT_NEEDED_TO_CALL = 0
-                player.ALL_IN = True
             for i in range(self.NUM_PLAYERS):
                 if i != index_of_player:
                     self.SEATS[i].AMOUNT_NEEDED_TO_CALL += raze
@@ -152,13 +147,13 @@ class TableState:
 
 
 # returns an ordered list of the players that have not folded yet
-def play_betting_round(betting_round: BettingRound, table: Table, players: List[Player]) -> List[Player]:
-    ts = TableState(table, players, betting_round)
+def play_betting_round3(betting_round: BettingRound, table: Table, players: List[Player]) -> List[Player]:
+    ts = TableState3(table, players, betting_round)
     return ts.play_betting_round()
 
 
 # Return a 1 or a 0 for each score; 1 means winner, 0 means loser
-def find_results(scores: List[Score]) -> List[int]:
+def find_results3(scores: List[Score]) -> List[int]:
     to_return = [0] * len(scores)
 
     best_score = scores[0]
@@ -181,7 +176,7 @@ def find_results(scores: List[Score]) -> List[int]:
 # invariants that should have been checked before calling this function:
 #  - there have to be at least 2 players
 #  - each player has to have enough chips to cover the big blind
-def play_hand(players: List[Player], table: Table, hand_number: int):
+def play_hand3(players: List[Player], table: Table, hand_number: int):
 
     # announce the hand number
     print()
@@ -193,7 +188,6 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
     table.reset()
 
     # deal the cards
-    table.SIDE_POT.clear()
     deck = get_deck(shuffled=True)
     n = len(players)
     for i in range(0, n):
@@ -203,10 +197,13 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
     # play the betting rounds
     still_in = players
     for betting_round in BettingRound:
+        if betting_round.value >= 3:
+            table.input_new_shared_cards(input('NEW SHARED CARD: '))
+        if len(table.SHARED_CARDS_SHOWING) != betting_round.value:
+            table.SHARED_CARDS_SHOWING = shared_cards[0:betting_round.value]
         players_all_in = []
         not_all_in = [still_in]
-        table.SHARED_CARDS_SHOWING = shared_cards[0:betting_round.value]
-        still_in = play_betting_round(betting_round, table, still_in)  # returns players who haven't folded (ordered)
+        still_in = play_betting_round3(betting_round, table, still_in)  # returns players who haven't folded (ordered)
         if len(still_in) <= 0:
             raise Exception("Internal Error - the players cannot all fold!")
         elif len(still_in) == 1:
@@ -215,22 +212,20 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
             if player.ALL_IN is True:
                 players_all_in.append(player)
         if len(players_all_in) >= 1:
-            print('>>>>>>>>>>>>>>>>>>>>', len(players_all_in))
             sorted(players_all_in, key=lambda player6: player6.CHIPS_IN)
             for i in range(0, len(players_all_in)):
                 table.SIDE_POT.append({"Name": [], "Chips In": [], "Side Pot Total": 0})
                 for player2 in players:
-                    print('~~~~~~~~~~~~~~~~', player2.NAME, player2.CHIPS_IN)
                     if player2.CHIPS_IN == 0:
                         pass
                     elif player2.CHIPS_IN <= players_all_in[i].CHIPS_IN:
-                        table.SIDE_POT[i]["Name"].append(player2.NAME)
-                        table.SIDE_POT[i]["Chips In"].append(player2.CHIPS_IN)
+                        table.SIDE_POT[i]["Name"].append({player2})
+                        table.SIDE_POT[i]["Chips In"].append({player2.CHIPS_IN})
                         table.SIDE_POT[i]["Side Pot Total"] += player2.CHIPS_IN
                         player2.CHIPS_IN = 0
                     else:
-                        table.SIDE_POT[i]["Name"].append(player2.NAME)
-                        table.SIDE_POT[i]["Chips In"].append(players_all_in[i].CHIPS_IN)
+                        table.SIDE_POT[i]["Name"].append({player2})
+                        table.SIDE_POT[i]["Chips In"].append({players_all_in[i].CHIPS_IN})
                         table.SIDE_POT[i]["Side Pot Total"] += players_all_in[i].CHIPS_IN
                         player2.CHIPS_IN -= players_all_in[i].CHIPS_IN
                     print(table.SIDE_POT)
@@ -239,7 +234,7 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
     if len(still_in) >= 1:
         # ordered list of Score objects; one for each player who stayed in
         scores = [get_score(player.HAND + shared_cards) for player in still_in]
-        results = find_results(scores)  # list of 1's and 0's: A 1 means the player won, a 0 means the player lost
+        results = find_results3(scores)  # list of 1's and 0's: A 1 means the player won, a 0 means the player lost
     else:
         raise Exception("Internal Error - there has to be at least one winner")
 
@@ -282,13 +277,9 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
             if results[i] == 1:
                 winners.append(still_in[i])
         for e in range(0, len(winners)):
-            for i in range(0, len(table.SIDE_POT)):
-                if winners[e].NAME in table.SIDE_POT[i]["Name"]:
-                    winners[e].POT_ELIGIBILITY.append(True)
-                else:
-                    winners[e].POT_ELIGIBILITY.append(False)
+            for i in table.SIDE_POT:
+                winners[e].POT_ELIGIBILITY = [winners[e].NAME in i["Name"] for i in table.SIDE_POT]
         sorted(winners, key=lambda player6: player6.POT_ELIGIBILITY.count(True))
-        print(winners[0].POT_ELIGIBILITY)
         for e in range(0, len(winners)):
             winnings = 0
             for i in range(0, len(table.SIDE_POT)):
@@ -309,7 +300,7 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
             raise Exception(f'"leftover" must be zero, but it is {leftover}')
 
 
-def check_params(starting_players: List[Player], small_blind: int, big_blind: int):
+def check_params3(starting_players: List[Player], small_blind: int, big_blind: int):
     assert len(starting_players) >= 2
     assert len(starting_players) <= 23
     assert small_blind > 0
@@ -323,21 +314,65 @@ def check_params(starting_players: List[Player], small_blind: int, big_blind: in
 
 
 # Remove players from the game if they don't have enough chips
-def remove_losers(players: List[Player], big_blind: int) -> List[Player]:
-    for player in players:
-        player.ALL_IN = False
+def remove_losers3(players: List[Player], big_blind: int) -> List[Player]:
     to_return = players.copy()
     any_removed = False
     for i in reversed(range(0, len(players))):
         if players[i].CHIPS < big_blind:
-            if not any_removed:
-                any_removed = True
-                print()
-                print('Removing 1 or more players for insufficient chips:')
-            print('Removing: ', players[i])
-            to_return.pop(i)
+            buy_back_in = input('BUY BACK IN?')
+            if buy_back_in.upper() == 'YES':
+                buy_back_in_value = int(input('BUY-IN AMOUNT: '))
+                players[i].CHIPS = buy_back_in_value
+            else:
+                if not any_removed:
+                    any_removed = True
+                    print()
+                    print('Removing 1 or more players for insufficient chips:')
+                print('Removing: ', players[i])
+                to_return.pop(i)
 
-    # return
+    new_player = {}
+    add_player_prompt = input('ADD PLAYER?')
+    while add_player_prompt.upper() == 'YES':
+        i = 0
+        add_player = input('PLAYER TYPE?')
+        # Possible Options: CPU(Random Choices), CPU W/O FOLD, POKERBOT2, POKERBOT3, CLPLAYER
+        chip_number = int(input('NUMBER OF CHIPS?'))
+        player_name = f'Player {len(players) + 1}'
+        if add_player.upper() == 'CPU':
+            new_player['my_var_' + str(i)] = CPUPlayer(chip_number, player_name)
+        if add_player.upper() == 'CPU W/O FOLD':
+            new_player['my_var_' + str(i)] = CPUPlayerWhoDoesNotFold(chip_number, player_name)
+        if add_player.upper() == 'POKERBOT2':
+            new_player['my_var_' + str(i)] = CPUPlayer2(chip_number, player_name)
+        if add_player.upper() == 'POKERBOT3':
+            new_player['my_var_' + str(i)] = CPUPlayer3(chip_number, player_name)
+        if add_player.upper() == 'CLPLAYER':
+            new_player['my_var_' + str(i)] = CLPlayer(chip_number, player_name)
+        add_player_prompt = input('ADD PLAYER?')
+        i += 1
+    if len(new_player) > 0:
+        for i in range(0, len(new_player)):
+            to_return.append(new_player['my_var_' + str(i)])
+
+    remove_player_prompt = input('REMOVE PLAYER?')
+    while remove_player_prompt.upper() == 'YES':
+        remove_player = input('PLAYER NAME?')
+        for i in range(0, len(to_return)):
+            if remove_player.upper() == to_return[i].NAME.upper():
+                to_return.remove(to_return[i])
+        remove_player_prompt = input('REMOVE PLAYER?')
+
+    change_chips_prompt = input('CHANGE CHIPS?')
+    while change_chips_prompt.upper() == 'YES':
+        change_chips_player = input('WHICH PLAYER?')
+        change_chips = int(input('NEW CHIP VALUE: '))
+        for i in range(0, len(to_return)):
+            if change_chips_player.upper() == to_return[i].NAME.upper():
+                to_return[i].CHIPS = change_chips
+        change_chips_prompt = input('CHANGE CHIPS?')
+
+        # return
     return to_return
 
 
@@ -351,8 +386,8 @@ def remove_losers(players: List[Player], big_blind: int) -> List[Player]:
 # is the player immediately to the left of the dealer in the first hand.
 #
 # Returns: the number of hands played
-def play_holdem(starting_players: List[Player], small_blind: int, big_blind: int) -> int:
-    check_params(starting_players, small_blind, big_blind)
+def play_holdem3(starting_players: List[Player], small_blind: int, big_blind: int) -> int:
+    check_params3(starting_players, small_blind, big_blind)
 
     # initialize stuff
     players = starting_players.copy()
@@ -364,9 +399,9 @@ def play_holdem(starting_players: List[Player], small_blind: int, big_blind: int
     print("===============================")
     while len(players) >= 2:
         hand_number += 1
-        play_hand(players, table, hand_number)
+        play_hand3(players, table, hand_number)
         players = players[1:] + players[0:1]  # move the button
-        players = remove_losers(players, big_blind)
+        players = remove_losers3(players, big_blind)
 
     # the game is over, so output the result
     print()
