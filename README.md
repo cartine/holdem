@@ -5,9 +5,13 @@ The service uses ```flask``` as the web service engine
 
 ```pip3 install flask```
 
-### Run The Web Service
+### Run The Web Service on Mac
 
 ```export FLASK_APP=game_service.py ; flask run```
+
+### Run The Web Service on Windows
+
+```set FLASK_APP=game_service.py ; flask run```
 
 ### Trigger Game
 
