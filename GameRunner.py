@@ -54,6 +54,8 @@ from multiplayer_holdem_game import play_holdem
 
 
 def run():
+    winner = {}
+    choices = []
     # player0 = CPUPlayer(5000, "Player 0")
     # player1 = CPUPlayer(5000, "Player 1")
     # player2 = CPUPlayer(5000, "Player 2")
@@ -81,10 +83,12 @@ def run():
     player0 = CPUPlayer(50, "Player 0")
     player1 = CPUPlayer(50, "Player 1")
     player2 = CPUPlayer(50, "Player 2")
-    player3 = CPUPlayer(50, "Player 3")
+    from PeterPokerBot3 import CPUPlayer3
+    player3 = CPUPlayer3(50, "Player 3")
     players = [player0, player1, player2, player3]
 
-    play_holdem(players, 1, 2)
+    winner, choices = play_holdem(players, 1, 2)
+    return winner, choices
 
 
 if __name__ == '__main__':

@@ -78,6 +78,7 @@ class TableState:
         # initialize things
         seat = self.SEATS[index_of_player]
         player = seat.PLAYER
+        choices = []
         # make sure this player should be allowed to play
         if not seat.NOT_FOLDED:
             raise Exception("Illegal State - this player can't play, he already folded or has no chips")
@@ -85,7 +86,9 @@ class TableState:
             raise Exception("Illegal State - This player can't play - he had his chance and there is no bet to call")
 
         # play
+        choices.clear()
         choice, raze = player.decide(self.TABLE, self.BETTING_ROUND, seat.AMOUNT_NEEDED_TO_CALL, self.SEATS, index_of_player)
+        choices = {"playerName": str(player.NAME), "choice": str(choice), "amountNeededToCall": int(seat.AMOUNT_NEEDED_TO_CALL), "raze": int(raze), "playerChips": int(player.CHIPS), "playerChipsIn": int(player.CHIPS_IN), "playerAllIn": str(player.ALL_IN), "pot": int(self.TABLE.POT), "sidePot": str(self.TABLE.SIDE_POT)}
         if self.PLAYERS_LEFT == 1 and seat.AMOUNT_NEEDED_TO_CALL == 0:
             choice = Action.CALL
         if player.ALL_IN is True:
@@ -142,12 +145,13 @@ class TableState:
         print(f'Action: {player.NAME} | {x} | Chips Left: {player.CHIPS} | Pot={self.TABLE.POT}')
 
         # return the index of the next player to play, or -1 if the betting round is over
-        return self.find_index_of_next_player(index_of_player)
+        return self.find_index_of_next_player(index_of_player), choices
 
     # returns an ordered list of the players that have not folded yet
     def play_betting_round(self) -> List[Player]:
         print()
         print(f'Betting round: {self.BETTING_ROUND}')
+        choices = []
 
         # pre-flop setup: small_blind, big_blind, figure out who goes first
         if self.BETTING_ROUND == BettingRound.PRE_FLOP:
@@ -165,14 +169,14 @@ class TableState:
 
         # do all the betting
         while index_of_next_player != -1:
-            index_of_next_player = self.play(index_of_next_player)
+            index_of_next_player, choices = self.play(index_of_next_player)
 
         # return list of players who haven't folded yet
         to_return = []
         for i in range(self.NUM_PLAYERS):
             if self.SEATS[i].NOT_FOLDED:
                 to_return.append(self.PLAYERS[i])
-        return to_return
+        return to_return, choices
 
 
 # returns an ordered list of the players that have not folded yet
@@ -218,6 +222,7 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
 
     # deal the cards
     table.SIDE_POT.clear()
+    choices = []
     deck = get_deck(shuffled=True)
     n = len(players)
     for i in range(0, n):
@@ -229,7 +234,8 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
     for betting_round in BettingRound:
         players_all_in = []
         table.SHARED_CARDS_SHOWING = shared_cards[0:betting_round.value]
-        still_in = play_betting_round(betting_round, table, still_in)  # returns players who haven't folded (ordered)
+        choices.clear()
+        still_in, choices = play_betting_round(betting_round, table, still_in)  # returns players who haven't folded (ordered)
         if len(still_in) <= 0:
             raise Exception("Internal Error - the players cannot all fold!")
         elif len(still_in) == 1:
@@ -339,6 +345,7 @@ def play_hand(players: List[Player], table: Table, hand_number: int):
         leftover = total - amt_paid
         if leftover != 0:
             raise Exception(f'"leftover" must be zero, but it is {leftover}')
+    return choices
 
 
 def check_params(starting_players: List[Player], small_blind: int, big_blind: int):
@@ -390,13 +397,14 @@ def play_holdem(starting_players: List[Player], small_blind: int, big_blind: int
     players = starting_players.copy()
     table = Table(small_blind, big_blind)
     hand_number = 0
+    choices = []
 
     # play
     print("Starting a game of Texas Holdem")
     print("===============================")
     while len(players) >= 2:
         hand_number += 1
-        play_hand(players, table, hand_number)
+        choices.append(play_hand(players, table, hand_number))
         players = players[1:] + players[0:1]  # move the button
         players = remove_losers(players, big_blind)
 
@@ -405,6 +413,6 @@ def play_holdem(starting_players: List[Player], small_blind: int, big_blind: int
     print("===============================")
     print(f'{hand_number} hands were played. Here is the winner:')
     print(players[0])
-
+    winner = {'playerName': players[0].NAME, 'playerChips': players[0].CHIPS, 'handNumber': hand_number}
     # return the number of hands played
-    return hand_number
+    return winner, choices

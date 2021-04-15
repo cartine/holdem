@@ -29,9 +29,14 @@ class CPUPlayer3(Player):
                 pos = 'SB'
             elif your_index == 1:
                 pos = 'BB'
-            elif num_seats - 2 > 1:
+            elif num_seats > 3:
                 if num_seats - 2 == your_index:
                     pos = 'CU'
+                elif num_seats > 4:
+                    if num_seats - 3 == your_index:
+                        pos = 'CU'
+                    else:
+                        pos = 'EP'
                 else:
                     pos = 'EP'
         nums = []
@@ -348,6 +353,3 @@ class CPUPlayer3(Player):
                 else:
                     return Action.FOLD, 0
             return Action.CALL, 0
-
-    def interpret(self, input):
-        pass
