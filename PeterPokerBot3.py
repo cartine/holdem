@@ -10,9 +10,6 @@ import math
 
 class CPUPlayer3(Player):
     def decide(self, the_table, betting_round, call_amount, seats, your_index):
-        # print('vvvvvvvvvvvvvvvv')
-        # print(the_table.SHARED_CARDS_SHOWING)
-        # print('^^^^^^^^^^^^^^^^')
         if self.CHIPS == 0:
             self.ALL_IN is True
         num_seats = len(seats)
@@ -39,6 +36,7 @@ class CPUPlayer3(Player):
                         pos = 'EP'
                 else:
                     pos = 'EP'
+        print('Position:', pos)
         nums = []
         shapes = []
         raise_amount = 0

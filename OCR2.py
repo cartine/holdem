@@ -8,7 +8,7 @@ pytesseract.pytesseract.tesseract_cmd=r'C:\Program Files (x86)\Tesseract-OCR\tes
 
 def find_com_cards(filename):
     img = cv2.imread(filename)
-    com_card1 = img[400:450, 560:620, :]
+    com_card1 = img[400:450, 570:630, :]
     com_card1_suit = img[480:530, 600:650, :]
     com_card2 = img[395:450, 675:730, :]
     com_card2_suit = img[480:530, 715:765, :]
@@ -40,6 +40,8 @@ def find_com_cards(filename):
             com_cards[i] = 'K'
         if com_cards[i] == '|':
             com_cards[i] = 'Q'
+        if com_cards[i] == ':':
+            com_cards[i] = '8'
         if com_card_suits[i] == 'o':
             com_card_suits[i] = 'C'
         if com_card_suits[i] == 'j':
@@ -66,16 +68,16 @@ def find_com_cards(filename):
 
 def find_total_pot(filename):
     img = cv2.imread(filename)
-    total_pot1 = img[325:349, 880:920, :]
+    total_pot1 = img[322:349, 882:919, :]
     total_pot2 = img[303:335, 883:920, :]
-    total_pot1 = pytesseract.image_to_string(total_pot1, config='--psm 6')[:-1]
-    total_pot2 = pytesseract.image_to_string(total_pot2, config='--psm 6')[:-1]
-    if total_pot2[:2] == '8\n':
-        total_pot2 = 8
-    if total_pot2 == '72)\n':
-        total_pot2 = 28
-    if total_pot1 == ':6—\n':
-        total_pot1 = 6
+    total_pot1 = pytesseract.image_to_string(total_pot1, config='--psm 8')[:-2]
+    total_pot2 = pytesseract.image_to_string(total_pot2, config='--psm 6')[:-2]
+    if total_pot2 == '72)':
+        total_pot2 = '28'
+    if total_pot1 == 'oO':
+        total_pot1 = '8'
+    total_pot1 = ''.join(list(filter(str.isdigit, total_pot1)))
+    total_pot2 = ''.join(list(filter(str.isdigit, total_pot2)))
     try:
         int(total_pot1)
     except:
@@ -119,17 +121,12 @@ def find_call_amount(filename):
     img = cv2.imread(filename)
     call_amount = img[830:880, 940:990, :]
     all_in_amount = img[836:886, 1216:1266, :]
-    call_amount = pytesseract.image_to_string(call_amount, config='--psm 8')[:-1]
+    call_amount = pytesseract.image_to_string(call_amount, config='--psm 6')[:-1]
     all_in_amount = pytesseract.image_to_string(all_in_amount, config='--psm 8')[:-1]
+    if call_amount[0] == 'C' or call_amount[0] == 'H' or call_amount[0] == 'E':
+        call_amount = '0'
+    call_amount = ''.join(list(filter(str.isdigit, call_amount)))
     all_in_amount = ''.join(list(filter(str.isdigit, all_in_amount)))
-    if call_amount == '3 |\n':
-        call_amount = 8
-    if call_amount == 'La\n':
-        call_amount = 4
-    if call_amount == 'L2\n':
-        call_amount = 2
-    if call_amount == '6 |\n':
-        call_amount = 6
     try:
         int(call_amount)
     except:
@@ -145,22 +142,9 @@ def find_call_amount(filename):
     return int(call_amount)
 
 
-def find_seat_1(filename):
+def find_hole_cards(filename):
     img = cv2.imread(filename)
     seat1 = img[78:288, 530:750, :]
-    seat1_had_chance_to_act = img[285:305, 635:675, :]
-    seat1_had_chance_to_act = pytesseract.image_to_string(seat1_had_chance_to_act, config='--psm 6')[:-2]
-    if seat1_had_chance_to_act != '':
-        seat1_had_chance_to_act = True
-    else:
-        seat1_had_chance_to_act = False
-    seat1_chips = seat1[110:150, 65:200, :]
-    seat1_chips = pytesseract.image_to_string(seat1_chips, config='--psm 6')[:-2]
-    is_float = seat1_chips.find('.')
-    if is_float == -1:
-        seat1_chips = int(seat1_chips.replace(',', ''))
-    else:
-        seat1_chips = float(seat1_chips.replace(',', ''))
     seat1_hole_card1 = seat1[18:54, 39:77, :]
     seat1_hole_card1 = pytesseract.image_to_string(seat1_hole_card1, config='--psm 6')[:-2]
     seat1_hole_card1_suit = seat1[70:103, 58:103, :]
@@ -187,7 +171,7 @@ def find_seat_1(filename):
         seat1_hole_card1_suit = 'H'
     if seat1_hole_card1_suit == '@':
         seat1_hole_card1_suit = 'S'
-# |||||||||||||||||||||||||||||||||||||||||||||
+    # |||||||||||||||||||||||||||||||||||||||||||||
     if seat1_hole_card2_suit == '. A':
         seat1_hole_card2_suit = 'D'
     if seat1_hole_card2_suit == '. J':
@@ -196,8 +180,27 @@ def find_seat_1(filename):
         seat1_hole_card2_suit = 'C'
     if seat1_hole_card2_suit == '@':
         seat1_hole_card2_suit = 'S'
-    Seat1_Player = CPUPlayer3(seat1_chips, "Self")
     seat1_hand = (seat1_hole_card1, seat1_hole_card1_suit), (seat1_hole_card2, seat1_hole_card2_suit)
+    return seat1_hand
+
+
+def find_seat_1(filename, seat1_hand):
+    img = cv2.imread(filename)
+    seat1 = img[78:288, 530:750, :]
+    seat1_had_chance_to_act = img[285:305, 635:675, :]
+    seat1_had_chance_to_act = pytesseract.image_to_string(seat1_had_chance_to_act, config='--psm 6')[:-2]
+    if seat1_had_chance_to_act != '':
+        seat1_had_chance_to_act = True
+    else:
+        seat1_had_chance_to_act = False
+    seat1_chips = seat1[110:150, 65:200, :]
+    seat1_chips = pytesseract.image_to_string(seat1_chips, config='--psm 6')[:-2]
+    is_float = seat1_chips.find('.')
+    if is_float == -1:
+        seat1_chips = int(seat1_chips.replace(',', ''))
+    else:
+        seat1_chips = float(seat1_chips.replace(',', ''))
+    Seat1_Player = CPUPlayer3(seat1_chips, "Self")
     Seat1_Player.HAND = seat1_hand
     return Seat1_Player, seat1_had_chance_to_act
 
@@ -444,9 +447,9 @@ def find_seat_9(filename):
     return Seat9_Player, seat9_is_folded
 
 
-def creating_seats(filename):
+def creating_seats(filename, seat1_hand):
     dealer_index = find_dealer(filename)
-    seats = [find_seat_1(filename), find_seat_2(filename), find_seat_3(filename), find_seat_4(filename),
+    seats = [find_seat_1(filename, seat1_hand), find_seat_2(filename), find_seat_3(filename), find_seat_4(filename),
              find_seat_5(filename), find_seat_6(filename), find_seat_7(filename), find_seat_8(filename),
              find_seat_9(filename)]
     seats_ordered = seats[dealer_index:]
@@ -466,18 +469,9 @@ def creating_seats(filename):
             self_index = i
             self_chips = seats_ordered1[i].CHIPS
             self_hand = seats_ordered1[i].HAND
-    seats_folded = []
-    for i in range(0, len(seats_ordered)):
-        if seats_ordered[i].NOT_FOLDED is False:
-            seats_folded.append(i)
-    seats_folded = sorted(seats_folded, reverse=True)
-    for i in seats_folded:
-        if i < self_index:
-            self_index -= 1
-        del seats_ordered[i]
     return seats_ordered, self_index, self_chips, self_hand
 
 
-filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (434).png'
+filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (655).png'
 if __name__ == '__main__':
-    print(find_seat_1(filename)[0].HAND)
+    print(find_com_cards(filename))
