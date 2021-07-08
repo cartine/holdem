@@ -2,6 +2,8 @@ from random import shuffle
 
 from poker5 import Pip
 from poker5 import Suit
+import poker5
+import KEPCode1
 
 
 class Card:

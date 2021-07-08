@@ -25,6 +25,7 @@ class Score:
         return r
 
 
+#IN this file, a card is pip and suit, e.g., 'AH' or '6D'
 def get_score(cards):
     validate_cards(cards, 7)
     flush = get_flush(cards)
