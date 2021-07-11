@@ -48,4 +48,6 @@ def twoPlayerRiverOddsCalculator(YourCard1, YourCard2, Upturned1, Upturned2, Upt
     print('lose')
     print(lose)
 
-twoPlayerRiverOddsCalculator('AH', 'KH', 'QH', 'JH', 'TH', '9H', '8H')
+
+if __name__ == '__main__':
+    twoPlayerRiverOddsCalculator('AC', 'KC', 'QC', 'JH', 'TH', '9H', '8H')
