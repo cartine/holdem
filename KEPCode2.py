@@ -40,7 +40,7 @@ while True:
                         break
 
         # if there is  four of a kind
-        if (u5 == u2 and u2 == u3 and u3 == u4):
+        elif (u5 == u2 and u2 == u3 and u3 == u4):
             while True:
                 # if your cards are the same
                 if m1 == u5 or m2 == u5:
