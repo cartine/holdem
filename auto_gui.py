@@ -62,26 +62,24 @@ def take_screenshot2():
 
 
 def make_choice(filename):
+    print('data = [')
+    index = 0
     hand_num = 1
     self_chips = 120
     pyautogui.keyDown('alt')
     pyautogui.keyDown('tab')
     pyautogui.keyUp('tab')
     pyautogui.keyUp('alt')
-    while self_chips < 240:
+    while self_chips > 0:
+        print(', ')
         img = cv2.imread(filename)
         marker = img[243:280, 580:710, :]
         # plt.imshow(marker)
         # plt.show()
         s = pyautogui.locateOnScreen(marker, confidence=1)
-        t = time.time()
         while s is None:
             try:
                 s = pyautogui.locateOnScreen(marker)
-                t2 = time.time() - t
-                if t2 > 300:
-                    self_chips = 300
-                    s = 1
             except:
                 pass
         if s != 1:
@@ -92,38 +90,44 @@ def make_choice(filename):
             time.sleep(1)
             list_of_files = glob.glob(r'C:\Users\peter\OneDrive\Pictures\Screenshots\*.png')
             latest_file = max(list_of_files, key=os.path.getctime)
-            print(str(latest_file))
+            latest_file2 = str(latest_file).replace('\\', '\\\\')
             hole_cards = find_hole_cards(latest_file)
+            will = find_not_mistake(latest_file)
             if hole_cards[0][1] == 'H' or hole_cards[0][1] == 'S' or hole_cards[0][1] == 'C' or hole_cards[0][1] == 'D':
-                try:
-                    choice, raise_amount, call_amount, self_chips, pot, self_index, seat_length = run_OCR2(latest_file, hole_cards)
-                    print('hand #:', hand_num)
-                    print(choice)
-                    print('raise amount:', raise_amount)
-                    print('call amount:', call_amount)
-                    print('chips:', self_chips)
-                    print('pot:', pot)
-                except Exception as e:
-                    print('Error:', e)
-                    time.sleep(1)
-                else:
-                    if choice == Action.FOLD:
-                        pyautogui.click(675, 850)
-                        hand_num += 1
-                    if choice == Action.CALL:
-                        if self_chips == call_amount:
+                if will != 'will':
+                    try:
+                        print('(')
+                        print('\'' + latest_file2 + '\'' + ', ')
+                        choice, raise_amount, call_amount, self_chips, pot, self_index, seat_length, seats = run_OCR2(latest_file, hole_cards)
+                        print(str(hand_num) + ', ')
+                        print('\'' + str(choice) + '\'' + ', ')
+                        print(str(raise_amount) + ', ')
+                        print(str(call_amount) + ', ')
+                        print(str(self_chips) + ', ')
+                        print(str(pot) + ')')
+                    except Exception as e:
+                        print("Error on line {}".format(sys.exc_info()[-1].tb_lineno))
+                        print('Error:', e)
+                        time.sleep(1)
+                    else:
+                        if choice == Action.FOLD:
+                            pyautogui.click(675, 850)
+                            hand_num += 1
+                        if choice == Action.CALL:
+                            if self_chips == call_amount:
+                                pyautogui.click(1200, 850)
+                            else:
+                                pyautogui.click(925, 850)
+                        if choice == Action.RAISE:
+                            pyautogui.click(1250, 925)
+                            pyautogui.write(str(raise_amount))
                             pyautogui.click(1200, 850)
-                        else:
-                            pyautogui.click(925, 850)
-                    if choice == Action.RAISE:
-                        pyautogui.click(1250, 925)
-                        pyautogui.write(str(raise_amount))
-                        pyautogui.click(1200, 850)
     pyautogui.click(1882, 18)
     pyautogui.click(910, 550)
-    client.messages.create(to="+12035178290",
-                           from_="+12817710887",
-                           body="Finished Game")
+    print(']')
+    # client.messages.create(to="+12035178290",
+    #                        from_="+12817710887",
+    #                        body="Finished Game")
 
 
 filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (419).png'

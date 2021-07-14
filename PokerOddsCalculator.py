@@ -298,8 +298,8 @@ class DataFrameWrapper:
         hit_percent = hit_percent.Percent.sum()
         return hit_percent
 
-    def call_break_even_percent(self, pot, active_pot):
-        break_even_percent = active_pot / (active_pot + pot)
+    def call_break_even_percent(self, pot, call_amount):
+        break_even_percent = call_amount / (call_amount + pot)
         break_even_percent *= 100
         return break_even_percent
 
@@ -312,7 +312,7 @@ class DataFrameWrapper:
 
 if __name__ == '__main__':
     # pd.set_option("display.max_rows", None, "display.max_columns", None)
-    first_hand = DataFrameWrapper(Table)
+    first_hand = DataFrameWrapper
     hand = random.sample(deck, 7)
     score_results = first_hand.calculator(hand)
     current_score5 = first_hand.current_score5(random.sample(deck, 5))
