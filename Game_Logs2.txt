@@ -1,643 +1,1078 @@
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (731).png
-(('Q', 'H'), ('J', 'C'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 1
-Action.CALL
-raise amount: 0
-call amount: 0
-chips: 116
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (732).png
-(('Q', 'H'), ('J', 'C'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 1
-Action.FOLD
-raise amount: 0
-call amount: 116
-chips: 116
-pot: 15
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (733).png
-(('J', 'H'), ('7', 'C'))
-betting round: 0
-[]
-self index: 0
-Position: SB
-hand #: 2
-Action.FOLD
-raise amount: 0
-call amount: 864
-chips: 114
-pot: 44
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (734).png
-(('7', 'S'), ('3', 'H'))
-betting round: 0
-[]
-self index: 4
-Position: BU
-hand #: 3
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 114
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (735).png
-(('J', 'S'), ('Q', 'D'))
-betting round: 0
-[]
-self index: 3
-Position: CU
-hand #: 4
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 114
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (736).png
-(('T', 'D'), ('5', 'D'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 5
-Action.FOLD
-raise amount: 0
-call amount: 110
-chips: 110
-pot: 36
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (737).png
-(('2', 'S'), ('Q', 'S'))
-betting round: 0
-[]
-self index: 0
-Position: SB
-hand #: 6
-Action.FOLD
-raise amount: 0
-call amount: 108
-chips: 108
-pot: 406
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (738).png
-(('9', 'C'), ('8', 'D'))
-betting round: 0
-[]
-self index: 4
-Position: BU
-hand #: 7
-Action.FOLD
-raise amount: 0
-call amount: 108
-chips: 108
-pot: 518
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (739).png
-(('6', 'C'), ('K', 'S'))
-betting round: 0
-[]
-self index: 3
-Position: CU
-hand #: 8
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 108
-pot: 10
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (740).png
-(('K', 'D'), ('4', 'H'))
-betting round: 0
-[]
-self index: 2
-Position: EP
-hand #: 9
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 108
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (741).png
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (742).png
-(('4', 'C'), ('3', 'S'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 10
-Action.FOLD
-raise amount: 0
-call amount: 666
-chips: 104
-pot: 0
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (743).png
-(('J', 'S'), ('7', 'C'))
-betting round: 0
-[]
-self index: 0
-Position: SB
-hand #: 11
-Action.FOLD
-raise amount: 0
-call amount: 102
-chips: 102
-pot: 36
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (744).png
-(('T', 'C'), ('K', 'H'))
-betting round: 0
-[]
-self index: 8
-Position: BU
-hand #: 12
-Action.FOLD
-raise amount: 0
-call amount: 102
-chips: 102
-pot: 0
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (745).png
-(('Q', 'S'), ('3', 'C'))
-betting round: 0
-[]
-self index: 7
-Position: CU
-hand #: 13
-Action.FOLD
-raise amount: 0
-call amount: 102
-chips: 102
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (746).png
-(('8', 'H'), ('2', 'D'))
-betting round: 0
-[]
-self index: 4
-Position: EP
-hand #: 14
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 102
-pot: 20
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (747).png
-(('Q', 'H'), ('K', 'S'))
-betting round: 0
-[]
-self index: 3
-Position: EP
-hand #: 15
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 102
-pot: 10
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (748).png
-(('5', 'D'), ('Q', 'H'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 16
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 102
-pot: 4
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (749).png
-(('8', 'H'), ('4', 'H'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 17
-Action.CALL
-raise amount: 0
-call amount: 0
-chips: 98
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (750).png
-(('8', 'H'), ('4', 'H'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 17
-Action.FOLD
-raise amount: 0
-call amount: 98
-chips: 98
-pot: 32
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (751).png
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (752).png
-(('7', 'D'), ('3', 'H'))
-betting round: 0
-[]
-self index: 0
-Position: SB
-hand #: 18
-Action.FOLD
-raise amount: 0
-call amount: 2
-chips: 96
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (753).png
-(('8', 'H'), ('5', 'C'))
-betting round: 0
-[]
-self index: 8
-Position: BU
-hand #: 19
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 96
-pot: 26
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (754).png
-(('J', 'D'), ('6', 'S'))
-betting round: 0
-[]
-self index: 7
-Position: CU
-hand #: 20
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 96
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (755).png
-(('6', 'S'), ('A', 'H'))
-betting round: 0
-[]
-self index: 6
-Position: CU
-hand #: 21
-Action.FOLD
-raise amount: 0
-call amount: 20
-chips: 96
-pot: 70
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (756).png
-(('T', 'D'), ('2', 'S'))
-betting round: 0
-[]
-self index: 5
-Position: EP
-hand #: 22
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 96
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (757).png
-(('8', 'C'), ('K', 'D'))
-betting round: 0
-[]
-self index: 3
-Position: EP
-hand #: 23
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 96
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (758).png
-(('A', 'S'), ('J', 'D'))
-betting round: 0
-[]
-self index: 3
-Position: EP
-hand #: 24
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 96
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (759).png
-(('T', 'D'), ('J', 'D'))
-betting round: 0
-[]
-self index: 2
-Position: EP
-hand #: 25
-Action.RAISE
-raise amount: 12
-call amount: 4
-chips: 96
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (760).png
-(('T', 'D'), ('J', 'D'))
-betting round: 3
-[('Q', 'H'), ('4', 'H'), ('8', 'H')]
-self index: 2
-Position: EP
-hand #: 25
-Action.CALL
-raise amount: 0
-call amount: 0
-chips: 84
-pot: 60
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (761).png
-(('T', 'D'), ('J', 'D'))
-betting round: 3
-[('Q', 'H'), ('4', 'H'), ('8', 'H')]
-self index: 2
-Position: EP
-hand #: 25
-Action.CALL
-raise amount: 0
-call amount: 4
-chips: 84
-pot: 72
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (762).png
-(('T', 'D'), ('J', 'D'))
-betting round: 4
-[('Q', 'H'), ('4', 'H'), ('8', 'H'), ('T', 'C')]
-self index: 2
-Position: EP
-hand #: 25
-Action.FOLD
-raise amount: 0
-call amount: 76
-chips: 80
-pot: 0
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (763).png
-(('T', 'C'), ('5', 'C'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 26
-Action.CALL
-raise amount: 0
-call amount: 0
-chips: 76
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (764).png
-(('T', 'C'), ('5', 'C'))
-betting round: 0
-[]
-self index: 1
-Position: BB
-hand #: 26
-Action.FOLD
-raise amount: 0
-call amount: 38
-chips: 76
-pot: 100
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (765).png
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (766).png
-(('4', 'D'), ('Q', 'C'))
-betting round: 0
-[]
-self index: 0
-Position: SB
-hand #: 27
-Action.FOLD
-raise amount: 0
-call amount: 2
-chips: 74
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (767).png
-(('Q', 'H'), ('7', 'C'))
-betting round: 0
-[]
-self index: 5
-Position: BU
-hand #: 28
-Action.FOLD
-raise amount: 0
-call amount: 32
-chips: 74
-pot: 38
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (768).png
-(('2', 'S'), ('Q', 'S'))
-betting round: 0
-[]
-self index: 4
-Position: CU
-hand #: 29
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 74
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (769).png
-(('7', 'H'), ('2', 'H'))
-betting round: 0
-[]
-self index: 2
-Position: CU
-hand #: 30
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 74
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (770).png
-(('K', 'C'), ('8', 'H'))
-betting round: 0
-[]
-self index: 2
-Position: EP
-hand #: 31
-Action.FOLD
-raise amount: 0
-call amount: 16
-chips: 70
-pot: 46
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (771).png
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (772).png
-(('7', 'C'), ('J', 'D'))
-betting round: 0
-[]
-self index: 0
-Position: SB
-hand #: 32
-Action.FOLD
-raise amount: 0
-call amount: 18
-chips: 68
-pot: 54
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (773).png
-(('4', 'C'), ('3', 'H'))
-betting round: 0
-[]
-self index: 7
-Position: BU
-hand #: 33
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 68
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (774).png
-(('9', 'D'), ('Q', 'S'))
-betting round: 0
-[]
-self index: 7
-Position: CU
-hand #: 34
-Action.FOLD
-raise amount: 0
-call amount: 20
-chips: 68
-pot: 86
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (775).png
-(('6', 'S'), ('T', 'C'))
-betting round: 0
-[]
-self index: 6
-Position: CU
-hand #: 35
-Action.FOLD
-raise amount: 0
-call amount: 30
-chips: 68
-pot: 36
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (776).png
-(('3', 'D'), ('7', 'H'))
-betting round: 0
-[]
-self index: 5
-Position: EP
-hand #: 36
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 68
-pot: 10
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (777).png
-(('6', 'D'), ('J', 'H'))
-betting round: 0
-[]
-self index: 4
-Position: EP
-hand #: 37
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 68
-pot: 14
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (778).png
-(('T', 'D'), ('4', 'H'))
-betting round: 0
-[]
-self index: 3
-Position: EP
-hand #: 38
-Action.FOLD
-raise amount: 0
-call amount: 0
-chips: 64
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (779).png
-Error: 'NoneType' object is not subscriptable
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (780).png
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (781).png
-(('T', 'H'), ('K', 'D'))
-betting round: 0
-[]
-self index: 2
-Position: EP
-hand #: 39
-Action.FOLD
-raise amount: 0
-call amount: 18
-chips: 62
-pot: 70
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (782).png
-(('J', 'H'), ('3', 'D'))
-betting round: 0
-[]
-self index: 8
-Position: BU
-hand #: 40
-Action.FOLD
-raise amount: 0
-call amount: 30
-chips: 62
-pot: 44
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (783).png
-(('9', 'H'), ('K', 'D'))
-betting round: 0
-[]
-self index: 6
-Position: CU
-hand #: 41
-Action.FOLD
-raise amount: 0
-call amount: 62
-chips: 62
-pot: 197
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (784).png
-(('7', 'C'), ('6', 'D'))
-betting round: 0
-[]
-self index: 5
-Position: CU
-hand #: 42
-Action.FOLD
-raise amount: 0
-call amount: 20
-chips: 62
-pot: 26
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (785).png
-(('T', 'C'), ('J', 'H'))
-betting round: 0
-[]
-self index: 5
-Position: EP
-hand #: 43
-Action.FOLD
-raise amount: 0
-call amount: 20
-chips: 62
-pot: 26
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (786).png
-(('A', 'D'), ('6', 'H'))
-betting round: 0
-[]
-self index: 4
-Position: EP
-hand #: 44
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 62
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (787).png
-(('T', 'S'), ('5', 'S'))
-betting round: 0
-[]
-self index: 3
-Position: EP
-hand #: 45
-Action.FOLD
-raise amount: 0
-call amount: 4
-chips: 62
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (788).png
-(('A', 'C'), ('4', 'S'))
-betting round: 0
-[]
-self index: 2
-Position: EP
-hand #: 46
-Action.FOLD
-raise amount: 0
-call amount: 0
-chips: 58
-pot: 6
-C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (789).png
-(('A', 'C'), ('4', 'S'))
-betting round: 0
-[]
-self index: 2
-Position: EP
-hand #: 47
-Action.FOLD
-raise amount: 0
-call amount: 0
-chips: 58
-pot: 8
+Timer1: 0.17049336433410645
+Timer2: 0.3284914493560791
+Timer3: 0.5167899131774902
+Timer4: 0.6832077503204346
+Timer5: 0.8762075901031494
+Timer6: 1.041872501373291
+Timer7: 1.2222015857696533
+Timer8: 1.4000155925750732
+Timer9: 1.4230153560638428
+Timer10: 1.4230153560638428
+data = [
+Timer11: 1.4230153560638428
+Timer12: 1.8538672924041748
+Timer13: 3.6110599040985107
+Timer14: 3.6180601119995117
+Timer15: 3.6180601119995117
+, 
+Timer16: 3.628059148788452
+Timer17: 3.628059148788452
+Timer29: 3.628059148788452
+Timer30: 3.628059148788452
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.44919753074646
+}}}}}}}}}}}
+Timer31: 11.815296649932861
+, 
+Timer16: 13.380287170410156
+Timer17: 13.381284952163696
+Timer29: 13.381284952163696
+Timer30: 13.381284952163696
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.457864284515381
+}}}}}}}}}}}
+Timer31: 18.662190914154053
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1253).png', 
+'((J, S), (7, C))', 
+0, 
+'[]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+0, 
+116, 
+8)
+, 
+Timer16: 27.603553533554077
+Timer17: 27.603553533554077
+Timer18: 27.603553533554077
+Timer19: 27.603553533554077
+Timer21: 27.603553533554077
+Timer22: 27.684551239013672
+Timer23: 27.684551239013672
+Timer24: 27.684551239013672
+Timer26: 27.685676097869873
+Timer27: 27.685676097869873
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.438950300216675
+}}}}}}}}}}}
+Timer28: 35.47736430168152
+Timer29: 35.47736430168152
+Timer30: 35.47736430168152
+Timer31: 35.674360036849976
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1254).png', 
+'((J, S), (7, C))', 
+3, 
+'[(J, D), (2, S), (4, S)]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+0, 
+116, 
+8)
+, 
+Timer16: 45.65425968170166
+Timer17: 45.65425968170166
+Timer18: 45.65425968170166
+Timer19: 45.65425968170166
+Timer21: 45.65425968170166
+Timer22: 45.71825981140137
+Timer23: 45.71825981140137
+Timer24: 45.719260692596436
+Timer26: 45.719260692596436
+Timer27: 45.72026062011719
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+Player 8 is new
+Player 8 is new
+New
+Done
+Done
+TIME: 2.4533441066741943
+}}}}}}}}}}}
+Timer28: 53.388408184051514
+Timer29: 53.388408184051514
+Timer30: 53.388408184051514
+Timer31: 53.51140642166138
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1255).png', 
+'((J, S), (7, C))', 
+4, 
+'[(J, D), (2, S), (4, S), (A, D)]', 
+0, 
+'SB', 
+0, 
+0, 
+1, 
+'Action.RAISE', 
+6, 
+0, 
+116, 
+8)
+, 
+Timer16: 63.22687554359436
+Timer17: 63.22687554359436
+Timer18: 63.22687554359436
+Timer19: 63.22687554359436
+Timer21: 63.22687554359436
+Timer22: 63.29687809944153
+Timer23: 63.29687809944153
+Timer24: 63.29687809944153
+Timer25: 63.29687809944153
+Timer26: 63.29687809944153
+Timer27: 63.29890036582947
+Run 8 size: 1 var: 1
+Run 9 size: 1 var: 2
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4605400562286377
+}}}}}}}}}}}
+Timer28: 82.55295944213867
+Timer19: 82.55395936965942
+Timer20: 82.55395936965942
+Timer29: 82.55395936965942
+Timer30: 82.55497574806213
+Timer31: 82.71295976638794
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1256).png', 
+'((7, H), (Q, C))', 
+0, 
+'[]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+2, 
+122, 
+6)
+, 
+Timer16: 91.88823986053467
+Timer17: 91.88823986053467
+Timer18: 91.88823986053467
+Timer19: 91.88823986053467
+Timer21: 91.88823986053467
+Timer22: 91.96325850486755
+Timer23: 91.96325850486755
+Timer24: 91.96325850486755
+Timer26: 91.96325850486755
+Timer27: 91.96525406837463
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4313645362854004
+}}}}}}}}}}}
+Timer28: 108.19932007789612
+Timer29: 108.19932007789612
+Timer30: 108.19932007789612
+Timer31: 108.33631730079651
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1257).png', 
+'((7, H), (Q, C))', 
+3, 
+'[(K, D), (J, C), (3, C)]', 
+1, 
+'post_flop_last', 
+40.0, 
+44.130445119315965, 
+1, 
+'Action.CALL', 
+0, 
+16, 
+120, 
+24)
+, 
+Timer16: 123.42506742477417
+Timer17: 123.42506742477417
+Timer18: 123.42506742477417
+Timer19: 123.42506742477417
+Timer21: 123.42506742477417
+Timer22: 123.47906589508057
+Timer23: 123.47906589508057
+Timer24: 123.48106646537781
+Timer26: 123.48106646537781
+Timer27: 123.48106646537781
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+Player 2 is new
+New
+Done
+Done
+TIME: 2.4477899074554443
+}}}}}}}}}}}
+Timer28: 132.55666375160217
+Timer29: 132.55666375160217
+Timer30: 132.55666375160217
+Timer31: 132.68466329574585
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1258).png', 
+'((7, H), (Q, C))', 
+4, 
+'[(K, D), (J, C), (3, C), (6, H)]', 
+2, 
+'BU', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+0, 
+104, 
+40)
+, 
+Timer16: 143.05900597572327
+Timer17: 143.05900597572327
+Timer18: 143.05900597572327
+Timer19: 143.05900597572327
+Timer21: 143.05900597572327
+Timer22: 143.156005859375
+Timer23: 143.156005859375
+Timer24: 143.15700674057007
+Timer25: 143.15700674057007
+Timer26: 143.15700674057007
+Timer27: 143.15700674057007
+Run 2 size: 1 thread: 1
+size: 1 var: 1
+Run 9 size: 1 var: 2
+PLAYER 2 TIME: 0.8120527267456055
+size: 1 var: 1
+PLAYER 2 TIME: 0.9940454959869385
+size: 1 var: 1
+PLAYER 2 TIME: 0.9140503406524658
+size: 1 var: 1
+PLAYER 2 TIME: 0.8850493431091309
+size: 1 var: 1
+PLAYER 2 TIME: 0.7156059741973877
+size: 1 var: 1
+PLAYER 2 TIME: 0.7004299163818359
+size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+Player 2 is new
+New
+Done
+Done
+TIME: 2.464082956314087
+}}}}}}}}}}}
+PLAYER 2 TIME: 0.7160015106201172
+Timer28: 153.41079926490784
+Timer19: 153.41079926490784
+Timer20: 153.41079926490784
+Timer29: 153.41079926490784
+Timer30: 153.41079926490784
+Timer31: 153.54079675674438
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1259).png', 
+'((7, H), (Q, C))', 
+5, 
+'[(K, D), (J, C), (3, C), (6, H), (9, S)]', 
+2, 
+'BU', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+0, 
+104, 
+40)
+, 
+Timer16: 164.17010188102722
+Timer17: 164.17010188102722
+Timer18: 164.17010188102722
+Timer19: 164.17010188102722
+Timer21: 164.17010188102722
+Timer22: 164.25510668754578
+Timer23: 164.25510668754578
+Timer24: 164.25610256195068
+Timer25: 164.25710320472717
+Timer26: 164.25710320472717
+Timer27: 164.25710320472717
+Run 2 size: 1 thread: 1
+size: 1 var: 1
+Run 9 size: 1 var: 2
+PLAYER 2 TIME: 0.9050016403198242
+size: 1 var: 1
+PLAYER 2 TIME: 0.9845130443572998
+size: 1 var: 1
+PLAYER 2 TIME: 0.836005449295044
+size: 1 var: 1
+PLAYER 2 TIME: 0.8700704574584961
+size: 1 var: 1
+PLAYER 2 TIME: 0.8220751285552979
+size: 1 var: 1
+PLAYER 2 TIME: 1.0545883178710938
+size: 1 var: 1
+PLAYER 2 TIME: 0.784616231918335
+size: 1 var: 1
+PLAYER 2 TIME: 0.7498471736907959
+size: 1 var: 1
+PLAYER 2 TIME: 0.8831391334533691
+size: 1 var: 1
+PLAYER 2 TIME: 0.8756985664367676
+size: 1 var: 1
+PLAYER 2 TIME: 0.9675745964050293
+size: 1 var: 1
+PLAYER 2 TIME: 0.8342206478118896
+size: 1 var: 1
+PLAYER 2 TIME: 0.8759739398956299
+size: 1 var: 1
+PLAYER 2 TIME: 0.8034148216247559
+size: 1 var: 1
+PLAYER 2 TIME: 0.7990353107452393
+size: 1 var: 1
+PLAYER 2 TIME: 0.6849849224090576
+size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.446866512298584
+}}}}}}}}}}}
+PLAYER 2 TIME: 0.6909632682800293
+Timer28: 183.03747010231018
+Timer19: 183.03747010231018
+Timer20: 183.03747010231018
+Timer29: 183.03747010231018
+Timer30: 183.03747010231018
+Timer31: 183.17696857452393
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1260).png', 
+'((J, D), (Q, H))', 
+0, 
+'[]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+2, 
+144, 
+6)
+, 
+Timer16: 193.15726923942566
+Timer17: 193.15726923942566
+Timer18: 193.15827059745789
+Timer19: 193.15827059745789
+Timer21: 193.15827059745789
+Timer22: 193.22127079963684
+Timer23: 193.22227120399475
+Timer24: 193.22227120399475
+Timer26: 193.22227120399475
+Timer27: 193.22327160835266
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.451207160949707
+}}}}}}}}}}}
+Timer28: 205.1603388786316
+Timer29: 205.1613392829895
+Timer30: 205.1613392829895
+Timer31: 205.2943389415741
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1261).png', 
+'((J, D), (Q, H))', 
+3, 
+'[(8, C), (7, D), (T, H)]', 
+1, 
+'post_flop_last', 
+37.5, 
+46.041865065014356, 
+1, 
+'Action.CALL', 
+0, 
+12, 
+142, 
+20)
+, 
+Timer16: 221.23324131965637
+Timer17: 221.23324131965637
+Timer18: 221.23324131965637
+Timer19: 221.23425364494324
+Timer21: 221.23425364494324
+Timer22: 221.2802414894104
+Timer23: 221.2802414894104
+Timer24: 221.2802414894104
+Timer26: 221.2802414894104
+Timer27: 221.2802414894104
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4629464149475098
+}}}}}}}}}}}
+Timer28: 229.42384314537048
+Timer29: 229.42384314537048
+Timer30: 229.42384314537048
+Timer31: 229.55884718894958
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1262).png', 
+'((J, D), (Q, H))', 
+4, 
+'[(8, C), (7, D), (T, H), (K, S)]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+1, 
+'Action.CALL', 
+0, 
+0, 
+130, 
+32)
+, 
+Timer16: 238.94245433807373
+Timer17: 238.94345545768738
+Timer18: 238.94345545768738
+Timer19: 238.94345545768738
+Timer21: 238.94345545768738
+Timer22: 239.03245639801025
+Timer23: 239.03245639801025
+Timer24: 239.03245639801025
+Timer26: 239.03245639801025
+Timer27: 239.03345894813538
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4508421421051025
+}}}}}}}}}}}
+Timer28: 249.33402848243713
+Timer29: 249.33402848243713
+Timer30: 249.3360311985016
+Timer31: 249.48800945281982
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1263).png', 
+'((J, D), (Q, H))', 
+5, 
+'[(8, C), (7, D), (T, H), (K, S), (7, S)]', 
+1, 
+'post_flop_last', 
+27.77777777777778, 
+32.17647216209908, 
+1, 
+'Action.CALL', 
+0, 
+20, 
+130, 
+52)
+, 
+Timer16: 266.41442918777466
+Timer17: 266.41542959213257
+Timer18: 266.41542959213257
+Timer19: 266.41542959213257
+Timer21: 266.41542959213257
+Timer22: 266.436429977417
+Timer23: 266.436429977417
+Timer24: 266.436429977417
+Timer26: 266.436429977417
+Timer27: 266.436429977417
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.436199903488159
+}}}}}}}}}}}
+Timer28: 281.27818608283997
+Timer29: 281.27818608283997
+Timer30: 281.27818608283997
+Timer31: 281.40418553352356
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1264).png', 
+'((2, H), (9, H))', 
+0, 
+'[]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+1, 
+'Action.FOLD', 
+0, 
+4, 
+106, 
+12)
+, 
+Timer16: 291.04395842552185
+Timer17: 291.04495906829834
+Timer18: 291.04495906829834
+Timer19: 291.04495906829834
+Timer21: 291.04495906829834
+Timer22: 291.0929706096649
+Timer23: 291.09397435188293
+Timer24: 291.09596967697144
+Timer26: 291.09596967697144
+Timer27: 291.09596967697144
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4480581283569336
+}}}}}}}}}}}
+Timer28: 303.85000705718994
+Timer29: 303.8510060310364
+Timer30: 303.8510060310364
+Timer31: 303.9890067577362
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1265).png', 
+'((K, D), (Q, S))', 
+0, 
+'[]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+2, 
+104, 
+6)
+, 
+Timer16: 314.51981687545776
+Timer17: 314.51981687545776
+Timer18: 314.51981687545776
+Timer19: 314.51981687545776
+Timer21: 314.51981687545776
+Timer22: 314.5808165073395
+Timer23: 314.5808165073395
+Timer24: 314.5808165073395
+Timer26: 314.5808165073395
+Timer27: 314.5808165073395
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4452571868896484
+}}}}}}}}}}}
+Timer28: 326.37925124168396
+Timer29: 326.37925124168396
+Timer30: 326.37925124168396
+Timer31: 326.4992651939392
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1266).png', 
+'((K, D), (Q, S))', 
+3, 
+'[(9, S), (Q, H), (6, D)]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+0, 
+102, 
+8)
+, 
+Timer16: 336.135427236557
+Timer17: 336.135427236557
+Timer18: 336.135427236557
+Timer19: 336.135427236557
+Timer21: 336.135427236557
+Timer22: 336.2664248943329
+Timer23: 336.2664248943329
+Timer24: 336.2664248943329
+Timer26: 336.2664248943329
+Timer27: 336.26742458343506
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4490861892700195
+}}}}}}}}}}}
+Timer28: 344.5323464870453
+Timer29: 344.5323464870453
+Timer30: 344.5323464870453
+Timer31: 344.6563513278961
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1267).png', 
+'((K, D), (Q, S))', 
+4, 
+'[(9, S), (Q, H), (6, D), (J, H)]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+2, 
+'Action.RAISE', 
+6, 
+0, 
+102, 
+8)
+, 
+Timer16: 354.5632164478302
+Timer17: 354.5632164478302
+Timer18: 354.5632164478302
+Timer19: 354.5632164478302
+Timer21: 354.5632164478302
+Timer22: 354.66121649742126
+Timer23: 354.66121649742126
+Timer24: 354.6622166633606
+Timer26: 354.6622166633606
+Timer27: 354.6622166633606
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.45243763923645
+}}}}}}}}}}}
+Timer28: 362.87648582458496
+Timer29: 362.87648582458496
+Timer30: 362.87648582458496
+Timer31: 363.0144832134247
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1268).png', 
+'((K, D), (Q, S))', 
+4, 
+'[(9, S), (Q, H), (6, D), (J, H)]', 
+1, 
+'post_flop_last', 
+18.75, 
+83.18195077493256, 
+2, 
+'Action.CALL', 
+0, 
+6, 
+96, 
+26)
+, 
+Timer16: 380.25976610183716
+Timer17: 380.2617645263672
+Timer18: 380.2617645263672
+Timer19: 380.2617645263672
+Timer21: 380.2617645263672
+Timer22: 380.3237648010254
+Timer23: 380.3237648010254
+Timer24: 380.3237648010254
+Timer26: 380.3237648010254
+Timer27: 380.3247666358948
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4413681030273438
+}}}}}}}}}}}
+Timer28: 390.5965118408203
+Timer29: 390.5965118408203
+Timer30: 390.59751081466675
+Timer31: 390.72350907325745
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1269).png', 
+'((K, D), (Q, S))', 
+5, 
+'[(9, S), (Q, H), (6, D), (J, H), (J, S)]', 
+1, 
+'post_flop_last', 
+27.77777777777778, 
+86.5500180806888, 
+2, 
+'Action.CALL', 
+0, 
+20, 
+90, 
+52)
+, 
+Timer16: 406.7798271179199
+Timer17: 406.7798271179199
+Timer18: 406.7798271179199
+Timer19: 406.7798271179199
+Timer21: 406.7798271179199
+Timer22: 406.83182668685913
+Timer23: 406.83182668685913
+Timer24: 406.83282589912415
+Timer26: 406.83282589912415
+Timer27: 406.83282589912415
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.447725772857666
+}}}}}}}}}}}
+Timer28: 419.77492237091064
+Timer29: 419.77492237091064
+Timer30: 419.77492237091064
+Timer31: 419.89392495155334
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1270).png', 
+'((2, H), (2, C))', 
+0, 
+'[]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+0, 
+66, 
+8)
+, 
+Timer16: 429.85952949523926
+Timer17: 429.86052918434143
+Timer18: 429.86052918434143
+Timer19: 429.86052918434143
+Timer21: 429.86052918434143
+Timer22: 429.9895980358124
+Timer23: 429.9895980358124
+Timer24: 429.990599155426
+Timer26: 429.990599155426
+Timer27: 429.990599155426
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.448519468307495
+}}}}}}}}}}}
+Timer28: 437.38048791885376
+Timer29: 437.38048791885376
+Timer30: 437.38048791885376
+Timer31: 437.52748799324036
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1271).png', 
+'((2, H), (2, C))', 
+3, 
+'[(7, H), (4, S), (J, S)]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+0, 
+66, 
+8)
+, 
+Timer16: 447.20552253723145
+Timer17: 447.20552253723145
+Timer18: 447.20552253723145
+Timer19: 447.20552253723145
+Timer21: 447.20552253723145
+Timer22: 447.25652289390564
+Timer23: 447.25652289390564
+Timer24: 447.25752210617065
+Timer26: 447.25752210617065
+Timer27: 447.25752210617065
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.483196973800659
+}}}}}}}}}}}
+Timer28: 482.7215802669525
+Timer29: 482.7215802669525
+Timer30: 482.7215802669525
+Timer31: 482.8665804862976
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1272).png', 
+'((2, H), (2, C))', 
+4, 
+'[(7, H), (4, S), (J, S), (6, D)]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+0, 
+66, 
+8)
+, 
+Timer16: 493.0959630012512
+Timer17: 493.0959630012512
+Timer18: 493.0959630012512
+Timer19: 493.0959630012512
+Timer21: 493.0959630012512
+Timer22: 493.1809642314911
+Timer23: 493.1809642314911
+Timer24: 493.1819841861725
+Timer26: 493.1819841861725
+Timer27: 493.18296360969543
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4560563564300537
+}}}}}}}}}}}
+Timer28: 502.5716269016266
+Timer29: 502.5716269016266
+Timer30: 502.5716269016266
+Timer31: 502.7162148952484
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1273).png', 
+'((2, H), (2, C))', 
+4, 
+'[(7, H), (4, S), (J, S), (6, D)]', 
+0, 
+'post_flop_first', 
+33.33333333333333, 
+39.27521343207916, 
+2, 
+'Action.CALL', 
+0, 
+8, 
+66, 
+16)
+, 
+Timer16: 519.0523738861084
+Timer17: 519.0523738861084
+Timer18: 519.0523738861084
+Timer19: 519.0523738861084
+Timer21: 519.0523738861084
+Timer22: 519.1343750953674
+Timer23: 519.1343750953674
+Timer24: 519.1353759765625
+Timer26: 519.1353759765625
+Timer27: 519.1353759765625
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4481403827667236
+}}}}}}}}}}}
+Timer28: 526.9355659484863
+Timer29: 526.9355659484863
+Timer30: 526.9355659484863
+Timer31: 527.0705564022064
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1274).png', 
+'((2, H), (2, C))', 
+5, 
+'[(7, H), (4, S), (J, S), (6, D), (T, H)]', 
+0, 
+'post_flop_first', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+0, 
+58, 
+24)
+, 
+Timer16: 536.5528564453125
+Timer17: 536.5528564453125
+Timer18: 536.5528564453125
+Timer19: 536.5528564453125
+Timer21: 536.5528564453125
+Timer22: 536.5858573913574
+Timer23: 536.5858573913574
+Timer24: 536.5858573913574
+Timer26: 536.5858573913574
+Timer27: 536.5858573913574
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4585189819335938
+}}}}}}}}}}}
+Timer28: 545.3326065540314
+Timer29: 545.3326065540314
+Timer30: 545.3326065540314
+Timer31: 545.4786062240601
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1275).png', 
+'((2, H), (2, C))', 
+5, 
+'[(7, H), (4, S), (J, S), (6, D), (T, H)]', 
+0, 
+'post_flop_first', 
+25.0, 
+32.45291884402025, 
+2, 
+'Action.CALL', 
+0, 
+12, 
+58, 
+36)
+, 
+Timer16: 562.7953841686249
+Timer17: 562.7963683605194
+Timer18: 562.7963683605194
+Timer19: 562.7963683605194
+Timer21: 562.7963683605194
+Timer22: 562.8683664798737
+Timer23: 562.8683664798737
+Timer24: 562.870368719101
+Timer26: 562.870368719101
+Timer27: 562.870368719101
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4480817317962646
+}}}}}}}}}}}
+Timer28: 574.1508040428162
+Timer29: 574.1508040428162
+Timer30: 574.1508040428162
+Timer31: 574.2868103981018
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1276).png', 
+'((K, S), (8, C))', 
+0, 
+'[]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+2, 
+44, 
+6)
+, 
+Timer16: 584.0261631011963
+Timer17: 584.0271627902985
+Timer18: 584.0271627902985
+Timer19: 584.0271627902985
+Timer21: 584.0271627902985
+Timer22: 584.1001582145691
+Timer23: 584.1001582145691
+Timer24: 584.1011579036713
+Timer26: 584.1011579036713
+Timer27: 584.1011579036713
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4438905715942383
+}}}}}}}}}}}
+Timer28: 594.9143617153168
+Timer29: 594.9143617153168
+Timer30: 594.9143617153168
+Timer31: 595.0523638725281
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1277).png', 
+'((K, S), (8, C))', 
+0, 
+'[]', 
+1, 
+'post_flop_last', 
+0, 
+0, 
+2, 
+'Action.CALL', 
+0, 
+4, 
+42, 
+12)
+, 
+Timer16: 604.6153812408447
+Timer17: 604.6163814067841
+Timer18: 604.6163814067841
+Timer19: 604.6163814067841
+Timer21: 604.6163814067841
+Timer22: 604.7513825893402
+Timer23: 604.7513825893402
+Timer24: 604.7533838748932
+Timer26: 604.7533838748932
+Timer27: 604.7533838748932
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4489660263061523
+}}}}}}}}}}}
+Timer28: 615.5275454521179
+Timer29: 615.5275454521179
+Timer30: 615.5275454521179
+Timer31: 615.6635482311249
+(
+'C:\\Users\\peter\\OneDrive\\Pictures\\Screenshots\\Screenshot (1278).png', 
+'((K, S), (8, C))', 
+3, 
+'[(2, H), (5, H), (A, H)]', 
+1, 
+'post_flop_last', 
+38.88888888888889, 
+35.131308729351304, 
+2, 
+'Action.FOLD', 
+0, 
+28, 
+38, 
+44)
+, 
+Timer16: 631.8071670532227
+Timer17: 631.8071670532227
+Timer18: 631.8071670532227
+Timer19: 631.8071670532227
+Timer21: 631.8071670532227
+Timer22: 631.8891654014587
+Timer23: 631.8891654014587
+Timer24: 631.8901672363281
+Timer26: 631.8901672363281
+Timer27: 631.8901672363281
+Run 9 size: 1 var: 1
+PLAYER MOVES {{{{{{{{{{
+New
+Done
+Done
+TIME: 2.4352986812591553
+}}}}}}}}}}}
+Timer28: 644.9940588474274
+Timer29: 644.9940588474274
+Timer30: 644.9940588474274
+Timer31: 645.1360597610474
+, 
+Timer16: 646.7727403640747
+Timer17: 646.7737393379211
+Timer18: 646.7737393379211
+Timer19: 646.7737393379211
+Timer21: 646.7737393379211
+Timer22: 646.8237409591675
+Timer23: 646.8237409591675
+Timer24: 646.8247406482697
+Timer26: 646.8247406482697
+Timer27: 646.8247406482697
+Run 9 size: 1 var: 1

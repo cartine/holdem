@@ -6,6 +6,15 @@ from matplotlib import pyplot as plt
 pytesseract.pytesseract.tesseract_cmd=r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
 
 
+def find_not_mistake(filename):
+    img = cv2.imread(filename)
+    will = img[865:885, 888:918, :]
+    # plt.imshow(will)
+    # plt.show()
+    will = pytesseract.image_to_string(will, config='--psm 6')[:-2]
+    return will
+
+
 def find_com_cards(filename):
     img = cv2.imread(filename)
     com_card1 = img[400:450, 570:630, :]
@@ -188,6 +197,8 @@ def find_seat_1(filename, seat1_hand):
     img = cv2.imread(filename)
     seat1 = img[78:288, 530:750, :]
     seat1_had_chance_to_act = img[285:305, 635:675, :]
+    # plt.imshow(seat1_had_chance_to_act)
+    # plt.show()
     seat1_had_chance_to_act = pytesseract.image_to_string(seat1_had_chance_to_act, config='--psm 6')[:-2]
     if seat1_had_chance_to_act != '':
         seat1_had_chance_to_act = True
@@ -448,30 +459,35 @@ def find_seat_9(filename):
 
 
 def creating_seats(filename, seat1_hand):
-    dealer_index = find_dealer(filename)
-    seats = [find_seat_1(filename, seat1_hand), find_seat_2(filename), find_seat_3(filename), find_seat_4(filename),
-             find_seat_5(filename), find_seat_6(filename), find_seat_7(filename), find_seat_8(filename),
-             find_seat_9(filename)]
-    seats_ordered = seats[dealer_index:]
-    seats_ordered = seats_ordered + seats[:dealer_index]
-    empty_seats = seats_ordered.count((None, None))
-    for i in range(0, empty_seats):
-        seats_ordered.remove((None, None))
-    seats_ordered1 = [player[0] for player in seats_ordered]
-    seats_ordered2 = [player[1] for player in seats_ordered]
-    seats_ordered = [Seat(player) for player in seats_ordered1]
-    for i in range(0, len(seats_ordered)):
-        seats_ordered[i].NOT_FOLDED = not seats_ordered2[i]
-    for i in range(0, len(seats_ordered1)):
-        if seats_ordered1[i].NAME == 'Self':
-            seats_ordered[i].NOT_FOLDED = True
-            seats_ordered[i].HAD_CHANCE_TO_ACT = seats_ordered2[i]
-            self_index = i
-            self_chips = seats_ordered1[i].CHIPS
-            self_hand = seats_ordered1[i].HAND
+    seats_ordered = []
+    try:
+        dealer_index = find_dealer(filename)
+        seats = [find_seat_1(filename, seat1_hand), find_seat_2(filename), find_seat_3(filename), find_seat_4(filename),
+                 find_seat_5(filename), find_seat_6(filename), find_seat_7(filename), find_seat_8(filename),
+                 find_seat_9(filename)]
+        seats_ordered = seats[dealer_index:]
+        seats_ordered = seats_ordered + seats[:dealer_index]
+        empty_seats = seats_ordered.count((None, None))
+        for i in range(0, empty_seats):
+            seats_ordered.remove((None, None))
+        seats_ordered1 = [player[0] for player in seats_ordered]
+        seats_ordered2 = [player[1] for player in seats_ordered]
+        seats_ordered = [Seat(player) for player in seats_ordered1]
+        for i in range(0, len(seats_ordered)):
+            seats_ordered[i].NOT_FOLDED = not seats_ordered2[i]
+        for i in range(0, len(seats_ordered1)):
+            if seats_ordered1[i].NAME == 'Self':
+                seats_ordered[i].NOT_FOLDED = True
+                seats_ordered[i].HAD_CHANCE_TO_ACT = seats_ordered2[i]
+                self_index = i
+                self_chips = seats_ordered1[i].CHIPS
+                self_hand = seats_ordered1[i].HAND
+    except:
+        print("Error on line {}".format(sys.exc_info()[-1].tb_lineno))
     return seats_ordered, self_index, self_chips, self_hand
 
 
-filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (655).png'
+filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (1174).png'
 if __name__ == '__main__':
-    print(find_com_cards(filename))
+    # print(find_seat_1(filename, find_hole_cards(filename)))
+    print(find_hole_cards(filename))
