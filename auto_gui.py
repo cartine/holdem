@@ -121,9 +121,9 @@ def make_choice(filename):
                         pyautogui.click(1200, 850)
     pyautogui.click(1882, 18)
     pyautogui.click(910, 550)
-    client.messages.create(to="+12035178290",
-                           from_="+12817710887",
-                           body="Finished Game")
+    # client.messages.create(to="+12035178290",
+    #                        from_="+12817710887",
+    #                        body="Finished Game")
 
 
 filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (419).png'
