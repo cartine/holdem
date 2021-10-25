@@ -378,7 +378,7 @@ def find_seat_7(filename):
     else:
         seat7_is_vacant = False
     if seat7_is_vacant is False:
-        seat7_chips = seat7[110:150, 65:200, :]
+        seat7_chips = seat7[115:155, 65:200, :]
         seat7_chips = pytesseract.image_to_string(seat7_chips, config='--psm 6')[:-2]
         is_float = seat7_chips.find('.')
         if is_float == -1:
@@ -460,34 +460,31 @@ def find_seat_9(filename):
 
 def creating_seats(filename, seat1_hand):
     seats_ordered = []
-    try:
-        dealer_index = find_dealer(filename)
-        seats = [find_seat_1(filename, seat1_hand), find_seat_2(filename), find_seat_3(filename), find_seat_4(filename),
-                 find_seat_5(filename), find_seat_6(filename), find_seat_7(filename), find_seat_8(filename),
-                 find_seat_9(filename)]
-        seats_ordered = seats[dealer_index:]
-        seats_ordered = seats_ordered + seats[:dealer_index]
-        empty_seats = seats_ordered.count((None, None))
-        for i in range(0, empty_seats):
-            seats_ordered.remove((None, None))
-        seats_ordered1 = [player[0] for player in seats_ordered]
-        seats_ordered2 = [player[1] for player in seats_ordered]
-        seats_ordered = [Seat(player) for player in seats_ordered1]
-        for i in range(0, len(seats_ordered)):
-            seats_ordered[i].NOT_FOLDED = not seats_ordered2[i]
-        for i in range(0, len(seats_ordered1)):
-            if seats_ordered1[i].NAME == 'Self':
-                seats_ordered[i].NOT_FOLDED = True
-                seats_ordered[i].HAD_CHANCE_TO_ACT = seats_ordered2[i]
-                self_index = i
-                self_chips = seats_ordered1[i].CHIPS
-                self_hand = seats_ordered1[i].HAND
-    except:
-        print("Error on line {}".format(sys.exc_info()[-1].tb_lineno))
+    dealer_index = find_dealer(filename)
+    seats = [find_seat_1(filename, seat1_hand), find_seat_2(filename), find_seat_3(filename), find_seat_4(filename),
+             find_seat_5(filename), find_seat_6(filename), find_seat_7(filename), find_seat_8(filename),
+             find_seat_9(filename)]
+    seats_ordered = seats[dealer_index:]
+    seats_ordered = seats_ordered + seats[:dealer_index]
+    empty_seats = seats_ordered.count((None, None))
+    for i in range(0, empty_seats):
+        seats_ordered.remove((None, None))
+    seats_ordered1 = [player[0] for player in seats_ordered]
+    seats_ordered2 = [player[1] for player in seats_ordered]
+    seats_ordered = [Seat(player) for player in seats_ordered1]
+    for i in range(0, len(seats_ordered)):
+        seats_ordered[i].NOT_FOLDED = not seats_ordered2[i]
+    for i in range(0, len(seats_ordered1)):
+        if seats_ordered1[i].NAME == 'Self':
+            seats_ordered[i].NOT_FOLDED = True
+            seats_ordered[i].HAD_CHANCE_TO_ACT = seats_ordered2[i]
+            self_index = i
+            self_chips = seats_ordered1[i].CHIPS
+            self_hand = seats_ordered1[i].HAND
     return seats_ordered, self_index, self_chips, self_hand
 
 
-filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (1174).png'
+filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (1332).png'
 if __name__ == '__main__':
     # print(find_seat_1(filename, find_hole_cards(filename)))
-    print(find_hole_cards(filename))
+    print(find_seat_7(filename))

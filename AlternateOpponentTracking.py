@@ -127,6 +127,7 @@ def make_choice(filename):
         print('Timer16:', time.time() - time1)
         p1 = pool.apply_async(find_marker, args=(q, q2, marker))
         print('Timer17:', time.time() - time1)
+        print('<><><><><>', seat_functs)
         if len(seat_functs) > 0:
             print('Timer18:', time.time() - time1)
             for i in range(0, len(seat_functs)):
@@ -158,10 +159,14 @@ def make_choice(filename):
         list_of_files = glob.glob(r'C:\Users\peter\OneDrive\Pictures\Screenshots\*.png')
         latest_file = max(list_of_files, key=os.path.getctime)
         latest_file2 = str(latest_file).replace('\\', '\\\\')
+        print('Timer32:', time.time() - time1)
         hole_cards = find_hole_cards(latest_file)
+        print('Timer33:', time.time() - time1, hole_cards)
         will = find_not_mistake(latest_file)
+        print('Timer34:', time.time() - time1, will)
         if hole_cards[0][1] == 'H' or hole_cards[0][1] == 'S' or hole_cards[0][1] == 'C' or hole_cards[0][1] == 'D':
             if will != 'will':
+                print('Not Mistake')
                 try:
                     print('(')
                     print('\'' + latest_file2 + '\'' + ', ')
@@ -170,7 +175,7 @@ def make_choice(filename):
                     choice, raise_amount, call_amount, self_chips, pot, self_index, seat_length, seats = run_OCR2(latest_file, hole_cards)
                     for seat in seats:
                         l = seat.PLAYER.NAME[-1]
-                        if l != 'f':
+                        if l != 'f' and seat.NOT_FOLDED is True:
                             seat_indices.append(int(l))
                     seat_indices = sorted(seat_indices)
                     for i in seat_indices:
@@ -219,7 +224,7 @@ def find_marker(q, q2, marker):
     pyautogui.keyDown('prtsc')
     pyautogui.keyUp('prtsc')
     pyautogui.keyUp('win')
-    time.sleep(2)
+    time.sleep(3)
     q.put('Done')
     q.put('Done')
     print('PLAYER MOVES {{{{{{{{{{')
@@ -239,28 +244,27 @@ def seat2_move(q, thread, player2_check, player2_call, player2_raise, player2_be
     if thread == 1:
         while q.qsize() == queue_size:
             time1 = time.time()
-            print('size:', q.qsize(), 'var:', queue_size)
-            if pyautogui.locateOnScreen(player2_check, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_check, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 print('YY')
                 q.put('Player 2 checks')
                 break
-            if pyautogui.locateOnScreen(player2_call, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_call, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 print('YY')
                 q.put('Player 2 calls')
                 break
-            if pyautogui.locateOnScreen(player2_raise, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_raise, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 print('YY')
                 q.put('Player 2 raises')
                 break
-            if pyautogui.locateOnScreen(player2_bet, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_bet, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 print('YY')
                 q.put('Player 2 bets')
                 break
-            if pyautogui.locateOnScreen(player2_allin, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_allin, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 print('YY')
                 q.put('Player 2 is all in')
                 break
-            if pyautogui.locateOnScreen(player2_fold, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_fold, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 print('YY')
                 q.put('Player 2 folds')
                 break
@@ -269,22 +273,22 @@ def seat2_move(q, thread, player2_check, player2_call, player2_raise, player2_be
             print('PLAYER 2 TIME:', time.time() - time1)
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player2_check, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_check, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 q.put('Player 2 checks')
                 break
-            if pyautogui.locateOnScreen(player2_call, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_call, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 q.put('Player 2 calls')
                 break
-            if pyautogui.locateOnScreen(player2_raise, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_raise, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 q.put('Player 2 raises')
                 break
-            if pyautogui.locateOnScreen(player2_bet, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_bet, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 q.put('Player 2 bets')
                 break
-            if pyautogui.locateOnScreen(player2_allin, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_allin, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 q.put('Player 2 is all in')
                 break
-            if pyautogui.locateOnScreen(player2_fold, region=(1000, 240, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player2_fold, confidence=0.9, region=(1000, 240, 110, 40)) is not None:
                 q.put('Player 2 folds')
                 break
 
@@ -296,44 +300,44 @@ def seat3_move(q, thread, player3_check, player3_call, player3_raise, player3_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player3_check, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_check, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 checks')
                 break
-            if pyautogui.locateOnScreen(player3_call, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_call, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 calls')
                 break
-            if pyautogui.locateOnScreen(player3_raise, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_raise, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 raises')
                 break
-            if pyautogui.locateOnScreen(player3_bet, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_bet, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 bets')
                 break
-            if pyautogui.locateOnScreen(player3_allin, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_allin, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 is all in')
                 break
-            if pyautogui.locateOnScreen(player3_fold, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_fold, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 folds')
                 break
             if q.qsize() > queue_size:
                 break
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player3_check, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_check, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 checks')
                 break
-            if pyautogui.locateOnScreen(player3_call, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_call, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 calls')
                 break
-            if pyautogui.locateOnScreen(player3_raise, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_raise, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 raises')
                 break
-            if pyautogui.locateOnScreen(player3_bet, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_bet, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 bets')
                 break
-            if pyautogui.locateOnScreen(player3_allin, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_allin, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 is all in')
                 break
-            if pyautogui.locateOnScreen(player3_fold, region=(1350, 350, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player3_fold, confidence=0.9, region=(1350, 350, 110, 40)) is not None:
                 q.put('Player 3 folds')
                 break
 
@@ -345,44 +349,44 @@ def seat4_move(q, thread, player4_check, player4_call, player4_raise, player4_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player4_check, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_check, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 checks')
                 break
-            if pyautogui.locateOnScreen(player4_call, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_call, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 calls')
                 break
-            if pyautogui.locateOnScreen(player4_raise, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_raise, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 raises')
                 break
-            if pyautogui.locateOnScreen(player4_bet, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_bet, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 bets')
                 break
-            if pyautogui.locateOnScreen(player4_allin, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_allin, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 is all in')
                 break
-            if pyautogui.locateOnScreen(player4_fold, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_fold, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 folds')
                 break
             if q.qsize() > queue_size:
                 break
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player4_check, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_check, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 checks')
                 break
-            if pyautogui.locateOnScreen(player4_call, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_call, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 calls')
                 break
-            if pyautogui.locateOnScreen(player4_raise, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_raise, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 raises')
                 break
-            if pyautogui.locateOnScreen(player4_bet, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_bet, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 bets')
                 break
-            if pyautogui.locateOnScreen(player4_allin, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_allin, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 is all in')
                 break
-            if pyautogui.locateOnScreen(player4_fold, region=(1375, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player4_fold, confidence=0.9, region=(1375, 620, 110, 40)) is not None:
                 q.put('Player 4 folds')
                 break
 
@@ -394,44 +398,44 @@ def seat5_move(q, thread, player5_check, player5_call, player5_raise, player5_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player5_check, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_check, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 checks')
                 break
-            if pyautogui.locateOnScreen(player5_call, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_call, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 calls')
                 break
-            if pyautogui.locateOnScreen(player5_raise, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_raise, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 raises')
                 break
-            if pyautogui.locateOnScreen(player5_bet, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_bet, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 bets')
                 break
-            if pyautogui.locateOnScreen(player5_allin, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_allin, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 is all in')
                 break
-            if pyautogui.locateOnScreen(player5_fold, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_fold, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 folds')
                 break
             if q.qsize() > queue_size:
                 break
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player5_check, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_check, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 checks')
                 break
-            if pyautogui.locateOnScreen(player5_call, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_call, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 calls')
                 break
-            if pyautogui.locateOnScreen(player5_raise, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_raise, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 raises')
                 break
-            if pyautogui.locateOnScreen(player5_bet, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_bet, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 bets')
                 break
-            if pyautogui.locateOnScreen(player5_allin, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_allin, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 is all in')
                 break
-            if pyautogui.locateOnScreen(player5_fold, region=(1090, 750, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player5_fold, confidence=0.9, region=(1090, 750, 110, 40)) is not None:
                 q.put('Player 5 folds')
                 break
 
@@ -443,44 +447,44 @@ def seat6_move(q, thread, player6_check, player6_call, player6_raise, player6_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player6_check, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_check, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 checks')
                 break
-            if pyautogui.locateOnScreen(player6_call, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_call, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 calls')
                 break
-            if pyautogui.locateOnScreen(player6_raise, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_raise, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 raises')
                 break
-            if pyautogui.locateOnScreen(player6_bet, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_bet, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 bets')
                 break
-            if pyautogui.locateOnScreen(player6_allin, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_allin, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 is all in')
                 break
-            if pyautogui.locateOnScreen(player6_fold, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_fold, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 folds')
                 break
             if q.qsize() > queue_size:
                 break
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player6_check, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_check, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 checks')
                 break
-            if pyautogui.locateOnScreen(player6_call, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_call, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 calls')
                 break
-            if pyautogui.locateOnScreen(player6_raise, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_raise, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 raises')
                 break
-            if pyautogui.locateOnScreen(player6_bet, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_bet, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 bets')
                 break
-            if pyautogui.locateOnScreen(player6_allin, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_allin, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 is all in')
                 break
-            if pyautogui.locateOnScreen(player6_fold, region=(792, 772, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player6_fold, confidence=0.9, region=(792, 772, 110, 40)) is not None:
                 q.put('Player 6 folds')
                 break
 
@@ -492,44 +496,44 @@ def seat7_move(q, thread, player7_check, player7_call, player7_raise, player7_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player7_check, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_check, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 checks')
                 break
-            if pyautogui.locateOnScreen(player7_call, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_call, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 calls')
                 break
-            if pyautogui.locateOnScreen(player7_raise, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_raise, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 raises')
                 break
-            if pyautogui.locateOnScreen(player7_bet, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_bet, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 bets')
                 break
-            if pyautogui.locateOnScreen(player7_allin, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_allin, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 is all in')
                 break
-            if pyautogui.locateOnScreen(player7_fold, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_fold, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 folds')
                 break
             if q.qsize() > queue_size:
                 break
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player7_check, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_check, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 checks')
                 break
-            if pyautogui.locateOnScreen(player7_call, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_call, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 calls')
                 break
-            if pyautogui.locateOnScreen(player7_raise, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_raise, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 raises')
                 break
-            if pyautogui.locateOnScreen(player7_bet, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_bet, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 bets')
                 break
-            if pyautogui.locateOnScreen(player7_allin, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_allin, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 is all in')
                 break
-            if pyautogui.locateOnScreen(player7_fold, region=(488, 752, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player7_fold, confidence=0.9, region=(488, 752, 110, 40)) is not None:
                 q.put('Player 7 folds')
                 break
 
@@ -541,44 +545,44 @@ def seat8_move(q, thread, player8_check, player8_call, player8_raise, player8_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player8_check, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_check, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 checks')
                 break
-            if pyautogui.locateOnScreen(player8_raise, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_raise, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 raises')
                 break
-            if pyautogui.locateOnScreen(player8_bet, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_bet, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 bets')
                 break
-            if pyautogui.locateOnScreen(player8_call, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_call, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 calls')
                 break
-            if pyautogui.locateOnScreen(player8_allin, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_allin, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 is all in')
                 break
-            if pyautogui.locateOnScreen(player8_fold, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_fold, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 folds')
                 break
             if q.qsize() > queue_size:
                 break
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player8_check, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_check, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 checks')
                 break
-            if pyautogui.locateOnScreen(player8_raise, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_raise, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 raises')
                 break
-            if pyautogui.locateOnScreen(player8_bet, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_bet, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 bets')
                 break
-            if pyautogui.locateOnScreen(player8_call, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_call, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 calls')
                 break
-            if pyautogui.locateOnScreen(player8_allin, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_allin, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 is all in')
                 break
-            if pyautogui.locateOnScreen(player8_fold, region=(206, 620, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player8_fold, confidence=0.9, region=(206, 620, 110, 40)) is not None:
                 q.put('Player 8 folds')
                 break
 
@@ -590,46 +594,50 @@ def seat9_move(q, thread, player9_check, player9_call, player9_raise, player9_be
         return
     if thread == 1:
         while q.qsize() == queue_size:
-            if pyautogui.locateOnScreen(player9_check, region=(240, 349, 110, 40)) is not None:
+            time1 = time.time()
+            if pyautogui.locateOnScreen(player9_check, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 checks')
                 break
-            if pyautogui.locateOnScreen(player9_call, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_call, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 calls')
                 break
-            if pyautogui.locateOnScreen(player9_raise, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_raise, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 raises')
                 break
-            if pyautogui.locateOnScreen(player9_bet, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_bet, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 bets')
                 break
-            if pyautogui.locateOnScreen(player9_allin, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_allin, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 is all in')
                 break
-            if pyautogui.locateOnScreen(player9_fold, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_fold, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 folds')
                 break
             if q.qsize() > queue_size:
                 break
+            print('PLAYER 9 TIME:', time.time() - time1)
     if thread == 2:
         while q.qsize() - queue_size < 2 and q.qsize() > 0:
-            if pyautogui.locateOnScreen(player9_check, region=(240, 349, 110, 40)) is not None:
+            time1 = time.time()
+            if pyautogui.locateOnScreen(player9_check, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 checks')
                 break
-            if pyautogui.locateOnScreen(player9_call, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_call, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 calls')
                 break
-            if pyautogui.locateOnScreen(player9_raise, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_raise, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 raises')
                 break
-            if pyautogui.locateOnScreen(player9_bet, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_bet, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 bets')
                 break
-            if pyautogui.locateOnScreen(player9_allin, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_allin, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 is all in')
                 break
-            if pyautogui.locateOnScreen(player9_fold, region=(240, 349, 110, 40)) is not None:
+            if pyautogui.locateOnScreen(player9_fold, confidence=0.9, region=(240, 349, 110, 40)) is not None:
                 q.put('Player 9 folds')
                 break
+            print('PLAYER 9 TIME:', time.time() - time1)
 
 
 def find_new_player(q, player2_new_player, player3_new_player, player4_new_player, player5_new_player, player6_new_player, player7_new_player, player8_new_player, player9_new_player):
@@ -637,28 +645,28 @@ def find_new_player(q, player2_new_player, player3_new_player, player4_new_playe
     for i in range(10000000000):
         if i % 20 == 0:
             counter = 0
-        if pyautogui.locateOnScreen(player2_new_player, region=(980, 240, 141, 40)) is not None and counter != 2:
+        if pyautogui.locateOnScreen(player2_new_player, confidence=0.9, region=(980, 240, 141, 40)) is not None and counter != 2:
             q.put('Player 2 is new')
             counter = 2
-        if pyautogui.locateOnScreen(player3_new_player, region=(1328, 350, 141, 40)) is not None and counter != 3:
+        if pyautogui.locateOnScreen(player3_new_player, confidence=0.9, region=(1328, 350, 141, 40)) is not None and counter != 3:
             q.put('Player 3 is new')
             counter = 3
-        if pyautogui.locateOnScreen(player4_new_player, region=(1360, 620, 141, 40)) is not None and counter != 4:
+        if pyautogui.locateOnScreen(player4_new_player, confidence=0.9, region=(1360, 620, 141, 40)) is not None and counter != 4:
             q.put('Player 4 is new')
             counter = 4
-        if pyautogui.locateOnScreen(player5_new_player, region=(1075, 750, 141, 40)) is not None and counter != 5:
+        if pyautogui.locateOnScreen(player5_new_player, confidence=0.9, region=(1075, 750, 141, 40)) is not None and counter != 5:
             q.put('Player 5 is new')
             counter = 5
-        if pyautogui.locateOnScreen(player6_new_player, region=(776, 772, 141, 40)) is not None and counter != 6:
+        if pyautogui.locateOnScreen(player6_new_player, confidence=0.9, region=(776, 772, 141, 40)) is not None and counter != 6:
             q.put('Player 6 is new')
             counter = 6
-        if pyautogui.locateOnScreen(player7_new_player, region=(474, 752, 141, 40)) is not None and counter != 7:
+        if pyautogui.locateOnScreen(player7_new_player, confidence=0.9, region=(474, 752, 141, 40)) is not None and counter != 7:
             q.put('Player 7 is new')
             counter = 7
-        if pyautogui.locateOnScreen(player8_new_player, region=(189, 620, 141, 40)) is not None and counter != 8:
+        if pyautogui.locateOnScreen(player8_new_player, confidence=0.9, region=(189, 620, 141, 40)) is not None and counter != 8:
             q.put('Player 8 is new')
             counter = 8
-        if pyautogui.locateOnScreen(player9_new_player, region=(225, 349, 141, 40)) is not None and counter != 9:
+        if pyautogui.locateOnScreen(player9_new_player, confidence=0.9, region=(225, 349, 141, 40)) is not None and counter != 9:
             q.put('Player 9 is new')
             counter = 9
 

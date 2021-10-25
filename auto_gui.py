@@ -10,57 +10,6 @@ from twilio.rest import Client
 client = Client('ACbd6e091ee9938a7b59d89badf665bbd4', '8d8b5696136ca68bd4acad38e900d73f')
 
 
-def take_screenshot():
-    pyautogui.keyDown('alt')
-    pyautogui.keyDown('tab')
-    pyautogui.keyUp('tab')
-    pyautogui.keyUp('alt')
-    # pyautogui.moveTo(500, 500, duration=.25)
-    pyautogui.keyDown('win')
-    pyautogui.keyDown('prtsc')
-    pyautogui.keyUp('prtsc')
-    pyautogui.keyUp('win')
-    pyautogui.keyDown('alt')
-    pyautogui.keyDown('tab')
-    pyautogui.keyUp('tab')
-    pyautogui.keyUp('alt')
-
-
-def take_screenshot2():
-    pyautogui.keyDown('alt')
-    pyautogui.keyDown('tab')
-    pyautogui.keyUp('tab')
-    pyautogui.keyDown('tab')
-    pyautogui.keyUp('tab')
-    pyautogui.keyUp('alt')
-    pyautogui.keyDown('alt')
-    pyautogui.keyDown('tab')
-    pyautogui.keyUp('tab')
-    pyautogui.keyUp('alt')
-    pyautogui.keyDown('win')
-    pyautogui.keyDown('ctrl')
-    pyautogui.keyDown('down')
-    pyautogui.keyUp('down')
-    pyautogui.keyDown('down')
-    pyautogui.keyUp('down')
-    pyautogui.keyUp('win')
-    pyautogui.keyUp('ctrl')
-    pyautogui.keyDown('win')
-    pyautogui.keyDown('prtsc')
-    pyautogui.keyUp('prtsc')
-    pyautogui.keyUp('win')
-    pyautogui.keyDown('alt')
-    pyautogui.keyDown('tab')
-    pyautogui.keyUp('tab')
-    pyautogui.keyUp('alt')
-    pyautogui.keyDown('win')
-    pyautogui.keyDown('ctrl')
-    pyautogui.keyDown('up')
-    pyautogui.keyUp('up')
-    pyautogui.keyUp('win')
-    pyautogui.keyUp('ctrl')
-
-
 def make_choice(filename):
     print('data = [')
     index = 0

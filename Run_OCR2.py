@@ -1,7 +1,7 @@
 from OCR2 import *
 from PeterPokerBot3 import *
 
-filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (1155).png'
+filename = r'C:\Users\peter\OneDrive\Pictures\Screenshots\Screenshot (1332).png'
 hole_cards = find_hole_cards(filename)
 
 
@@ -34,4 +34,4 @@ if __name__ == '__main__':
     choice, raise_amount, call_amount, self_chips, pot, self_index, seat_length, seats = run_OCR2(filename,
                                                                                                   hole_cards)
     for seat in seats:
-        print('-', seat.PLAYER.NAME[-1])
+        print('-', seat.NOT_FOLDED)
